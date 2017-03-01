@@ -41,7 +41,7 @@ echo -e "$ngv${noc}"
 
 echo -n "POSTGRESQL:     "
 psqlv=$(psql -V | sed 's/psql (PostgreSQL) //')
-if [[ "$psqlv" == "9.5.6" ]]; then
+if [[ "$psqlv" == "9.6.2" ]]; then
 	echo -ne "$goodc"
 else
 	echo -ne "$badc"
@@ -50,7 +50,7 @@ echo -e "$psqlv${noc}"
 
 echo -n "PYTHON 3:       "
 py3v=$(python3 -V | sed 's/Python //')
-if [[ "$py3v" == "3.5.2" ]]; then
+if [[ "$py3v" == "3.6.0" ]]; then
 	echo -ne "$goodc"
 else
 	echo -ne "$badc"
@@ -59,7 +59,7 @@ echo -e "$py3v${noc}"
 
 echo -n "PIP3:           "
 pip3v=$(pip3 -V | sed 's/ from.*//' | sed 's/pip //')
-if [[ "$pip3v" == "8.1.2" ]]; then
+if [[ "$pip3v" == "9.0.1" ]]; then
 	echo -ne "$goodc"
 else
 	echo -ne "$badc"
