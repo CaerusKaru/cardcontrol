@@ -5,7 +5,7 @@ noc="\033[38;5;15m"
 
 echo -n "NODE:           "
 nodev=$(node -v | sed 's/v//')
-if [[ "$nodev" == "7.6.0" ]]; then
+if [[ "$nodev" == "7.7.0" ]]; then
 	echo -ne "$goodc"
 else
 	echo -ne "$badc"
