@@ -1,0 +1,34 @@
+<div fxFill>
+  <nav md-tab-nav-bar>
+
+    <span fxLayoutAlign="center center">
+      <a routerLink=""
+         (click)="activeLinkIndex = 0">
+        <img src="../assets/cardcontrol.svg"
+             height="42"
+             width="150"
+             fxLayoutAlign="center center" />
+      </a>
+    </span>
+
+    <a md-tab-link
+       *ngFor="let link of navLinks; let i = index"
+       [routerLink]="link.route"
+       [active]="activeLinkIndex === i"
+       (click)="activeLinkIndex = i">
+      {{link.label}}
+    </a>
+    <span fxFlex></span>
+    <md-menu #appMenu="mdMenu" y-position="below" [overlapTrigger]="false">
+      <button md-menu-item> Settings </button>
+      <button md-menu-item> Log Out </button>
+    </md-menu>
+
+    <button md-button [mdMenuTriggerFor]="appMenu">
+      {{utln}}
+    </button>
+  </nav>
+
+  <router-outlet></router-outlet>
+</div>
+

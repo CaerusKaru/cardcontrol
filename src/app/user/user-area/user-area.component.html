@@ -1,0 +1,10 @@
+<div fxLayout="row"
+     fxLayoutWrap
+     class="building-wrapper"
+     fxLayoutAlign="space-around center">
+  <sebm-google-map [latitude]="lat" [longitude]="lng"></sebm-google-map>
+  <md-card *ngFor="let building of buildings"
+           class="building-card"
+           background-color="primary"
+           (click)="chooseBuilding(building)">{{building.name}}</md-card>
+</div>
