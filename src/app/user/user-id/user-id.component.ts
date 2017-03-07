@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MdDialog} from '@angular/material';
+import {UserService} from "../user.service";
+import {User} from "../../user";
 
 @Component({
   selector: 'app-user-id',
@@ -9,10 +11,17 @@ import {MdDialog} from '@angular/material';
 export class UserIdComponent implements OnInit {
 
   constructor(
-    public dialog : MdDialog
+    public dialog : MdDialog,
+    private userService : UserService
   ) { }
 
+  user = new User();
+  errorMessage = "";
+
   ngOnInit() {
+    this.userService.getUser(this.utln).subscribe(
+      user => this.user = user,
+      error =>  this.errorMessage = <any>error);
   }
 
   firstname = 'Benjamin';

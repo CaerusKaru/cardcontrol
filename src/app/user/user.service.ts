@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import {Building} from "../building";
+import {User} from "../user";
 
 
 @Injectable()
@@ -16,6 +17,13 @@ export class UserService {
   ) { }
 
   getBuildings (): Observable<Building[]> {
+    return this.http.get(this.djangoUrl)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  getUser (user : string): Observable<User> {
+    // ADD USER TO URL HERE
     return this.http.get(this.djangoUrl)
       .map(this.extractData)
       .catch(this.handleError);
