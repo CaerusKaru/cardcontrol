@@ -1,5 +1,5 @@
 #Stack Install instructions:
-
+ 
 ###Note:
 This assumes an environment running on an x86_64 distribution of Linux. Matt is running on Fedora 25.
 
