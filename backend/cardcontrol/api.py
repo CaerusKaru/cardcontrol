@@ -1,5 +1,6 @@
 from cardcontrol.models import Account, Card, Door
 from tastypie.resources import ModelResource
+from tastypie.authorization import Authorization
 from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 
 class AccountResource(ModelResource):
