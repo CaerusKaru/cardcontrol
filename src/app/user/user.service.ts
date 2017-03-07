@@ -23,8 +23,7 @@ export class UserService {
   }
 
   getUser (user : string): Observable<User> {
-    // ADD USER TO URL HERE
-    return this.http.get(this.djangoUrl + 'user_account/')
+    return this.http.get(this.djangoUrl + 'card/?utln=masnes01')
       .map(this.extractData)
       .catch(this.handleError);
   }
