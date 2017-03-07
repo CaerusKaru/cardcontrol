@@ -1,6 +1,6 @@
 from django.db import models
 
-class Accounts(models.Model):
+class Account(models.Model):
     first_name = models.CharField(max_length=40)
     last_name = models.CharField(max_length=40)
     utln = models.CharField(max_length=10)
@@ -8,24 +8,24 @@ class Accounts(models.Model):
     class Meta:
         app_label = 'cardcontrol'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.utln
 
-class Doors(models.Model):
+class Door(models.Model):
     address = models.CharField(max_length=120)
     building_name = models.CharField(max_length=120)
     door_name = models.CharField(max_length=120)
-    created_by = models.ForeignKey(Accounts, on_delete=models.CASCADE)
-    modified_by = models.ForeignKey(Accounts, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(Account, on_delete=models.CASCADE)
+    modified_by = models.ForeignKey(Account, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_by = models.DateTimeField(auto_now=True)
     class Meta:
         app_label = 'cardcontrol'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.door_name + " @ " + self.building_name
 
-class Ids(models.Model):
+class Card(models.Model):
     first_name = models.CharField(max_length=40)
     last_name = models.CharField(max_length=40)
     middle_initial = models.CharField(max_length=1)
@@ -36,15 +36,15 @@ class Ids(models.Model):
     school = models.CharField(max_length=30)
     class_year = models.IntegerField()
     barcode = models.IntegerField()
-    doors = models.ManyToManyField(Doors)
-    created_by = models.ForeignKey(Accounts, on_delete=models.CASCADE)
-    modified_by = models.ForeignKey(Accounts, on_delete=models.CASCADE)
+    doors = models.ManyToManyField(Door)
+    created_by = models.ForeignKey(Account, on_delete=models.CASCADE)
+    modified_by = models.ForeignKey(Account, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_by = models.DateTimeField(auto_now=True)
     class Meta:
         app_label = 'cardcontrol'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.utln
 
 

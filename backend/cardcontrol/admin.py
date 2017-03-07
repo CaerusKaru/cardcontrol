@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Account, Door, Card
+
+admin.site.register(Account)
+admin.site.register(Door)
+admin.site.register(Card)
