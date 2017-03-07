@@ -14,17 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import include, url
-from cardcontrol.api import AccountResource, CardResource, DoorResource
 from django.contrib import admin
+from tastypie.api import Api
+from cardcontrol.api import AccountResource, CardResource, DoorResource
 
-account_resource = AccountResource()
-card_resource = CardResource()
-door_resource = DoorResource()
+v1_api = Api(api_name='v1')
+v1_api.register(AccountResource())
+v1_api.register(CardResource())
+v1_api.register(DoorResource())
 
 urlpatterns = [
     url(r'', include('cardcontrol.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^api/', include(account_resource.urls)),
-    url(r'^api/', include(card_resource.urls)),
-    url(r'^api/', include(door_resource.urls))
+    url(r'^api/', include(v1_api.urls))
 ]

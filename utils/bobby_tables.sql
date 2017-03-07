@@ -1,6 +1,6 @@
 \c postgres;
-DROP DATABASE "default";
-DROP DATABASE "cardcontrol";
+DROP DATABASE IF EXISTS "default";
+DROP DATABASE IF EXISTS "cardcontrol";
 CREATE DATABASE "default";
 CREATE DATABASE "cardcontrol";
 
