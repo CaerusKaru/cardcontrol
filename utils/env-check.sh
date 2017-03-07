@@ -31,8 +31,8 @@ fi;
 echo -e "$npmav${noc}"
 
 echo -n "ANGULAR CLI:    "
-ngv=$(ng -v | grep angular | sed 's/@angular\/cli: //')
-if [[ "$ngv" == "1.0.0-rc.0" ]]; then
+ngv=$(ng -v | grep angular | head -1 | sed 's/@angular\/cli: //')
+if [[ "$ngv" == "1.0.0-rc.1" ]]; then
 	echo -ne "$goodc"
 else
 	echo -ne "$badc"
