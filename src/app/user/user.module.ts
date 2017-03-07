@@ -9,6 +9,7 @@ import {UserAreaComponent, UserAreaDialog} from './user-area/user-area.component
 import { UserRequestComponent } from './user-request/user-request.component';
 import { UserHomeComponent } from './user-home/user-home.component';
 import {AgmCoreModule} from "angular2-google-maps/core";
+import { UserAccountComponent } from './user-account/user-account.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import {AgmCoreModule} from "angular2-google-maps/core";
     UserAreaComponent,
     UserRequestComponent,
     UserHomeComponent,
-    UserAreaDialog
+    UserAreaDialog,
+    UserAccountComponent
   ],
   bootstrap: [
     UserAreaComponent,

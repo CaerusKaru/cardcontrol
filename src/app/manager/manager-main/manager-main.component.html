@@ -1,0 +1,23 @@
+<md-sidenav-container class="demo-root" fullscreen>
+  <md-sidenav #start mode="side" opened="true">
+    <md-nav-list>
+      <ng-container *ngFor="let navItem of navItems">
+        <a *ngIf="!(navItem.admin && !isAdmin)"
+           md-list-item
+           [routerLink]="[navItem.route]">
+          {{navItem.name}}
+        </a>
+      </ng-container>
+      <hr>
+      <a md-list-item routerLink="account">
+        {{utln}}
+      </a>
+      <a md-list-item (click)="logOut()">
+        Log Out
+      </a>
+    </md-nav-list>
+  </md-sidenav>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+</md-sidenav-container>

@@ -20,8 +20,8 @@
     </a>
     <span fxFlex></span>
     <md-menu #appMenu="mdMenu" y-position="below" [overlapTrigger]="false">
-      <button md-menu-item> Settings </button>
-      <button md-menu-item> Log Out </button>
+      <button md-menu-item (click)="settings()"> Settings </button>
+      <button md-menu-item (click)="logOut()"> Log Out </button>
     </md-menu>
 
     <button md-button [mdMenuTriggerFor]="appMenu">

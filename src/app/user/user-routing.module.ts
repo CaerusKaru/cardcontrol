@@ -5,6 +5,7 @@ import {UserRequestComponent} from './user-request/user-request.component';
 import {UserAreaComponent} from './user-area/user-area.component';
 import { UserHomeComponent } from './user-home/user-home.component';
 import {UserIdComponent} from "./user-id/user-id.component";
+import {UserAccountComponent} from "./user-account/user-account.component";
 
 const userRoutes: Routes = [
   {
@@ -22,6 +23,10 @@ const userRoutes: Routes = [
       {
         path: 'request',
         component: UserRequestComponent
+      },
+      {
+        path: 'account',
+        component: UserAccountComponent
       }
     ]
   }

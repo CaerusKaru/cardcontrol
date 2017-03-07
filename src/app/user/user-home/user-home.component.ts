@@ -37,4 +37,12 @@ export class UserHomeComponent implements OnInit {
 
   utln = 'hescott';
 
+  settings() {
+    this.router.navigate(['account']);
+  }
+
+  logOut() {
+    alert("Logging out");
+  }
+
 }
