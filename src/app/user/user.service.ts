@@ -10,21 +10,21 @@ import {User} from "../user";
 @Injectable()
 export class UserService {
 
-  private djangoUrl = 'app/heroes';
+  private djangoUrl = 'http://localhost:8000/api/v1/';
 
   constructor(
     private http: Http
   ) { }
 
   getBuildings (): Observable<Building[]> {
-    return this.http.get(this.djangoUrl)
+    return this.http.get(this.djangoUrl + 'door/')
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   getUser (user : string): Observable<User> {
     // ADD USER TO URL HERE
-    return this.http.get(this.djangoUrl)
+    return this.http.get(this.djangoUrl + 'user_account/')
       .map(this.extractData)
       .catch(this.handleError);
   }
