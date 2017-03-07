@@ -1,41 +1,28 @@
 <div class="card-wrapper">
   <md-card>
-    <form class="example-form">
-      <md-input-container class="example-full-width">
-        <input mdInput placeholder="Company (disabled)" disabled value="Google">
+    <form class="request-access-form">
+      <h2>Request Building Access</h2>
+      
+      <md-input-container class='md-block' flex-get-sm>
+        <input type="text" mdInput placeholder="Campus">
       </md-input-container>
 
-      <table class="example-full-width" cellspacing="0"><tr>
-        <td><md-input-container class="example-full-width">
-          <input mdInput placeholder="First name">
-        </md-input-container></td>
-        <td><md-input-container class="example-full-width">
-          <input mdInput placeholder="Long Last Name That Will Be Truncated">
-        </md-input-container></td>
-      </tr></table>
-
-      <p>
-        <md-input-container class="example-full-width">
-          <textarea mdInput placeholder="Address">1600 Amphitheatre Pkwy</textarea>
-        </md-input-container>
-        <md-input-container class="example-full-width">
-          <textarea mdInput placeholder="Address 2"></textarea>
-        </md-input-container>
-      </p>
-
-      <table class="example-full-width" cellspacing="0"><tr>
-        <td><md-input-container class="example-full-width">
-          <input mdInput placeholder="City">
-        </md-input-container></td>
-        <td><md-input-container class="example-full-width">
-          <input mdInput placeholder="State">
-        </md-input-container></td>
-        <td><md-input-container class="example-full-width">
-          <input mdInput #postalCode maxlength="5" placeholder="Postal Code" value="94043">
-          <md-hint align="end">{{postalCode.value.length}} / 5</md-hint>
-        </md-input-container></td>
-      </tr></table>
+      <md-input-container class='md-block' flex-get-sm>
+        <input type="text" mdInput placeholder="Building">
+      </md-input-container>
+      
+      <md-input-container class='md-block'>
+        <input type="text" mdInput placeholder="Room">
+      </md-input-container>
+      
+      <md-input-container class='md-block' hintLabel='Search by name or ID number'>
+        <input type="search" mdInput placeholder="Add IDs (optional)" type='search'>
+      </md-input-container>
+      
+      <div class="submit-button">
+        <button type='submit' md-button>Submit</button>
+      </div>
+    
     </form>
   </md-card>
 </div>
-
