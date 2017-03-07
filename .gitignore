@@ -39,3 +39,6 @@ testem.log
 #System Files
 .DS_Store
 Thumbs.db
+
+/backend/cardcontrol/__pycache__/
+/backend/backend/cardcontrol/__pycache__/
