@@ -36,5 +36,5 @@ INSERT INTO cardcontrol_useraccount VALUES(2, 'Harrison', 'Kaiser', 'hkaise01', 
 INSERT INTO cardcontrol_request VALUES(1, now(), now(), 1, 1, 5, 1);
 INSERT INTO cardcontrol_request VALUES(2, now(), now(), 1, 1, 5, 2);
 
-
+\q
 
