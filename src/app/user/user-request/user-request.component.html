@@ -2,7 +2,7 @@
   <md-card>
     <form class="request-access-form">
       <h2>Request Building Access</h2>
-      
+
       <md-input-container class='md-block' flex-get-sm>
         <input type="text" mdInput placeholder="Campus">
       </md-input-container>
@@ -10,19 +10,23 @@
       <md-input-container class='md-block' flex-get-sm>
         <input type="text" mdInput placeholder="Building">
       </md-input-container>
-      
+
       <md-input-container class='md-block'>
         <input type="text" mdInput placeholder="Room">
       </md-input-container>
-      
+
+      <md-input-container class='md-block'>
+        <textarea mdInput placeholder="Reason Why"></textarea>
+      </md-input-container>
+
       <md-input-container class='md-block' hintLabel='Search by name or ID number'>
         <input type="search" mdInput placeholder="Add IDs (optional)" type='search'>
       </md-input-container>
-      
+
       <div class="submit-button">
         <button type='submit' md-button>Submit</button>
       </div>
-    
+
     </form>
   </md-card>
 </div>

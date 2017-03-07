@@ -1,1 +1,87 @@
-<p>user-id works!</p>
+<div class="id-card-wrapper" fxLayoutAlign="center center" fxLayout="column">
+  <md-card>
+    <md-card-header>
+      <img md-card-avatar src="../favicon.ico">
+      <md-card-title>
+        <h3 class="id-card-header">{{firstname}} {{lastname}}</h3>
+      </md-card-title>
+      <md-card-subtitle>
+        {{utln}}
+      </md-card-subtitle>
+    </md-card-header>
+    <md-card-content>
+      <div fxLayout="row">
+        <p><a href="http://www.jumbocash.net">JumboCash</a>: {{jumbocashID}}</p>
+        <span fxFlex></span>
+        <p>{{DOB}}</p>
+      </div>
+      <div fxLayout="row">
+        <p>{{school}} {{YOG}}</p>
+        <span fxFlex></span>
+        <p>Tufts ID: {{studentID}}</p>
+      </div>
+    </md-card-content>
+    <md-card-actions>
+      <button md-button (click)="requestChange()">Request Change</button>
+      <button md-button (click)="report()">Report Lost/Stolen</button>
+    </md-card-actions>
+  </md-card>
+  <span fxFlex="25px"></span>
+  <md-card fxFlex>
+    <md-card-header>
+      <md-card-title>
+        <h3 class="id-card-header">Campus Services Contact Information</h3>
+      </md-card-title>
+    </md-card-header>
+    <md-card-content>
+      <div fxLayout="row">
+        <div fxLayout="column">
+          <div fxLayout="row">
+            <h4>Emergency</h4>
+          </div>
+          <div fxLayout="row">
+            <p>617.627.6911 or x66911</p>
+          </div>
+        </div>
+        <span fxFlex></span>
+        <div fxLayout="column">
+          <div fxLayout="row">
+            <h4>Health Service</h4>
+          </div>
+          <div fxLayout="row">
+            <p>617.627.3350</p>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row">
+        <div fxLayout="column">
+          <div fxLayout="row">
+            <h4>Emergency Information</h4>
+          </div>
+          <div fxLayout="row">
+            <p>617.627.4636 or <a href="http://emergency.tufts.edu">emergency.tufts.edu</a></p>
+          </div>
+        </div>
+        <span fxFlex></span>
+        <div fxLayout="column">
+          <div fxLayout="row">
+            <h4>Student Services</h4>
+          </div>
+          <div fxLayout="row">
+            <p>617.627.2000</p>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row">
+        <div fxLayout="column">
+          <div fxLayout="row">
+            <h4>TUPD Non-Emergency</h4>
+          </div>
+          <div fxLayout="row">
+            <p>617.627.3030</p>
+          </div>
+        </div>
+      </div>
+    </md-card-content>
+  </md-card>
+</div>
