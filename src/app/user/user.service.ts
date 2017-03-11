@@ -23,14 +23,15 @@ export class UserService {
   }
 
   getUser (user : string): Observable<User> {
-    // ADD USER TO URL HERE
-    return this.http.get(this.djangoUrl + 'user_account/')
+    var resp = this.http.get(this.djangoUrl + 'card/?utln=masnes01')
       .map(this.extractData)
       .catch(this.handleError);
+    return resp;
   }
 
   private extractData(res: Response) {
     let body = res.json();
+    console.log(body);
     return body.data || { };
   }
 
