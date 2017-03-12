@@ -1,5 +1,6 @@
-<div fxFill class="user-home-wrapper">
-  <nav md-tab-nav-bar>
+<div fxFill class="user-home-wrapper mat-app-background">
+  <div class="nav-bar">
+    <nav md-tab-nav-bar>
 
     <span fxLayoutAlign="center center">
       <a routerLink=""
@@ -11,23 +12,24 @@
       </a>
     </span>
 
-    <a md-tab-link
-       *ngFor="let link of navLinks; let i = index"
-       [routerLink]="link.route"
-       [active]="activeLinkIndex === i"
-       (click)="activeLinkIndex = i">
-      {{link.label}}
-    </a>
-    <span fxFlex></span>
-    <md-menu #appMenu="mdMenu" y-position="below" [overlapTrigger]="false">
-      <button md-menu-item (click)="settings()"> Settings </button>
-      <button md-menu-item (click)="logOut()"> Log Out </button>
-    </md-menu>
+      <a md-tab-link
+         *ngFor="let link of navLinks; let i = index"
+         [routerLink]="link.route"
+         [active]="activeLinkIndex === i"
+         (click)="activeLinkIndex = i">
+        {{link.label}}
+      </a>
+      <span fxFlex></span>
+      <md-menu #appMenu="mdMenu" y-position="below" [overlapTrigger]="false">
+        <button md-menu-item (click)="settings()"> Settings </button>
+        <button md-menu-item (click)="logOut()"> Log Out </button>
+      </md-menu>
 
-    <button md-button [mdMenuTriggerFor]="appMenu">
-      {{utln}}
-    </button>
-  </nav>
+      <button md-button [mdMenuTriggerFor]="appMenu">
+        {{utln}}
+      </button>
+    </nav>
+  </div>
 
   <router-outlet></router-outlet>
 </div>

@@ -1,0 +1,43 @@
+@import '~@angular/material/core/theming/all-theme';
+
+@include mat-core();
+
+$primary: mat-palette($mat-light-blue);
+$accent:  mat-palette($mat-pink, A200, A100, A400);
+$warn:    mat-palette($mat-red);
+
+$background: (
+  status-bar: map_get($mat-grey, 300),
+  app-bar:    map_get($mat-grey, 100),
+  background: map_get($mat-grey, 50),
+  hover:      rgba(black, 0.04), // TODO(kara): check style with Material Design UX
+  card:       white,
+  dialog:     white,
+  disabled-button: rgba(black, 0.12),
+  raised-button: white,
+);
+
+@function md-app-theme($primary, $accent, $warn, $background, $foreground) {
+  @return (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+    is-dark: false,
+    foreground: $foreground,
+    background: $background,
+  );
+}
+// Create the theme object (a Sass map containing all of the palettes).
+$theme: md-app-theme($primary, $accent, $warn, $background, $mat-light-theme-foreground);
+
+@include angular-material-theme($theme);
+
+.unicorn-dark-theme {
+  $dark-primary: mat-palette($mat-blue-grey);
+  $dark-accent:  mat-palette($mat-amber, A200, A100, A400);
+  $dark-warn:    mat-palette($mat-deep-orange);
+
+  $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+  @include angular-material-theme($dark-theme);
+}

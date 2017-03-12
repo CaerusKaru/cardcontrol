@@ -1,0 +1,9 @@
+@import '~@angular/material/core/theming/all-theme';
+@import '../../../theme';
+
+@mixin nav-theme($theme) {
+  // Use mat-color to extract individual colors from a palette as necessary.
+  .nav-bar {
+    background-color: mat-color($mat-blue-grey, 50);
+  }
+}

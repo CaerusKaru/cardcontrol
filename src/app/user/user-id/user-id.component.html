@@ -1,4 +1,4 @@
-<div class="id-card-wrapper" fxLayoutAlign="center center" fxLayout="column">
+<div class="id-card-wrapper" fxLayoutAlign="center center" fxFlex fxLayout="column">
   <md-card>
     <md-card-header>
       <img md-card-avatar src="../favicon.ico">
@@ -36,50 +36,22 @@
     <md-card-content>
       <div fxLayout="row">
         <div fxLayout="column">
-          <div fxLayout="row">
-            <h4>Emergency</h4>
-          </div>
-          <div fxLayout="row">
-            <p>617.627.6911 or x66911</p>
-          </div>
+          <h4 md-line>Emergency</h4>
+          <p md-line>617.627.6911 or x66911</p>
+          <span md-line></span>
+          <h4 md-line>Emergency Information</h4>
+          <p md-line>617.627.4636 or <a href="http://emergency.tufts.edu">emergency.tufts.edu</a></p>
+          <span md-line></span>
+          <h4 md-line>TUPD Non-Emergency</h4>
+          <p md-line>617.627.3030</p>
         </div>
-        <span fxFlex></span>
+        <span fxFlex="10px"></span>
         <div fxLayout="column">
-          <div fxLayout="row">
-            <h4>Health Service</h4>
-          </div>
-          <div fxLayout="row">
-            <p>617.627.3350</p>
-          </div>
-        </div>
-      </div>
-      <div fxLayout="row">
-        <div fxLayout="column">
-          <div fxLayout="row">
-            <h4>Emergency Information</h4>
-          </div>
-          <div fxLayout="row">
-            <p>617.627.4636 or <a href="http://emergency.tufts.edu">emergency.tufts.edu</a></p>
-          </div>
-        </div>
-        <span fxFlex></span>
-        <div fxLayout="column">
-          <div fxLayout="row">
-            <h4>Student Services</h4>
-          </div>
-          <div fxLayout="row">
-            <p>617.627.2000</p>
-          </div>
-        </div>
-      </div>
-      <div fxLayout="row">
-        <div fxLayout="column">
-          <div fxLayout="row">
-            <h4>TUPD Non-Emergency</h4>
-          </div>
-          <div fxLayout="row">
-            <p>617.627.3030</p>
-          </div>
+          <h4 md-line>Health Service</h4>
+          <p md-line>617.627.3350</p>
+          <span md-line></span>
+          <h4 md-line>Student Services</h4>
+          <p md-line>617.627.2000</p>
         </div>
       </div>
     </md-card-content>
