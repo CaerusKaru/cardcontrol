@@ -1,3 +1,38 @@
-<p>
-  manager-create-id works!
-</p>
+<div class="card-wrapper">
+  <md-card>
+    <form class="create-id-form">
+      <h2>Create New ID</h2>
+      <div class="section">
+      	<label>Photo: </label><input type="file">
+      </div>
+      <div class="section">
+	      <md-input-container>
+	        <input type="text" mdInput placeholder="First Name">
+	      </md-input-container>
+
+	      <md-input-container>
+	        <input type="text" mdInput placeholder="Last Name">
+	      </md-input-container>
+	      
+
+	      <md-input-container>
+	        <input type="text" mdInput placeholder="Middle Initial">
+	      </md-input-container>
+
+
+	      <md-input-container hintLabel="mm/dd/yyyy">
+	        <input type="date" mdInput placeholder="Date of Birth" >
+	      </md-input-container>
+      </div>
+      
+    	<md-select placeholder="School"></md-select>
+    	<md-select placeholder="Position"></md-select>
+    	<md-select placeholder="Gradution Year"></md-select>
+
+      <div class="submit-button">
+        <button type='submit' md-button>Submit</button>
+      </div>
+
+    </form>
+  </md-card>
+</div>

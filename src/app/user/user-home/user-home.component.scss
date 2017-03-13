@@ -1,0 +1,7 @@
+// Import a pre-built theme
+@import '~@angular/material/core/theming/prebuilt/deeppurple-amber';
+// Import your custom input theme file so you can call the custom-input-theme function
+@import 'user-home-theme';
+
+// Using the $theme variable from the pre-built theme you can call the theming function
+@include nav-theme($theme);
