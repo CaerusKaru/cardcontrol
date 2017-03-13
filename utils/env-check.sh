@@ -21,15 +21,6 @@ else
 fi;
 echo -e "$npmv${noc}"
 
-echo -n "NPM ANGULAR:    "
-npmav=$(npm view angular version)
-if [[ "$npmav" == "1.6.2" ]]; then
-	echo -ne "$goodc"
-else
-	echo -ne "$badc"
-fi;
-echo -e "$npmav${noc}"
-
 echo -n "ANGULAR CLI:    "
 ngv=$(ng -v | grep angular | head -1 | sed 's/@angular\/cli: //')
 if [[ "$ngv" == "1.0.0-rc.1" ]]; then
@@ -38,6 +29,24 @@ else
 	echo -ne "$badc"
 fi;
 echo -e "$ngv${noc}"
+
+echo -n "ANGULAR NODE:   "
+anv=$(ng -v | grep node | head -1 | sed 's/node: //')
+if [[ "$anv" == "7.7.0" ]]; then
+	echo -ne "$goodc"
+else
+	echo -ne "$badc"
+fi;
+echo -e "$anv${noc}"
+
+echo -n "ANGULAR CORE:   "
+acv=$(ng -v | grep "core" | head -1 | sed 's/@angular\/core: //')
+if [[ "$acv" == "2.4.9" ]]; then
+	echo -ne "$goodc"
+else
+	echo -ne "$badc"
+fi;
+echo -e "$acv${noc}"
 
 echo -n "POSTGRESQL:     "
 psqlv=$(psql -V | sed 's/psql (PostgreSQL) //')
