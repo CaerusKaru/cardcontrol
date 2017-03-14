@@ -205,7 +205,7 @@ echo ""
 echo -e "${goodc}===============================================================================${noc}"
 echo ""
 echo -e "${goodc}Recreating database user roles.${noc}"
-psql -d postgres -U M < $d/utils/bobby_tables_no_create.sql
+psql -d postgres -U postgres < $d/utils/bobby_tables_no_create.sql
 $d/utils/init_db.sh
 echo ""
 
