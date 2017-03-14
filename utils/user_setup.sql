@@ -1,0 +1,4 @@
+DROP USER "M";
+CREATE USER "M" CREATEDB;
+\q
+
