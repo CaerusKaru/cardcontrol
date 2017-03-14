@@ -48,26 +48,26 @@ fi;
 echo -e "${goodc}Checking global package dependecies satisfied.${noc}"
 if [[ $es -eq 1 ]]; then
 	echo -e "${goodc}Attempting to install tar${noc}"
-	sudo ${pmg} install tar 1> /dev/null
+	sudo ${pmg} install tar
 	
 	echo -e "${goodc}Attempting to install wget${noc}"
-	sudo ${pmg} install wget 1> /dev/null
+	sudo ${pmg} install wget
 	
 	echo -e "${goodc}Attempting to install wget${noc}"
-	sudo ${pmg} install rpm 2>/dev/null 1>/dev/null
-	sudo ${pmg} install rpm-common 2>/dev/null 1>/dev/null
-	sudo ${pmg} install rpm-dbg 2>/dev/null 1>/dev/null
-	sudo ${pmg} install librpm-dev 2>/dev/null 1>/dev/null
-	sudo ${pmg} install librpm-devel 2>/dev/null 1>/dev/null
+	sudo ${pmg} install rpm 2>/dev/null
+	sudo ${pmg} install rpm-common 2>/dev/null
+	sudo ${pmg} install rpm-dbg 2>/dev/null
+	sudo ${pmg} install librpm-dev 2>/dev/null
+	sudo ${pmg} install librpm-devel 2>/dev/null
 	sudo rpm -v --rebuilddb --define="_rpmlock_path /var/lock/rpm"
 	
 	echo -e "${goodc}Attempting to install uuid${noc}"
-	sudo ${pmg} install uuid uuid-dev 1>/dev/null
+	sudo ${pmg} install uuid uuid-dev
 	
 	echo -e "${goodc}Attempting to install openssl${noc}"
 	sudo ${pmg} install openssl 1>/dev/null
-	sudo ${pmg} install libssl-dev 2>/dev/null 1>/dev/null
-	sudo ${pmg} install libssl-devel 2>/dev/null 1>/dev/null
+	sudo ${pmg} install libssl-dev 2>/dev/null
+	sudo ${pmg} install libssl-devel 2>/dev/null
 fi;
 
 echo -e "${goodc}Checking that /usr/local/bin is in the front of PATH.${noc}"
