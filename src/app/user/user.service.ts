@@ -16,23 +16,29 @@ export class UserService {
     private http: Http
   ) { }
 
+  getUtln() : string {
+    return 'masnes01';
+  }
+
+  isAdmin() : boolean {
+    return true;
+  }
+
   getBuildings (): Observable<Building[]> {
     return this.http.get(this.djangoUrl + 'door/')
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  getUser (user : string): Observable<User> {
-    var resp = this.http.get(this.djangoUrl + 'card/?utln=masnes01')
+  getUser (utln : string): Observable<User[]> {
+    return this.http.get(this.djangoUrl + 'card/?utln=' + utln)
       .map(this.extractData)
       .catch(this.handleError);
-    return resp;
   }
 
   private extractData(res: Response) {
     let body = res.json();
-    console.log(body);
-    return body.data || { };
+    return body.objects || { };
   }
 
   private handleError (error: Response | any) {
