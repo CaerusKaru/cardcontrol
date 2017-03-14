@@ -111,7 +111,7 @@ fi;
 
 echo -e "${goodc}Checking correct version of PostgreSQL is installed.${noc}"
 psqlv=$(psql -V 2>/dev/null)
-if [[ "$psqlv" != "psql (PostgreSQL) 9.6.2" && "$(which postgres)" != "/usr/local/bin/psql" ]]; then
+if [[ "$psqlv" != "psql (PostgreSQL) 9.6.2" || "$(which postgres)" != "/usr/local/bin/psql" ]]; then
 	echo -e "${qc}Installing PostgreSQL. Press any key to continue.${noc}"
 	read trash
 
