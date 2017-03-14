@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute} from "@angular/router";
+import {UserService} from "../user.service";
 
 @Component({
   selector: 'app-user-home',
@@ -18,7 +19,8 @@ export class UserHomeComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) {
 
     function findTab(nav) {
@@ -35,9 +37,11 @@ export class UserHomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  utln = 'hescott';
+  utln = this.userService.getUtln();
+  isAdmin = this.userService.isAdmin();
 
   settings() {
+    this.activeLinkIndex = -1;
     this.router.navigate(['account']);
   }
 

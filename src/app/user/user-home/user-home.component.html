@@ -19,6 +19,11 @@
          (click)="activeLinkIndex = i">
         {{link.label}}
       </a>
+      <a md-tab-link
+         *ngIf="isAdmin"
+         routerLink="/manage">
+        Manage
+      </a>
       <span fxFlex></span>
       <md-menu #appMenu="mdMenu" y-position="below" [overlapTrigger]="false">
         <button md-menu-item (click)="settings()"> Settings </button>

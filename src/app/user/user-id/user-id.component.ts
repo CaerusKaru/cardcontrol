@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {MdDialog} from '@angular/material';
 import {UserService} from "../user.service";
 import {User} from "../../user";
-import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
 
 @Component({
   selector: 'app-user-id',
@@ -17,23 +15,21 @@ export class UserIdComponent implements OnInit {
     private userService : UserService
   ) { }
 
-  user = new Subject<User>();
+  user = new User();
   errorMessage : string;
 
   ngOnInit() {
-    this.userService.getUser(this.utln).subscribe(
-      users => this.user = users[0],
-      error =>  this.errorMessage = <any>error);
+    this.getUser();
   }
 
-  firstname = 'Benjamin';
-  lastname = 'Hescott';
-  studentID = '1112223';
-  utln = 'hescott';
-  jumbocashID = '998877665';
-  DOB = '5/6/19xx';
-  YOG = '17';
-  school = 'LA';
+  getUser () {
+    this.userService.getUser(this.utln)
+                    .subscribe(
+                      users => this.user = users[0],
+                      error =>  this.errorMessage = <any>error);
+  }
+
+  utln = this.userService.getUtln();
 
   requestChange() {
     this.dialog.open(UserIdRequestDialog);

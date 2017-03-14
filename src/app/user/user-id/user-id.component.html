@@ -3,22 +3,22 @@
     <md-card-header>
       <img md-card-avatar src="../favicon.ico">
       <md-card-title>
-        <h3 class="id-card-header">{{firstname}} {{lastname}}</h3>
+        <h3 class="id-card-header">{{user.first_name}} {{user.last_name}}</h3>
       </md-card-title>
       <md-card-subtitle>
         {{utln}}
       </md-card-subtitle>
     </md-card-header>
-    <md-card-content>
+    <md-card-content class="md-padding">
       <div fxLayout="row">
-        <p><a href="http://www.jumbocash.net">JumboCash</a>: {{jumbocashID}}</p>
+        <p><a href="http://www.jumbocash.net">JumboCash</a>: {{user.jumbocash_id}}</p>
         <span fxFlex></span>
-        <p>{{DOB}}</p>
+        <p>{{user.birth_date}}</p>
       </div>
       <div fxLayout="row">
-        <p>{{school}} {{YOG}}</p>
+        <p>{{user.school}} {{user.class_year}}</p>
         <span fxFlex></span>
-        <p>Tufts ID: {{studentID}}</p>
+        <p>Tufts ID: {{user.id}}</p>
       </div>
     </md-card-content>
     <md-card-actions>
