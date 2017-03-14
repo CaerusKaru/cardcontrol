@@ -53,7 +53,7 @@ if [[ $es -eq 1 ]]; then
 	echo -e "${goodc}Attempting to install wget${noc}"
 	sudo ${pmg} install wget
 	
-	echo -e "${goodc}Attempting to install wget${noc}"
+	echo -e "${goodc}Attempting to install rpm${noc}"
 	sudo ${pmg} install rpm 2>/dev/null
 	sudo ${pmg} install rpm-common 2>/dev/null
 	sudo ${pmg} install rpm-dbg 2>/dev/null
@@ -189,7 +189,7 @@ if [[ "$pyv" != "Python 3.6.0" ]]; then
 fi;
 
 echo -e "${goodc}Checking correct version of Django is installed.${noc}"
-djv=$(python3 -c "import django; print(django.get_version())" 2>/dev/null)
+djv=$(python3.6 -c "import django; print(django.get_version())" 2>/dev/null)
 if [[ "$djv" != "1.10.5" ]]; then
 	echo -e "${qc}Installing Django. Press any key to continue.${noc}"
 	read trash

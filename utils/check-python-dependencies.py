@@ -37,7 +37,7 @@ print()
 for i in expected:
 	if i not in actual_packages:
 		print()
-		print(qc + "Would you like to install package " + i + goodc + "? (y/n)" + noc)
+		print(qc + "Would you like to install package " + i + goodc + "? (y/n)")
 		ans = input()
 		if ans.startswith('y') or ans.startswith('Y'):
 			install(i)

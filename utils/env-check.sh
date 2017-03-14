@@ -69,7 +69,7 @@ fi;
 echo -e "$psqlv${noc}"
 
 echo -n "PYTHON 3:       "
-py3v=$(python3 -V | sed 's/Python //')
+py3v=$(python3.6 -V | sed 's/Python //')
 if [[ "$py3v" == "3.6.0" ]]; then
 	echo -ne "$goodc"
 else
@@ -89,7 +89,7 @@ fi;
 echo -e "$pip3v${noc}"
 
 echo -n "DJANGO:         "
-djv=$(python3 -c "import django; print(django.get_version())")
+djv=$(python3.6 -c "import django; print(django.get_version())")
 if [[ "$djv" == "1.10.5" ]]; then
 	echo -ne "$goodc"
 else
