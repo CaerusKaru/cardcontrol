@@ -1,6 +1,14 @@
 #!/usr/bin/env python
 import os
 import sys
+import signal
+
+def interrupt_catch(signal, frame):
+        print()
+        print('Keyboard interrupt detected. Exiting.')
+        sys.exit(1)
+
+signal.signal(signal.SIGINT, interrupt_catch)
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "backend.settings")

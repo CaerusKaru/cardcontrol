@@ -7,7 +7,6 @@ noc="\033[38;5;15m"
 d=$(dirname "$0")
 pathchanged=0
 
-
 ${d}/utils/env-check.sh 1> /dev/null 2>/dev/null
 es="$?"
 
@@ -33,7 +32,8 @@ if [[ "$user" == "root" ]]; then
 fi;
 
 echo -e "${goodc}Checking expected library directory.${noc}"
-libdir="/home/${user}/comp120-libraries"
+libdir=${1:-"/home/${user}/comp120-libraries"}
+#"
 if [[ ! -d "$libdir" ]]; then
 	echo -e "${qc}Program will create directory ${libdir}, is this okay? ${goodc}(y/n)${noc}"
 	read yn
@@ -62,7 +62,12 @@ if [[ $es -eq 1 ]]; then
 	sudo rpm -v --rebuilddb --define="_rpmlock_path /var/lock/rpm"
 	
 	echo -e "${goodc}Attempting to install uuid${noc}"
-	sudo ${pmg} install uuid uuid-dev
+	sudo ${pmg} install uuid
+	sudo ${pmg} install uuid-dev 2>/dev/null
+	sudo ${pmg} install uuid-devel 2>/dev/null
+
+	echo -e "${goodc}Attempting to install expect${noc}"
+	sudo ${pmg} install expect
 	
 	echo -e "${goodc}Attempting to install openssl${noc}"
 	sudo ${pmg} install openssl 1>/dev/null
@@ -111,7 +116,7 @@ fi;
 
 echo -e "${goodc}Checking correct version of PostgreSQL is installed.${noc}"
 psqlv=$(psql -V 2>/dev/null)
-if [[ "$psqlv" != "psql (PostgreSQL) 9.6.2" || "$(which postgres)" != "/usr/local/bin/psql" ]]; then
+if [[ "$psqlv" != "psql (PostgreSQL) 9.6.2" || "$(which psql)" != "/usr/local/bin/psql" ]]; then
 	echo -e "${qc}Installing PostgreSQL. Press any key to continue.${noc}"
 	read trash
 
@@ -204,8 +209,13 @@ sudo python3.6 ${d}/utils/check-python-dependencies.py
 echo ""
 echo -e "${goodc}===============================================================================${noc}"
 echo ""
-echo -e "${goodc}Recreating database user roles.${noc}"
-psql -d postgres -U postgres < $d/utils/bobby_tables_no_create.sql
+echo -e "${goodc}Clearing databases and creating database user roles.${noc}"
+echo -e "${goodc}Stopping database.${noc}"
+${d}/utils/stop_db.sh
+echo -e "${goodc}Starting database.${noc}"
+${d}/utils/start_db.sh
+echo -e "${goodc}Emptying database contents.${noc}"
+psql -d postgres -U postgres < $d/utils/bobby_tables.sql
 $d/utils/init_db.sh
 echo ""
 

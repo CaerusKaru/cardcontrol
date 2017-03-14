@@ -41,7 +41,7 @@ testem.log
 Thumbs.db
 
 # Python Cache
-/backend/cardcontrol/__pycache__/*
-/backend/backend/__pycache__/*
-/backend/cardcontrol/migrations/*
+/backend/cardcontrol/__pycache__/
+/backend/backend/__pycache__/
+/backend/cardcontrol/migrations/
 
