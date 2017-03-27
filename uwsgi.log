@@ -1,0 +1,31 @@
+*** Starting uWSGI 2.0.14 (64bit) on [Mon Mar 27 01:23:35 2017] ***
+compiled with version: 4.8.5 20150623 (Red Hat 4.8.5-11) on 26 March 2017 23:38:04
+os: Linux-3.10.0-327.el7.x86_64 #1 SMP Thu Oct 29 17:29:29 EDT 2015
+nodename: ip-172-31-32-214.ec2.internal
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 1
+current working directory: /home/ec2-user/cardcontrol
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** WARNING: you are running uWSGI without its master process manager ***
+your processes number limit is 3824
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address cardcontrol.sock fd 3
+Python version: 3.6.0 (default, Mar 22 2017, 21:50:25)  [GCC 4.8.5 20150623 (Red Hat 4.8.5-11)]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x2337e00
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 72768 bytes (71 KB) for 1 cores
+*** Operational MODE: single process ***
+ModuleNotFoundError: No module named 'cardcontrol'
+unable to load app 0 (mountpoint='') (callable not found or import error)
+*** no app loaded. going in full dynamic mode ***
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI worker 1 (and the only) (pid: 9014, cores: 1)
