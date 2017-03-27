@@ -15,11 +15,11 @@ echo -e "${goodc}===============================================================
 echo ""
 
 if [[ $es -eq 1 ]]; then
-	echo -e "${qc}What is your prefered package manager on this system? ${goodc}[Allowed: apt-get, dnf]${noc}"
+	echo -e "${qc}What is your prefered package manager on this system? ${goodc}[Allowed: apt-get, dnf, yum]${noc}"
 	read pmg
 	
-	if [[ "$pmg" != "apt-get" ]] && [[ "$pmg" != "dnf" ]]; then
-		echo -e "${badc}Package manager ${pmg} not supported. Please use either dnf or apt-get. ${noc}"
+	if [[ "$pmg" != "apt-get" ]] && [[ "$pmg" != "dnf" ]] && [[ "$pmg" != "yum" ]]; then
+		echo -e "${badc}Package manager ${pmg} not supported. Please use either dnf, yum, or apt-get. ${noc}"
 		exit 1
 	fi;
 fi;
@@ -155,6 +155,7 @@ fi;
 
 echo -e "${goodc}Checking correct version of Python is installed.${noc}"
 pyv=$(python3.6 -V 2>/dev/null)
+#pyv="aaa"
 if [[ "$pyv" != "Python 3.6.0" ]]; then
 	echo -e "${qc}Installing Python 3.6.0. Press any key to continue.${noc}"
 	read trash
@@ -200,11 +201,11 @@ if [[ "$djv" != "1.10.5" ]]; then
 	read trash
 	echo -e "${goodc}Attempting to install Django in Python 3.6.0${noc}"
 	
-	sudo python3.6 -m pip install -I Django==1.10.5
+	sudo /usr/local/bin/python3.6 -m pip install -I Django==1.10.5
 fi;
 
 echo -e "${goodc}Checking Python dependencies are installed.${noc}"
-sudo python3.6 ${d}/utils/check-python-dependencies.py
+sudo /usr/local/bin/python3.6 ${d}/utils/check-python-dependencies.py
 
 echo ""
 echo -e "${goodc}===============================================================================${noc}"

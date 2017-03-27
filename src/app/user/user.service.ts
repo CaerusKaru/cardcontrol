@@ -10,7 +10,7 @@ import {User} from "../user";
 @Injectable()
 export class UserService {
 
-  private djangoUrl = 'http://localhost:8000/api/v1/';
+  private djangoUrl = 'http://ec2-107-20-90-253.compute-1.amazonaws.com:8000/api/v1/';
 
   constructor(
     private http: Http

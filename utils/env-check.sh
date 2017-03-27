@@ -30,7 +30,7 @@ echo -e "$npmv${noc}"
 
 echo -n "ANGULAR CLI:    "
 ngv=$(ng -v | grep angular | head -1 | sed 's/@angular\/cli: //')
-if [[ "$ngv" == "1.0.0-rc.2" ]]; then
+if [[ "$ngv" == "1.0.0-rc.4" ]]; then
 	echo -ne "$goodc"
 else
 	echo -ne "$badc"
@@ -50,7 +50,7 @@ echo -e "$anv${noc}"
 
 echo -n "ANGULAR CORE:   "
 acv=$(ng -v | grep "core" | head -1 | sed 's/@angular\/core: //')
-if [[ "$acv" == "2.4.9" ]]; then
+if [[ "$acv" == "2.4.10" ]]; then
 	echo -ne "$goodc"
 else
 	echo -ne "$badc"

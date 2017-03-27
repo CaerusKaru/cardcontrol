@@ -25,7 +25,7 @@ SECRET_KEY = '(re*3(5*y596^l9!j($tq09@!^(ooam(2@-no9%b#fzl4q_pl8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ec2-107-20-90-253.compute-1.amazonaws.com']
 
 
 # Application definition
@@ -53,10 +53,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_WHITELIST = (
-    'localhost:4200',
-    '127.0.0.1:4200'
-)
+CORS_ORIGIN_ALLOW_ALL=True
+#CORS_ORIGIN_WHITELIST = (
+#    'ec2-107-20-90-253.compute-1.amazonaws.com:4200'
+#)
 
 CORS_ALLOW_METHODS = (
     'DELETE',
@@ -159,3 +159,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
