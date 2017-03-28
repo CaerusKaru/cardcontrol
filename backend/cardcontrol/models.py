@@ -46,7 +46,7 @@ class Card(models.Model):
         app_label = 'cardcontrol'
 
     def __str__(self):
-        return self.utlns
+        return self.utln
 
 class UserAccount(models.Model):
     first_name = models.CharField(max_length=40)
@@ -75,4 +75,5 @@ class Request(models.Model):
         app_label = 'cardcontrol'
 
     def __str__(self):
-        return self.utln
+        return self.user
+

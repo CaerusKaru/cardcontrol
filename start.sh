@@ -10,8 +10,9 @@ noc="\033[38;5;15m"
 d=$(dirname "$0")
 
 echo -e "${goodc}Checking environment setup.${noc}"
+set +e
 $d/utils/env-check.sh
-
+set -e
 echo -e "${goodc}Stopping server.${noc}"
 $d/stop.sh
 echo -e "${goodc}Starting Database.${noc}"
@@ -22,8 +23,11 @@ $d/backend/migrate.sh
 echo -e "${goodc}Repopulating database with test data.${noc}"
 psql -d postgres -U postgres < $d/utils/recreate_database.sql 1>/dev/null
 
+sql_c=$(python $d/backend/manage.py sqlsequencereset cardcontrol)
+echo "${sql_c}" | psql -d cardcontrol -U postgres
+
 expect <<- DONE
-    spawn -ignore HUP python3.6 $d/backend/manage.py runserver
+    spawn -ignore HUP python3.6 $d/backend/manage.py runserver 
     expect -re ".*Quit the server with CONTROL-C.*"
 DONE
 
