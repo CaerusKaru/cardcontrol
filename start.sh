@@ -23,7 +23,7 @@ $d/backend/migrate.sh
 echo -e "${goodc}Repopulating database with test data.${noc}"
 psql -d postgres -U postgres < $d/utils/recreate_database.sql 1>/dev/null
 
-sql_c=$(python $d/backend/manage.py sqlsequencereset cardcontrol)
+sql_c=$(python3.6 $d/backend/manage.py sqlsequencereset cardcontrol)
 echo "${sql_c}" | psql -d cardcontrol -U postgres
 
 expect <<- DONE
