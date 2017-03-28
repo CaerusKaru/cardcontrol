@@ -22,6 +22,9 @@ $d/backend/migrate.sh
 echo -e "${goodc}Repopulating database with test data.${noc}"
 psql -d postgres -U postgres < $d/utils/recreate_database.sql 1>/dev/null
 
+sql_c=$(python $d/backend/manage.py sqlsequencereset cardcontrol)
+echo "${sql_c}" | psql -d cardcontrol -U postgres
+
 expect <<- DONE
     spawn -ignore HUP python3.6 $d/backend/manage.py runserver 
     expect -re ".*Quit the server with CONTROL-C.*"
@@ -37,11 +40,12 @@ expect <<- DONE
     expect -re ".*webpack: Compiled successfully.*"
 DONE
 
-sudo nginx
 expect <<- DONE
     spawn sudo uwsgi --die-on-term --ini $d/backend/uwsgi.ini
     expect -re ".*Operational MODE: preforking.*"
 DONE
+
+sudo nginx
 
 echo ""
 echo -e "${goodc}Database, frontend, and backend started successfully.${noc}"
