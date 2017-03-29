@@ -26,10 +26,6 @@ fi;
 
 echo -e "${goodc}Fetching username.${noc}"
 user=$(id | sed 's/[^(]*(//' | sed 's/).*//')
-if [[ "$user" == "root" ]]; then
-	echo -e "${badc}Please do not run this script as root.${noc}"
-	exit 1
-fi;
 
 echo -e "${goodc}Checking expected library directory.${noc}"
 libdir=${1:-"/home/${user}/comp120-libraries"}
