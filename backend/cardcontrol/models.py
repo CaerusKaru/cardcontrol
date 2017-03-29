@@ -69,7 +69,7 @@ class Request(models.Model):
     new_doors = models.ManyToManyField(Door)
     request_level = models.IntegerField()
     status = models.IntegerField()
-    message = models.CharField(max_length=200)
+    message = models.CharField(max_length=200, null=True, blank=True)
     created_by = models.ForeignKey(ManagerAccount, on_delete=models.CASCADE, related_name='%(class)s_created_by')
     modified_by = models.ForeignKey(ManagerAccount, on_delete=models.CASCADE, related_name='%(class)s_modified_by')
     created_at = models.DateTimeField(auto_now_add=True)

@@ -33,8 +33,8 @@ INSERT INTO cardcontrol_card_doors VALUES(12, 4, 4);
 INSERT INTO cardcontrol_useraccount VALUES(1, 'Matthew', 'Asnes', 'masnes01', now(), now(), 2, 1, 1);
 INSERT INTO cardcontrol_useraccount VALUES(2, 'Harrison', 'Kaiser', 'hkaise01', now(), now(), 1, 1, 1);
 
-INSERT INTO cardcontrol_request VALUES(1, 1, 0, "", now(), now(), 1, 1, 5, 1);
-INSERT INTO cardcontrol_request VALUES(2, 1, 0, "", now(), now(), 1, 1, 5, 2);
+INSERT INTO cardcontrol_request VALUES(1, 1, 0, null, now(), now(), 1, 1, 5, 1);
+INSERT INTO cardcontrol_request VALUES(2, 1, 0, null, now(), now(), 1, 1, 5, 2);
 
 \q
 

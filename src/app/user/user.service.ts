@@ -30,7 +30,7 @@ export class UserService {
       .catch(this.handleError);
   }
 
-  getUserAccount (utln : string): Observable<UserAccount> {
+  getUserAccount (utln : string): Observable<UserAccount[]> {
     return this.http.get(this.djangoUrl + 'api/v1/user_account/?utln=' + utln)
       .map(this.extractData)
       .catch(this.handleError);
