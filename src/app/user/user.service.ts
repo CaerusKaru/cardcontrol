@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Http, Response }          from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import {Building} from "../building";
 import {User} from "../user";
-
+import {UserAccount} from "../user_account";
 
 @Injectable()
 export class UserService {
 
-  private djangoUrl = 'http://localhost:8000/api/v1/';
+  private djangoUrl = 'http://localhost:8000/';
 
   constructor(
     private http: Http
@@ -25,13 +25,19 @@ export class UserService {
   }
 
   getBuildings (): Observable<Building[]> {
-    return this.http.get(this.djangoUrl + 'door/')
+    return this.http.get(this.djangoUrl + 'api/v1/door/')
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  getUser (utln : string): Observable<User[]> {
-    return this.http.get(this.djangoUrl + 'card/?utln=' + utln)
+  getUserAccount (utln : string): Observable<UserAccount> {
+    return this.http.get(this.djangoUrl + 'api/v1/user_account/?utln=' + utln)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  getCard (url : string): Observable<User> {
+    return this.http.get(this.djangoUrl + url)
       .map(this.extractData)
       .catch(this.handleError);
   }
