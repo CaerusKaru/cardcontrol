@@ -70,6 +70,7 @@ class RequestResource(ModelResource):
         authorization = Authorization()
         excludes = ['created_by', 'modified_by', 'created_at', 'modified_at']
         filtering = {
-            'request_level' : ALL
+            'request_level' : ALL,
+            'status' : ALL
         }
 
