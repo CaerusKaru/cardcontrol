@@ -80,3 +80,65 @@
 // curl --dump-header - -H "Content-Type: application/json" -X POST --data '{"created_at": "2017-04-04T00:58:37.569720", "created_by": "/api/v1/user_account/1/", "id": 1, "message": null, "modified_at": "2017-04-04T00:58:37.569720", "modified_by": "/api/v1/user_account/1/", "new_access_points": [], "new_card": "/api/v1/card/5/", "request_level": 1, "resource_uri": "/api/v1/request/1/", "status": 0, "user": "/api/v1/user_account/1/"}' http://localhost:8000/api/v1/request/
 
 
+
+// ACTIONS WHICH CAN BE MADE:
+
+// User views their ID card:
+// GET request for user_account with utln equal to the user's UTLN
+// extract active ID card URI (e.g. /api/v1/card/4) from user_account data
+// GET request for active ID card
+// display card information
+
+// User creates a new card request:
+// POST request to create new card given information user enters
+// POST request to create new request linking new card to user account (access_points field in request should be blank)
+
+// User views access points:
+// GET request for user_account with utln equal to the user's UTLN
+// extract array of access points from user_account data
+// for each access point URI in the array:
+//     GET request for the access point
+//     display the access point information
+
+// User creates a new request for access to an access point:
+// POST request to create a new request linking new access point(s) to user account
+
+// User views their requests:
+// GET request for requests with UTLN equal to user's UTLN
+// for each request URI in resulting array:
+//     GET request for request object
+//     Display the request
+
+// User/Manager updates a request:
+// GET request for request object
+// read fields, display for user, make new request object when they submit
+// PUT request to request object
+
+// User attempts to view manager page:
+// GET request for user_account with utln equal to the user's UTLN
+// If manager_level field is greater than 1, allow access, otherwise error
+
+// Manager views request queue:
+// GET requests with request_level less than / equal to the manager level of the user
+// For each request:
+//     Display request data
+
+// Manager accepts request:
+// GET request for the request
+// GET request for associated user account
+// If request_level == 1:
+//      GET request for associated new_access_points
+//      make new user object with access_points = new_access_points
+//      PUT request to user account, sending new object over
+// If request_level == 2:
+//     GET request for associated new_card
+//     make new user object with card = new_card
+//     PUT request to user account, sending new object over
+// make new request object, with status = 1, message = "Accepted" (or a real message?)
+// PUT request to request object, sending new object over
+
+// Manager rejects request:
+// GET request for the request
+// make new request object, with status = 2 or 3, message = "Rejected" or a real message
+// PUT request to request object, sending new object over
+
