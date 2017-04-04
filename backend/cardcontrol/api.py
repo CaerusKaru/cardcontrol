@@ -109,7 +109,7 @@ class RequestResource(ModelResource):
         filtering = {
             'created_at': ALL,
             'modified_at': ALL,
-            'user_account': ALL_WITH_RELATIONS,
+            'user': ALL_WITH_RELATIONS,
             'request_level': ALL_WITH_RELATIONS,
             'status': ALL_WITH_RELATIONS
         }

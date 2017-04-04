@@ -2,6 +2,9 @@
 //chere they're listed in the order they appear when a GET request is made 
 // from the server. 
 
+// Note: Every object has an 'id' and 'resource_uri' field which can be included
+// or not as needed; they default to null if not used
+
 // CARD SCHEMA
 // A card is the basic unit of the id card system. There can be multiple 
 // cards under one UTLN. The 'active' ID card is determined by the single card
@@ -46,14 +49,27 @@
 // useful for adding new ones.
 
 
+// RESOURCE SCHEMA
+// An access point simply includes some location information for a given access_point on
+// campus, web application, etc., and some audit metadata.
+{
+  "resource_name": "Metcalf Hall",
+  "zipcode": "02155",
+  "country":"United States",
+  "state":"MA",
+  "city":"Medford",
+  "street":"56 Professors Row",
+  "created_by": "/api/v1/user_account/1/",
+  "modified_by": "/api/v1/user_account/1/",
+}
+
 // ACCESS POINT SCHEMA
 // An access point simply includes some location information for a given access_point on
 // campus, web application, etc., and some audit metadata.
 {
-  "address": "56 Professors Row, Medford, MA, 02155",
-  "resource_name": "Metcalf Hall",
-  "created_by": "/api/v1/user_account/1/",
   "access_point_name": "Metcalf East",
+  "resource": "/api/v1/resource/1/",
+  "created_by": "/api/v1/user_account/1/",
   "modified_by": "/api/v1/user_account/1/",
 }
 // curl --dump-header - -H "Content-Type: application/json" -X POST --data '{"address": "25 Latin Way, Medford, MA 02155", "resource_name": "Dewick MacPhie Dining Center", "access_point_name": "Main Entrance", "created_by": "/api/v1/user_account/1/", "modified_by":"/api/v1/user_account/1/"}' http://localhost:8000/api/v1/access_point/

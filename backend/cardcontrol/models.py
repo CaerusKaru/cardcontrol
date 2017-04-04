@@ -71,11 +71,12 @@ class AccessPoint(models.Model):
 
 class Request(models.Model):
     user = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
-    new_card = models.ForeignKey(Card, on_delete=models.CASCADE)
+    new_card = models.ForeignKey(Card, on_delete=models.CASCADE, null=True, blank=True)
     new_access_points = models.ManyToManyField(AccessPoint)
     request_level = models.IntegerField()
     status = models.IntegerField()
-    message = models.CharField(max_length=200, null=True, blank=True)
+    reason = models.CharField(max_length=200, null=True, blank=True)
+    feedback = models.CharField(max_length=200, null=True, blank=True)
     created_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_created_by')
     modified_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_modified_by')
     created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
