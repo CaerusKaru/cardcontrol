@@ -9,11 +9,13 @@ import {ManagerCreateIdComponent} from "./manager-create-id/manager-create-id.co
 import {ManagerCreateBuildingComponent} from "./manager-create-building/manager-create-building.component";
 import {ManagerAccountComponent} from "./manager-account/manager-account.component";
 import {ManagerRequestsComponent} from "./manager-requests/manager-requests.component";
+import {ManagerGuard} from "../shared/manager.guard";
 
 const managerRoutes: Routes = [
   {
     path: 'manage',
     component: ManagerMainComponent,
+    canActivate: [ManagerGuard],
     children: [
       {
         path: '',
@@ -53,6 +55,9 @@ const managerRoutes: Routes = [
   ],
   exports: [
     RouterModule
+  ],
+  providers: [
+    ManagerGuard
   ]
 })
 export class ManagerRoutingModule {}
