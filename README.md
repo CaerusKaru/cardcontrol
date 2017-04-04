@@ -68,17 +68,17 @@ Documentation for the various frameworks, packages, and components discussed abo
 | Django            | six                                | https://pythonhosted.org/six/
 | Django            | python-mimeparse                   | https://pypi.python.org/pypi/python-mimeparse
 | Django            | python-dateutil                    | https://dateutil.readthedocs.io/en/stable/
-| Django            | psycopg2                           | http://initd.org/psycopg/docs/
+| Django            | psycopg2                           | https://initd.org/psycopg/docs/
 | Django            | django-cors-headers                | https://pypi.python.org/pypi/django-cors-headers/2.0.1
 | Django            | django-tastypie                    | https://django-tastypie.readthedocs.io/en/latest/
-| Django            | lxml                               | http://lxml.de/3.7/lxmldoc-3.7.2.pdf
+| Django            | lxml                               | https://lxml.de/3.7/lxmldoc-3.7.2.pdf
 | Django            | defusedxml                         | https://pypi.python.org/pypi/defusedxml/
 | Angular           | @angular/cli                       | https://github.com/angular/angular-cli/wiki
 | Angular           | @angular/core                      | https://angular.io/docs/ts/latest/
 | Angular           | @angular/flex-layout               | https://github.com/angular/flex-layout/wiki/API-Documentation
-| Angular           | @angular/forms                     | https://docs.angularjs.org/guide/forms
-| Angular           | @angular/http                      | https://docs.angularjs.org/api/ng/service/$http
-| Angular           | @angular/material                  | https://material.angularjs.org/latest/#api-reference
+| Angular           | @angular/forms                     | https://angular.io/docs/ts/latest/api/#!?query=forms
+| Angular           | @angular/http                      | https://angular.io/docs/ts/latest/api/#!?query=http
+| Angular           | @angular/material                  | https://material.angular.io/components
 | Angular           | @angular/router                    | https://angular.io/docs/ts/latest/guide/router.html
 
 ## Installation
@@ -91,32 +91,32 @@ Simply run the script `./start.sh` to initialize the database, frontend, and bac
 
 To initialize the various components separately:
 
-####Package versioning:
+#### Package versioning:
 Run `./utils/env-check.sh` to check the versions of various packages are up to date.
 
-####Stopping running instances:
+#### Stopping running instances:
 Run `./stop.sh` to halt any running Angular, Django, PostgreSQL, NGINX, and uWSGI processes.
 
-####Starting database:
+#### Starting database:
 Run `./utils/start_db.sh` to initialize PostgreSQL.
 
-####Make Django Migrations:
+#### Make Django Migrations:
 Run `./backend/migrate.sh` to make the Django migrations which create the relevant tables in the database for our project.
 
-####Populate Database with Test Data:
+#### Populate Database with Test Data:
 Run `psql -d postgres -U postgres < ./utils/recreate_database.sql` to fill the database with some test values.
 
-####Reload Django Counters with Test Data:
+#### Reload Django Counters with Test Data:
 Django expects that all primary keys are created by it, but we've added some to the database manually. To have Django reset its sequence counters by finding the maximum ID in the primary key column for each table and incrementing from there, run the following:
 ```
 sql_c=$(python3.6 ./backend/manage.py sqlsequencereset cardcontrol)
 echo "${sql_c}" | psql -d cardcontrol -U postgres
 ```
 
-####Start Django Backend Server
+#### Start Django Backend Server
 Run `python3.6 $d/backend/manage.py runserver` to initialize Django.
 
-####Start Angular
+#### Start Angular
 `ng serve`
 
 ## Code scaffolding
