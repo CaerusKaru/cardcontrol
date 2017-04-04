@@ -51,6 +51,7 @@ class AccessPointResource(ModelResource):
         raise NotFound
 
     class Meta:
+        always_return_data = True 
         queryset = AccessPoint.objects.all()
         list_allowed_methods = ['get', 'put', 'post']
         resource_name = 'access_point'
@@ -76,6 +77,7 @@ class RequestResource(ModelResource):
         raise NotFound
 
     class Meta:
+        always_return_data = True 
         queryset = Request.objects.all()
         list_allowed_methods = ['get', 'put', 'post']
         detail_allowed_methods = ['get', 'put', 'post']

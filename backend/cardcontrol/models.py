@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 class Card(models.Model):
     first_name = models.CharField(max_length=40)
@@ -11,8 +12,8 @@ class Card(models.Model):
     school = models.CharField(max_length=30)
     class_year = models.IntegerField()
     barcode = models.IntegerField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    modified_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
+    modified_at = models.DateTimeField(default=datetime.datetime.now)
     class Meta:
         app_label = 'cardcontrol'
 
@@ -26,7 +27,7 @@ class UserAccount(models.Model):
     card = models.ForeignKey(Card, on_delete=models.CASCADE)
     access_points = models.ManyToManyField('AccessPoint')
     created_at = models.DateTimeField(auto_now_add=True)
-    modified_at = models.DateTimeField(auto_now=True)
+    modified_at = models.DateTimeField(default=datetime.datetime.now)
     manager_level = models.IntegerField(default=0)
     class Meta:
         app_label = 'cardcontrol'
@@ -40,8 +41,8 @@ class AccessPoint(models.Model):
     access_point_name = models.CharField(max_length=120)
     created_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_created_by')
     modified_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_modified_by')
-    created_at = models.DateTimeField(auto_now_add=True)
-    modified_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
+    modified_at = models.DateTimeField(default=datetime.datetime.now)
     class Meta:
         app_label = 'cardcontrol'
         unique_together = ('address', 'resource_name', 'access_point_name')
@@ -58,8 +59,8 @@ class Request(models.Model):
     message = models.CharField(max_length=200, null=True, blank=True)
     created_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_created_by')
     modified_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_modified_by')
-    created_at = models.DateTimeField(auto_now_add=True)
-    modified_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
+    modified_at = models.DateTimeField(default=datetime.datetime.now)
     class Meta:
         app_label = 'cardcontrol'
 
