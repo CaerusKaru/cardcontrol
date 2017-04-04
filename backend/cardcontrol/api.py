@@ -1,9 +1,11 @@
-from cardcontrol.models import UserAccount, Card, AccessPoint, Request
-from tastypie.resources import ModelResource
+from cardcontrol.models import UserAccount, Card, AccessPoint, Request, Resource
+from tastypie.resources import ModelResource, NamespacedModelResource
 from tastypie.authorization import Authorization
 from tastypie.resources import ALL, ALL_WITH_RELATIONS
 from tastypie.exceptions import NotFound
 from tastypie import fields
+from tastypie.fields import ToManyField
+from tastypie.exceptions import BadRequest
 
 
 class CardResource(ModelResource):
@@ -41,6 +43,26 @@ class UserAccountResource(ModelResource):
             'manager_level': ALL
         }
 
+class ResourceResource(ModelResource):
+    created_by = fields.ToOneField(UserAccountResource, 'created_by')
+    modified_by = fields.ToOneField(UserAccountResource, 'modified_by')
+
+    class Meta:
+        always_return_data = True
+        queryset = Resource.objects.all()
+        list_allowed_methods = ['get', 'put', 'post']
+        resource_name = 'resource'
+        detail_allowed_methods = ['get', 'put', 'post']
+        authorization = Authorization()
+        excludes = ['created_by', 'modified_by', 'created_at', 'modified_at']
+        filtering = {
+            'city': ALL,
+            'zipcode': ALL,
+            'street': ALL,
+            'state': ALL,
+            'country': ALL,
+            'resource_name': ALL
+        }
 
 class AccessPointResource(ModelResource):
 
@@ -59,8 +81,7 @@ class AccessPointResource(ModelResource):
         authorization = Authorization()
         excludes = ['created_by', 'modified_by', 'created_at', 'modified_at']
         filtering = {
-            'address': ALL,
-            'resource_name': ALL,
+            'resource': ALL_WITH_RELATIONS,
             'access_point_name': ALL
         }
 
@@ -85,6 +106,8 @@ class RequestResource(ModelResource):
         authorization = Authorization()
         excludes = ['created_by', 'modified_by']
         filtering = {
+            'created_at': ALL,
+            'modified_at': ALL,
             'user_account': ALL_WITH_RELATIONS,
             'request_level': ALL_WITH_RELATIONS,
             'status': ALL_WITH_RELATIONS

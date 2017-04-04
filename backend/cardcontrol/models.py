@@ -35,9 +35,27 @@ class UserAccount(models.Model):
     def __str__(self):
         return self.utln
 
-class AccessPoint(models.Model):
-    address = models.CharField(max_length=120)
+class Resource(models.Model):
+    zipcode = models.CharField(max_length=10)
+    street = models.CharField(max_length=120)
+    city = models.CharField(max_length=120)
+    state = models.CharField(max_length=120)
+    country = models.CharField(max_length=120)
     resource_name = models.CharField(max_length=120)
+    created_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_created_by')
+    modified_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_modified_by')
+    created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
+    modified_at = models.DateTimeField(default=datetime.datetime.now)
+    class Meta:
+        app_label = 'cardcontrol'
+        unique_together = ('zipcode', 'street', 'city', 'resource_name')
+
+    def __str__(self):
+        return self.building_name
+
+
+class AccessPoint(models.Model):
+    resource = models.ForeignKey(Resource, on_delete=models.CASCADE)
     access_point_name = models.CharField(max_length=120)
     created_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_created_by')
     modified_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_modified_by')
@@ -45,7 +63,7 @@ class AccessPoint(models.Model):
     modified_at = models.DateTimeField(default=datetime.datetime.now)
     class Meta:
         app_label = 'cardcontrol'
-        unique_together = ('address', 'resource_name', 'access_point_name')
+        unique_together = ('resource', 'access_point_name')
 
     def __str__(self):
         return self.access_point_name + " @ " + self.building_name
@@ -63,6 +81,13 @@ class Request(models.Model):
     modified_at = models.DateTimeField(default=datetime.datetime.now)
     class Meta:
         app_label = 'cardcontrol'
+    
+    def apply_filters(self, request, applicable_filters):
+        distinct = request.GET.get('distinct', False) == 'True'
+        if distinct:
+            return self.get_object_list(request).filter(**applicable_filters).distinct()
+        else:
+            return self.get_object_list(request).filter(**applicable_filters)
 
     def __str__(self):
         return self.user

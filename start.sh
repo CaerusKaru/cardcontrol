@@ -31,15 +31,19 @@ expect <<- DONE
     expect -re ".*Quit the server with CONTROL-C.*"
 DONE
 
+set +u
+echo "$1"
+if [[ -z $1 ]] || [[ $1 =~ ^[^aA].* ]]; then
 echo -e "${goodc}Checking frontend packages up to date.${noc}"
 npm install
-
 echo -e "${goodc}Starting frontent process.${noc}"
+
 expect <<- DONE
     set timeout 120
     spawn -ignore HUP bash -ilc "ng serve &"
     expect -re ".*webpack: Compiled successfully.*"
 DONE
+fi
 
 echo ""
 echo -e "${goodc}Database, frontend, and backend started successfully.${noc}"
