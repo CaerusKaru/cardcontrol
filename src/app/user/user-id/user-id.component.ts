@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {MdDialog} from '@angular/material';
 import {UserService} from "../shared/user.service";
 import {User} from "../../shared/user";
-import {Observable} from "rxjs";
 import {RequestService} from "../../request/request.service";
 
 @Component({
@@ -20,6 +19,16 @@ export class UserIdComponent implements OnInit {
 
   ngOnInit() {
     this.getUser();
+    this.requestService.getResources().subscribe(
+      data => {
+        console.log(data);
+        this.requestService.getAccessPoints(data[0]).subscribe(
+          data => {
+            console.log(data);
+          }
+        )
+      }
+    )
   }
 
   public user : User;

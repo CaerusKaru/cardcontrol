@@ -3,7 +3,6 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import {Building} from "../../shared/building";
 import {User} from "../../shared/user";
 import {UserAccount} from "../../shared/user_account";
 import {Constants} from "../../shared/constants";
@@ -29,12 +28,6 @@ export class UserService {
 
   isAdmin() : boolean {
     return true;
-  }
-
-  getBuildings (): Observable<Building[]> {
-    return this.http.get(Constants.API_PORT + '/api/v1/door/')
-      .map(this.extractData)
-      .catch(this.handleError);
   }
 
   private getUserAccount (): Observable<UserAccount[]> {
