@@ -10,12 +10,6 @@
   "barcode": 0,
   "birth_date": "1996-10-02",
   "class_year": 2019,
-  "doors": [
-    "/api/v1/door/1/",
-    "/api/v1/door/2/",
-    "/api/v1/door/3/",
-    "/api/v1/door/5/"
-  ],
   "first_name": "Harrison",
   "jumbocash_id": 111222333,
   "last_name": "Kaiser",
@@ -25,7 +19,7 @@
   "utln": "hkaise01"
 }
 
-// curl --dump-header - -H "Content-Type: application/json" -X POST --data '{"barcode": 0, "birth_date": "1996-04-01", "class_year": 2018, "doors":[], "first_name": "Marina", "jumbocash_id": 111222333, "last_name": "Rakhilin", "middle_initial": "S", "school": "Liberal Arts", "student_type": "Undergraduate", "utln": "mrakhi01"}' http://localhost:8000/api/v1/card/
+// curl --dump-header - -H "Content-Type: application/json" -X POST --data '{"barcode": 0, "birth_date": "1996-04-01", "class_year": 2018, "first_name": "Marina", "jumbocash_id": 111222333, "last_name": "Rakhilin", "middle_initial": "S", "school": "Liberal Arts", "student_type": "Undergraduate", "utln": "mrakhi01"}' http://localhost:8000/api/v1/card/
 
 
 // USER_ACCOUNT SCHEMA
@@ -38,6 +32,12 @@
   "card": "/api/v1/card/2/", // Reference to the active card of the user
   "first_name": "Matthew",
   "last_name": "Asnes",
+    "access_points": [
+    "/api/v1/access_point/1/",
+    "/api/v1/access_point/2/",
+    "/api/v1/access_point/3/",
+    "/api/v1/access_point/5/"
+  ],
   "manager_level": 2, // 0 for unprivileged users, 1 for a Resource Manager, 2 for a System Manager.
   "utln": "masnes01" // Unique field — only one user account can have a given UTLN.
 }
@@ -46,17 +46,17 @@
 // useful for adding new ones.
 
 
-// DOOR SCHEMA
-// A door simply includes some location information for a given door on
-// campus, and some audit metadata.
+// ACCESS POINT SCHEMA
+// An access point simply includes some location information for a given access_point on
+// campus, web application, etc., and some audit metadata.
 {
   "address": "56 Professors Row, Medford, MA, 02155",
   "building_name": "Metcalf Hall",
   "created_by": "/api/v1/user_account/1/",
-  "door_name": "Metcalf East",
+  "access_point_name": "Metcalf East",
   "modified_by": "/api/v1/user_account/1/",
 }
-// curl --dump-header - -H "Content-Type: application/json" -X POST --data '{"address": "25 Latin Way, Medford, MA 02155", "building_name": "Dewick MacPhie Dining Center", "door_name": "Main Entrance", "created_by": "/api/v1/user_account/1/", "modified_by":"/api/v1/user_account/1/"}' http://localhost:8000/api/v1/door/
+// curl --dump-header - -H "Content-Type: application/json" -X POST --data '{"address": "25 Latin Way, Medford, MA 02155", "building_name": "Dewick MacPhie Dining Center", "access_point_name": "Main Entrance", "created_by": "/api/v1/user_account/1/", "modified_by":"/api/v1/user_account/1/"}' http://localhost:8000/api/v1/access_point/
 
 
 // REQUEST SCHEMA
@@ -72,11 +72,11 @@
   "modified_at": "2017-04-04T00:30:15.351110",
   "modified_by": "/api/v1/user_account/1/",
   "new_card": "/api/v1/card/5/",
-  "new_doors": [], // New doors to be added to the user account.
-  "request_level": 1, // 0 for a request which only asks for new doors, 1 for a request which modifies other values in the card. 
+  "new_access_points": [], // New access_points to be added to the user account.
+  "request_level": 1, // 0 for a request which only asks for new access_points, 1 for a request which modifies other values in the card. 
   "status": 0, // 0 for OPEN, 1 for ACCEPTED, 2 for REJECTED
   "user": "/api/v1/user_account/1/"
 }
-// curl --dump-header - -H "Content-Type: application/json" -X POST --data '{"created_by": "/api/v1/user_account/1/", "message": null, "modified_by": "/api/v1/user_account/1/", "new_card": "/api/v1/card/5/", "new_doors": [], request_level": 1, "status": 0, "user": "/api/v1/user_account/1/"}' http://localhost:8000/api/v1/request/
+// curl --dump-header - -H "Content-Type: application/json" -X POST --data '{"created_at": "2017-04-04T00:58:37.569720", "created_by": "/api/v1/user_account/1/", "id": 1, "message": null, "modified_at": "2017-04-04T00:58:37.569720", "modified_by": "/api/v1/user_account/1/", "new_access_points": [], "new_card": "/api/v1/card/5/", "request_level": 1, "resource_uri": "/api/v1/request/1/", "status": 0, "user": "/api/v1/user_account/1/"}' http://localhost:8000/api/v1/request/
 
 

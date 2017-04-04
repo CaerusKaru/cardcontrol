@@ -11,7 +11,6 @@ class Card(models.Model):
     school = models.CharField(max_length=30)
     class_year = models.IntegerField()
     barcode = models.IntegerField()
-    doors = models.ManyToManyField('Door')
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     class Meta:
@@ -25,6 +24,7 @@ class UserAccount(models.Model):
     last_name = models.CharField(max_length=40)
     utln = models.CharField(max_length=10, unique=True)
     card = models.ForeignKey(Card, on_delete=models.CASCADE)
+    access_points = models.ManyToManyField('AccessPoint')
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     manager_level = models.IntegerField(default=0)
@@ -34,25 +34,25 @@ class UserAccount(models.Model):
     def __str__(self):
         return self.utln
 
-class Door(models.Model):
+class AccessPoint(models.Model):
     address = models.CharField(max_length=120)
     building_name = models.CharField(max_length=120)
-    door_name = models.CharField(max_length=120)
+    access_point_name = models.CharField(max_length=120)
     created_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_created_by')
     modified_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_modified_by')
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     class Meta:
         app_label = 'cardcontrol'
-        unique_together = ('address', 'building_name', 'door_name')
+        unique_together = ('address', 'building_name', 'access_point_name')
 
     def __str__(self):
-        return self.door_name + " @ " + self.building_name
+        return self.access_point_name + " @ " + self.building_name
 
 class Request(models.Model):
     user = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
     new_card = models.ForeignKey(Card, on_delete=models.CASCADE)
-    new_doors = models.ManyToManyField(Door)
+    new_access_points = models.ManyToManyField(AccessPoint)
     request_level = models.IntegerField()
     status = models.IntegerField()
     message = models.CharField(max_length=200, null=True, blank=True)
