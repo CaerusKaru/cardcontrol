@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MdDialog} from '@angular/material';
 import {UserService} from "../user.service";
 import {User} from "../../user";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-user-id',
@@ -15,28 +16,28 @@ export class UserIdComponent implements OnInit {
     private userService : UserService
   ) { }
 
-  user = new User();
-  errorMessage : string;
-
   ngOnInit() {
     this.getUser();
   }
 
-  getUser () {
-    this.userService.getUser(this.utln)
-                    .subscribe(
-                      users => this.user = users[0],
-                      error =>  this.errorMessage = <any>error);
-  }
+  public user : User;
+  public utln : string;
 
-  utln = this.userService.getUtln();
-
-  requestChange() {
+  public requestChange() {
     this.dialog.open(UserIdRequestDialog);
   }
 
-  report() {
+  public report() {
     alert("Report lost/stolen");
+  }
+
+  private errorMessage : string;
+
+  private getUser () {
+    this.utln = this.userService.getUtln();
+    this.userService.userCard.subscribe(
+      data => this.user = data
+    );
   }
 
 }

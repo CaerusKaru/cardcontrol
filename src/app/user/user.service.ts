@@ -7,16 +7,23 @@ import {Building} from "../building";
 import {User} from "../user";
 import {UserAccount} from "../user_account";
 import {Constants} from "../constants";
+import {BehaviorSubject} from "rxjs";
 
 @Injectable()
 export class UserService {
+  public userAccount : Observable<UserAccount>;
+  public userCard : Observable<User>;
   private djangoUrl = Constants.API_ENDPOINT;
 
   constructor(
     private http: Http
-  ) { }
+  ) {
+    this.userCard = this._userCard.asObservable();
+    this.userAccount = this._userAccount.asObservable();
+    this.initData();
+  }
 
-  getUtln() : string {
+  public getUtln() : string {
     return 'masnes01';
   }
 
@@ -25,26 +32,46 @@ export class UserService {
   }
 
   getBuildings (): Observable<Building[]> {
-    return this.http.get(this.djangoUrl + 'api/v1/door/')
+    return this.http.get(Constants.API_PORT + '/api/v1/door/')
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  getUserAccount (utln : string): Observable<UserAccount[]> {
-    return this.http.get(this.djangoUrl + 'api/v1/user_account/?utln=' + utln)
+  private getUserAccount (): Observable<UserAccount[]> {
+    return this.http.get(Constants.API_PORT + '/api/v1/user_account/?utln=' + this.getUtln())
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  getCard (url : string): Observable<User> {
-    return this.http.get(this.djangoUrl + url)
+  private getCard (url : string): Observable<User> {
+    console.log(Constants.API_PORT + url);
+    return this.http.get(Constants.API_PORT + url)
       .map(this.extractData)
       .catch(this.handleError);
+  }
+
+  private _userCard : BehaviorSubject<User> = new BehaviorSubject(null);
+  private _userAccount : BehaviorSubject<UserAccount> = new BehaviorSubject(null);
+
+  private initData () {
+    this.getUserAccount().subscribe(
+      data => {
+        this._userAccount.next(data[0]);
+        this.getCard(data[0].card).subscribe(
+          data => {
+            this._userCard.next(data);
+          },
+          error => {
+          });
+      },
+      error => {
+      }
+    );
   }
 
   private extractData(res: Response) {
     let body = res.json();
-    return body.objects || { };
+    return body.objects || body || { };
   }
 
   private handleError (error: Response | any) {
