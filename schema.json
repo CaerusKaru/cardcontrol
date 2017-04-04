@@ -1,0 +1,82 @@
+// Note: As this is JSON, the order of fields doesn't matter in requests; 
+//chere they're listed in the order they appear when a GET request is made 
+// from the server. 
+
+// CARD SCHEMA
+// A card is the basic unit of the id card system. There can be multiple 
+// cards under one UTLN. The 'active' ID card is determined by the single card
+// that is linked to the user account of the UTLN.
+{
+  "barcode": 0,
+  "birth_date": "1996-10-02",
+  "class_year": 2019,
+  "first_name": "Harrison",
+  "jumbocash_id": 111222333,
+  "last_name": "Kaiser",
+  "middle_initial": "M",
+  "school": "Liberal Arts",
+  "student_type": "Undergraduate",
+  "utln": "hkaise01"
+}
+
+// curl --dump-header - -H "Content-Type: application/json" -X POST --data '{"barcode": 0, "birth_date": "1996-04-01", "class_year": 2018, "first_name": "Marina", "jumbocash_id": 111222333, "last_name": "Rakhilin", "middle_initial": "S", "school": "Liberal Arts", "student_type": "Undergraduate", "utln": "mrakhi01"}' http://localhost:8000/api/v1/card/
+
+
+// USER_ACCOUNT SCHEMA
+// A user account is the thing with which we will hopefully authenticate, 
+// and which determines what the user sees. This should be the first request
+// made when displaying information on the main page. It links to the card
+// which the user has. If the user is a manager, they will have a nonzero
+// manager_level, and will have access to the manager page.
+{
+  "card": "/api/v1/card/2/", // Reference to the active card of the user
+  "first_name": "Matthew",
+  "last_name": "Asnes",
+    "access_points": [
+    "/api/v1/access_point/1/",
+    "/api/v1/access_point/2/",
+    "/api/v1/access_point/3/",
+    "/api/v1/access_point/5/"
+  ],
+  "manager_level": 2, // 0 for unprivileged users, 1 for a Resource Manager, 2 for a System Manager.
+  "utln": "masnes01" // Unique field — only one user account can have a given UTLN.
+}
+// Only the GET method is allowed for user accounts, so for now only the
+// pre-made test user accounts are in the database and `curl` will not be
+// useful for adding new ones.
+
+
+// ACCESS POINT SCHEMA
+// An access point simply includes some location information for a given access_point on
+// campus, web application, etc., and some audit metadata.
+{
+  "address": "56 Professors Row, Medford, MA, 02155",
+  "resource_name": "Metcalf Hall",
+  "created_by": "/api/v1/user_account/1/",
+  "access_point_name": "Metcalf East",
+  "modified_by": "/api/v1/user_account/1/",
+}
+// curl --dump-header - -H "Content-Type: application/json" -X POST --data '{"address": "25 Latin Way, Medford, MA 02155", "resource_name": "Dewick MacPhie Dining Center", "access_point_name": "Main Entrance", "created_by": "/api/v1/user_account/1/", "modified_by":"/api/v1/user_account/1/"}' http://localhost:8000/api/v1/access_point/
+
+
+// REQUEST SCHEMA
+// A request links a user account and a new card. When a request is made,
+// some card in the system is linked to a user account. A given user account
+// can have multiple requests filed, which should be handled in order of their
+// modified_at date. Note that the created_at and modified_at fields will be
+// created automatically on a POST or PUT request and should not be included.
+{
+  "created_at": "2017-04-04T00:30:15.351110", // Created automatically, do not fill out
+  "created_by": "/api/v1/user_account/1/",
+  "message": null, // Either a string, or null
+  "modified_at": "2017-04-04T00:30:15.351110",
+  "modified_by": "/api/v1/user_account/1/",
+  "new_card": "/api/v1/card/5/",
+  "new_access_points": [], // New access_points to be added to the user account.
+  "request_level": 1, // 0 for a request which only asks for new access_points, 1 for a request which modifies other values in the card. 
+  "status": 0, // 0 for OPEN, 1 for ACCEPTED, 2 for REJECTED
+  "user": "/api/v1/user_account/1/"
+}
+// curl --dump-header - -H "Content-Type: application/json" -X POST --data '{"created_at": "2017-04-04T00:58:37.569720", "created_by": "/api/v1/user_account/1/", "id": 1, "message": null, "modified_at": "2017-04-04T00:58:37.569720", "modified_by": "/api/v1/user_account/1/", "new_access_points": [], "new_card": "/api/v1/card/5/", "request_level": 1, "resource_uri": "/api/v1/request/1/", "status": 0, "user": "/api/v1/user_account/1/"}' http://localhost:8000/api/v1/request/
+
+
