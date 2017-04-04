@@ -16,10 +16,9 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from tastypie.api import Api
-from cardcontrol.api import ManagerAccountResource, UserAccountResource, CardResource, DoorResource, RequestResource
+from cardcontrol.api import UserAccountResource, CardResource, DoorResource, RequestResource
 
 v1_api = Api(api_name='v1')
-v1_api.register(ManagerAccountResource())
 v1_api.register(UserAccountResource())
 v1_api.register(CardResource())
 v1_api.register(DoorResource())
