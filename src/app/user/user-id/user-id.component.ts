@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {MdDialog} from '@angular/material';
-import {UserService} from "../user.service";
-import {User} from "../../user";
+import {UserService} from "../shared/user.service";
+import {User} from "../../shared/user";
 import {Observable} from "rxjs";
+import {RequestService} from "../../request/request.service";
 
 @Component({
   selector: 'app-user-id',
@@ -13,6 +14,7 @@ export class UserIdComponent implements OnInit {
 
   constructor(
     public dialog : MdDialog,
+    private requestService : RequestService,
     private userService : UserService
   ) { }
 
@@ -24,11 +26,12 @@ export class UserIdComponent implements OnInit {
   public utln : string;
 
   public requestChange() {
+    this.requestService.makeUpdateCard(this.user);
     this.dialog.open(UserIdRequestDialog);
   }
 
   public report() {
-    alert("Report lost/stolen");
+
   }
 
   private errorMessage : string;

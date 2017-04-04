@@ -10,7 +10,6 @@ import { UserRequestComponent } from './user-request/user-request.component';
 import { UserHomeComponent } from './user-home/user-home.component';
 import {AgmCoreModule} from "angular2-google-maps/core";
 import { UserAccountComponent } from './user-account/user-account.component';
-import {UserService} from "./user.service";
 
 @NgModule({
   imports: [
@@ -36,7 +35,6 @@ import {UserService} from "./user.service";
     UserIdRequestDialog
   ],
   providers: [
-    UserService
   ]
 })
 export class UserModule { }

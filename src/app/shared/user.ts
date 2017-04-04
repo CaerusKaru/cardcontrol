@@ -7,7 +7,7 @@ export class User {
   jumbocash_id : number;
   last_name : string;
   middle_initial : string;
-  resource_url : string;
+  resource_uri : string;
   school : string;
   student_type : string;
   utln : string;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute} from "@angular/router";
-import {UserService} from "../user.service";
+import {UserService} from "../shared/user.service";
 
 @Component({
   selector: 'app-user-home',
