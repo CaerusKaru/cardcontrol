@@ -32,7 +32,7 @@
   "card": "/api/v1/card/2/", // Reference to the active card of the user
   "first_name": "Matthew",
   "last_name": "Asnes",
-    "access_points": [
+  "access_points": [
     "/api/v1/access_point/1/",
     "/api/v1/access_point/2/",
     "/api/v1/access_point/3/",

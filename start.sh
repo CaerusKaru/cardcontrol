@@ -44,3 +44,5 @@ DONE
 echo ""
 echo -e "${goodc}Database, frontend, and backend started successfully.${noc}"
 echo ""
+
+
