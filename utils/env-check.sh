@@ -30,7 +30,7 @@ echo -e "$npmv${noc}"
 
 echo -n "ANGULAR CLI:    "
 ngv=$(ng -v | grep angular | head -1 | sed 's/@angular\/cli: //')
-if [[ "$ngv" == "1.0.0-rc.4" ]]; then
+if [[ "$ngv" == "1.0.0" ]]; then
 	echo -ne "$goodc"
 else
 	echo -ne "$badc"
@@ -98,8 +98,32 @@ else
 fi;
 echo -e "$djv${noc}"
 
-cd - 1>/dev/null
+echo -n "NGINX:          "
+nxv=$(nginx -v 2>&1 | sed 's/nginx version: nginx\///')
+if [[ "$nxv" == "1.10.2" ]]; then
+	echo -ne "$goodc"
+else
+	echo -ne "$badc"
+	es=1
+fi;
+echo -e "$nxv${noc}";
+
+echo -n "UWSGI:          "
+uwv=$(uwsgi --version)
+if [[ "$uwv" == "2.0.14" ]]; then
+	echo -ne "$goodc"
+else
+	echo -ne "$badc"
+	es=1
+fi;
+echo -e "$uwv${noc}";
 
 if [[ $es -eq 1 ]]; then
 	exit $es
 fi;
+
+cd - 2>/dev/null 1>/dev/null
+
+
+
+
