@@ -45,7 +45,7 @@ expect <<- DONE
 DONE
 fi
 
-echo ""
+echo "" 
 echo -e "${goodc}Database, frontend, and backend started successfully.${noc}"
 echo ""
 
