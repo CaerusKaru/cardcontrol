@@ -51,12 +51,12 @@
 // campus, web application, etc., and some audit metadata.
 {
   "address": "56 Professors Row, Medford, MA, 02155",
-  "building_name": "Metcalf Hall",
+  "resource_name": "Metcalf Hall",
   "created_by": "/api/v1/user_account/1/",
   "access_point_name": "Metcalf East",
   "modified_by": "/api/v1/user_account/1/",
 }
-// curl --dump-header - -H "Content-Type: application/json" -X POST --data '{"address": "25 Latin Way, Medford, MA 02155", "building_name": "Dewick MacPhie Dining Center", "access_point_name": "Main Entrance", "created_by": "/api/v1/user_account/1/", "modified_by":"/api/v1/user_account/1/"}' http://localhost:8000/api/v1/access_point/
+// curl --dump-header - -H "Content-Type: application/json" -X POST --data '{"address": "25 Latin Way, Medford, MA 02155", "resource_name": "Dewick MacPhie Dining Center", "access_point_name": "Main Entrance", "created_by": "/api/v1/user_account/1/", "modified_by":"/api/v1/user_account/1/"}' http://localhost:8000/api/v1/access_point/
 
 
 // REQUEST SCHEMA

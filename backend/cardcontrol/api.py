@@ -40,7 +40,7 @@ class AccessPointResource(ModelResource):
         excludes = ['created_by', 'modified_by', 'created_at', 'modified_at']
         filtering = {
             'address': ALL,
-            'building_name' : ALL,
+            'resource_name' : ALL,
             'access_point_name' : ALL
         }
 
