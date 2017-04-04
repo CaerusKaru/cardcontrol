@@ -68,6 +68,7 @@ class AccessPointResource(ModelResource):
 
     created_by = fields.ToOneField(UserAccountResource, 'created_by')
     modified_by = fields.ToOneField(UserAccountResource, 'modified_by')
+    resource = fields.ToOneField(ResourceResource, 'resource')
 
     def get_schema(self, request, **kwargs):
         raise NotFound

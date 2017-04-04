@@ -26,6 +26,7 @@ class UserAccount(models.Model):
     utln = models.CharField(max_length=10, unique=True)
     card = models.ForeignKey(Card, on_delete=models.CASCADE)
     access_points = models.ManyToManyField('AccessPoint')
+    resources_managed = models.ManyToManyField('Resource')
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(default=datetime.datetime.now)
     manager_level = models.IntegerField(default=0)
