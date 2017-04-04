@@ -50,7 +50,7 @@ echo -e "$anv${noc}"
 
 echo -n "ANGULAR CORE:   "
 acv=$(ng -v | grep "core" | head -1 | sed 's/@angular\/core: //')
-if [[ "$acv" == "2.4.10" ]]; then
+if [[ "$acv" == "4.0.1" ]]; then
 	echo -ne "$goodc"
 else
 	echo -ne "$badc"
@@ -110,7 +110,7 @@ echo -e "$nxv${noc}";
 
 echo -n "UWSGI:          "
 uwv=$(uwsgi --version)
-if [[ "$uwv" == "2.0.14" ]]; then
+if [[ "$uwv" == "2.0.15" ]]; then
 	echo -ne "$goodc"
 else
 	echo -ne "$badc"

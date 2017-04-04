@@ -69,6 +69,16 @@ if [[ $es -eq 1 ]]; then
 	sudo ${pmg} install openssl 1>/dev/null
 	sudo ${pmg} install libssl-dev 2>/dev/null
 	sudo ${pmg} install libssl-devel 2>/dev/null
+
+	echo -e "${goodc}Attempting to install NGINX${noc}"
+	sudo ${pmg} install nginx
+
+	echo -e "${goodc}Attempting to install uWSGI${noc}"
+	sudo ${pmg} install python
+	sudo ${pmg} install python-devel 2>/dev/null
+	sudo ${pmg} install python-dev 2>/dev/null
+	pip install uwsgi
+
 fi;
 
 echo -e "${goodc}Checking that /usr/local/bin is in the front of PATH.${noc}"
