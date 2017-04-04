@@ -16,6 +16,7 @@ class Card(models.Model):
     modified_at = models.DateTimeField(default=datetime.datetime.now)
     class Meta:
         app_label = 'cardcontrol'
+        unique_together = ('first_name', 'last_name', 'middle_initial', 'utln', 'student_type', 'jumbocash_id', 'birth_date', 'school', 'class_year', 'barcode')
 
     def __str__(self):
         return self.utln
@@ -84,12 +85,12 @@ class Request(models.Model):
     class Meta:
         app_label = 'cardcontrol'
     
-    def apply_filters(self, request, applicable_filters):
-        distinct = request.GET.get('distinct', False) == 'True'
-        if distinct:
-            return self.get_object_list(request).filter(**applicable_filters).distinct()
-        else:
-            return self.get_object_list(request).filter(**applicable_filters)
+#    def apply_filters(self, request, applicable_filters):
+#        distinct = request.GET.get('distinct', False) == 'True'
+#        if distinct:
+#            return self.get_object_list(request).filter(**applicable_filters).distinct()
+#        else:
+#            return self.get_object_list(request).filter(**applicable_filters)
 
     def __str__(self):
         return self.user
