@@ -6,11 +6,11 @@ import 'rxjs/add/operator/map';
 import {Building} from "../building";
 import {User} from "../user";
 import {UserAccount} from "../user_account";
+import {Constants} from "../constants";
 
 @Injectable()
 export class UserService {
-
-  private djangoUrl = 'http://localhost:8000/';
+  private djangoUrl = Constants.API_ENDPOINT;
 
   constructor(
     private http: Http
