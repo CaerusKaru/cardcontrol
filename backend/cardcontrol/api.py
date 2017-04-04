@@ -12,7 +12,7 @@ class CardResource(ModelResource):
         raise NotFound
 
     class Meta:
-        always_return_data = True
+        always_return_data = True 
         queryset = Card.objects.all()
         list_allowed_methods = ['get', 'put', 'post']
         detail_allowed_methods = ['get', 'put', 'post']
