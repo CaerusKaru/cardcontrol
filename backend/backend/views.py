@@ -18,6 +18,7 @@ import json
 @csrf_exempt
 def hook(request):
     # Verify if request came from GitHub
+    print(request)
     forwarded_for = u'{}'.format(request.META.get('HTTP_X_FORWARDED_FOR'))
     client_ip_address = ip_address(forwarded_for)
     whitelist = requests.get('https://api.github.com/meta').json()['hooks']
@@ -50,12 +51,12 @@ def hook(request):
         return HttpResponse('pong')
     elif event == 'push':
         jdict = json.loads(request)
-    if jdict['ref'] != "refs/heads/prod_deploy":
-        return HttpResponse(status=204)
-    bash_c = "~/cardcontrol/stop.sh && git -C ~/cardcontrol/ stash && git -C ~/cardcontrol/ checkout deploy && git -C ~/cardcontrol/ pull origin deploy && ~/cardcontrol/start.sh"
-    process = subprocess.Popen(bash_c.split(), stdout=subprocess.PIPE)
-    output, error = process.communicate()
-    return HttpResponse('success')
+        if jdict['ref'] != "refs/heads/prod_deploy":
+            return HttpResponse(status=204)
+        bash_c = "~/cardcontrol/deploy.sh"
+        process = subprocess.Popen(bash_c.split(), stdout=subprocess.PIPE)
+        output, error = process.communicate()
+        return HttpResponse('success')
 
     # In case we receive an event that's not ping or push
     return HttpResponse(status=204)
