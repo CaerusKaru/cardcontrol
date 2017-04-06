@@ -39,12 +39,12 @@ def hook(request):
         return HttpResponse('pong')
     elif event == 'push':
         jdict = json.loads(request.body)
-        if jdict['ref'] != "refs/heads/prod_deploy":
+        if jdict['ref'] != "refs/heads/deploy":
             return HttpResponse(status=204)
         bash_c = "~/cardcontrol/deploy.sh"
         process = subprocess.Popen(bash_c.split(), stdout=subprocess.PIPE)
         output, error = process.communicate()
-        return HttpResponse('success')
+        return HttpResponse('success')    
 
     # In case we receive an event that's not ping or push
     return HttpResponse(status=204)
