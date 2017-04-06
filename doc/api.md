@@ -22,7 +22,7 @@ The API has six major components. Each supports different operations. They are a
 |  Module         | Allowed Methods |
 |-----------------|-----------------|
 | card            | GET, PUT, POST  |
-| user_account    | GET             |
+| user_account    | GET, PUT, POST  |
 | access_point    | GET, PUT, POST  |
 | resource        | GET, PUT, POST  |
 | request         | GET, PUT, POST  |
@@ -106,8 +106,6 @@ The header of the HTTP request must match the format of the data being sent, and
 
 A user account is the primary means by which users interact with the system. Each user has a user account with a unique UTLN, and this identifies the user across the system. A user account posesses a card, an access level, and a set of resources, domains, and access points to which that user has access. A card is considered 'active' if and only if the user_account with the same UTLN has its card reference set to that card.
 
-For security reasons, until Authentication is fully implemented, all HTTP methods except for GET are disabled for user accounts, making them read-only.
-
 ### GET /api/v1/user_account/`$id`
 
 Returns the user account with the given ID. A manager level is an integer corresponding to how much system control a given user has. A manager level of 0 is an unpriveleged user, a manager level of 1 is a user who manages one or more resources, and a manager level of 2 is a user who is a system administrator for the CardControl system. Other values are invalid.
@@ -186,6 +184,26 @@ An example JSON object is as follows:
   ]
 }
 ```
+
+
+### POST/PUT /api/v1/user_account
+
+Sends a new user_account object to be created in the database. 
+
+The object to be send should have the following fields. Any additional fields will be ignored.
+
+|  Field          | Value Type      | Description                                                      | Example                 |
+|-----------------|-----------------|------------------------------------------------------------------|-------------------------|
+| utln            | STRING          | The unqiue UTLN username associated with the user.               | jsmith01                |
+| first_name      | STRING          | The first name of the user.                                      | John                    |
+| last_name       | STRING          | The last name of the user.                                       | Smith                   |
+| manager_level   | INT             | 0 == unpriveleged, 1 == resource manager, 2 == system manager    | 2                       |
+| card            | STRING          | A reference to the active card of the user.                      | /api/v1/card/1          |
+| access_points   | STRING[]        | An array of references to the access points this user can enter. | [/api/v1/access_point/1]|
+| resources_managed | STRING[]      | An array of resources which this user manages.                   | [/api/v1/resource/1]    |
+
+The header of the HTTP request must match the format of the data being sent, and that format must be either JSON or XML. All fields above *must* be included. 
+
 
 ## Access Point
 

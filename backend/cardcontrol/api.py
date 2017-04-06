@@ -36,8 +36,8 @@ class UserAccountResource(ModelResource):
 
     class Meta:
         queryset = UserAccount.objects.all()
-        list_allowed_methods = ['get']
-        detail_allowed_methods = ['get']
+        list_allowed_methods = ['get', 'put', 'post']
+        detail_allowed_methods = ['get', 'put', 'post']
         resource_name = 'user_account'
         authorization = Authorization()
         excludes = ['created_at', 'modified_at']
