@@ -26,8 +26,8 @@ class UserAccount(models.Model):
     last_name = models.CharField(max_length=40)
     utln = models.CharField(max_length=10, unique=True)
     card = models.ForeignKey(Card, on_delete=models.CASCADE)
-    access_points = models.ManyToManyField('AccessPoint')
-    resources_managed = models.ManyToManyField('Resource')
+    access_points = models.ManyToManyField('AccessPoint', blank=True)
+    resources_managed = models.ManyToManyField('Resource', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(default=datetime.datetime.now)
     manager_level = models.IntegerField(default=0)
@@ -55,6 +55,19 @@ class Resource(models.Model):
     def __str__(self):
         return self.building_name
 
+class Domain(models.Model):
+    domain_name = models.CharField(max_length=120, unique=True)
+    resources = models.ManyToManyField('Resource', blank=True)    
+    domains = models.ManyToManyField('self', blank=True)
+    created_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_created_by')
+    modified_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_modified_by')
+    created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
+    modified_at = models.DateTimeField(default=datetime.datetime.now)
+    class Meta:
+        app_label = 'cardcontrol'
+
+    def __str__(self):
+        return self.building_name
 
 class AccessPoint(models.Model):
     resource = models.ForeignKey(Resource, on_delete=models.CASCADE)
@@ -73,7 +86,7 @@ class AccessPoint(models.Model):
 class Request(models.Model):
     user = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
     new_card = models.ForeignKey(Card, on_delete=models.CASCADE, null=True, blank=True)
-    new_access_points = models.ManyToManyField(AccessPoint)
+    new_access_points = models.ManyToManyField(AccessPoint, blank=True)
     request_level = models.IntegerField()
     status = models.IntegerField()
     reason = models.CharField(max_length=200, null=True, blank=True)

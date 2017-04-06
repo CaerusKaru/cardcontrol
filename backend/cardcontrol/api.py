@@ -27,6 +27,7 @@ class UserAccountResource(ModelResource):
 
     card = fields.ToOneField('cardcontrol.api.CardResource', 'card')
     access_points = fields.ManyToManyField('cardcontrol.api.AccessPointResource', 'access_points')
+    resources_managed = fields.ManyToManyField('cardcontrol.api.ResourceResource', 'resources_managed')
 
     def get_schema(self, request, **kwargs):
         raise NotFound
@@ -63,6 +64,25 @@ class ResourceResource(ModelResource):
             'country': ALL,
             'resource_name': ALL
         }
+
+class DomainResource(ModelResource):
+    created_by = fields.ToOneField(UserAccountResource, 'created_by')
+    modified_by = fields.ToOneField(UserAccountResource, 'modified_by')
+    resources = fields.ManyToManyField('cardcontrol.api.ResourceResource', 'resources')
+    domains = fields.ManyToManyField('cardcontrol.api.DomainResource', 'domains')
+
+    class Meta:
+        always_return_data = True
+        queryset = Resource.objects.all()
+        list_allowed_methods = ['get', 'put', 'post']
+        resource_name = 'domain'
+        detail_allowed_methods = ['get', 'put', 'post']
+        authorization = Authorization()
+        excludes = ['created_by', 'modified_by', 'created_at', 'modified_at']
+        filtering = {
+            'domain_name': ALL
+        }
+
 
 class AccessPointResource(ModelResource):
 
