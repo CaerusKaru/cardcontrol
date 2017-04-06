@@ -46,7 +46,7 @@ DONE
 fi
 
 expect <<- DONE
-    spawn sudo uwsgi --die-on-term --ini $d/backend/uwsgi.ini
+    spawn sudo uwsgi --die-on-term --enable-threads --ini $d/backend/uwsgi.ini
     expect -re ".*Operational MODE: preforking.*"
 DONE
 
