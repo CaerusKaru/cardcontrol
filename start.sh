@@ -40,7 +40,7 @@ echo -e "${goodc}Starting frontent process.${noc}"
 
 expect <<- DONE
     set timeout 120
-    spawn -ignore HUP bash -ilc "ng serve --prod &"
+    spawn -ignore HUP bash -ilc "ng serve --prod --port 4200 &"
     expect -re ".*webpack: Compiled successfully.*"
 DONE
 fi
