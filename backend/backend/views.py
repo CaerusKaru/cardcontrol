@@ -10,6 +10,9 @@ from django.utils.encoding import force_bytes
 import requests
 from ipaddress import ip_address, ip_network
 import subprocess
+import json
+
+# From: https://simpleisbetterthancomplex.com/tutorial/2016/10/31/how-to-handle-github-webhooks-using-django.html
 
 @require_POST
 @csrf_exempt
@@ -42,10 +45,14 @@ def hook(request):
     # Process the GitHub events
     event = request.META.get('HTTP_X_GITHUB_EVENT', 'ping')
 
+
     if event == 'ping':
         return HttpResponse('pong')
     elif event == 'push':
-        bash_c = "~/cardcontrol/stop.sh && git -C ~/cardcontrol/ stash && git -C ~/cardcontrol/ checkout master && git -C ~/cardcontrol/ pull origin master && ~/cardcontrol/start.sh"
+        jdict = json.loads(request)
+	if jdict['ref'] != "refs/heads/prod_deploy":
+		return HttpResponse(status=204)
+	bash_c = "~/cardcontrol/stop.sh && git -C ~/cardcontrol/ stash && git -C ~/cardcontrol/ checkout deploy && git -C ~/cardcontrol/ pull origin deploy && ~/cardcontrol/start.sh"
         process = subprocess.Popen(bash_c.split(), stdout=subprocess.PIPE)
         output, error = process.communicate()
         return HttpResponse('success')
