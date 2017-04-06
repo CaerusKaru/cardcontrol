@@ -1,4 +1,6 @@
 #!/bin/bash
+echo "[$(date +%Y-%m-%d:%H:%M:%S)]: Starting deployment." > ~/cardcontrol/deploy.log
+
 sleep 5
 
 es=$(git status -uno | wc -l)
