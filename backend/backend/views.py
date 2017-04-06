@@ -47,4 +47,4 @@ def hook(request):
         return HttpResponse('success')    
 
     # In case we receive an event that's not ping or push
-    return HttpResponse(status=204)
+    return HttpResponse("request object not recognized", status=204)
