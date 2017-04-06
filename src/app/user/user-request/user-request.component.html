@@ -1,32 +1,50 @@
-<div class="card-wrapper">
-  <md-card>
-    <form class="request-access-form">
-      <h2>Request Building Access</h2>
+<div class="card-wrapper" fxLayout="row" fxLayoutAlign="space-around stretch" fxFlex>
+  <md-card fxFlex="47.5">
+    <md-toolbar color="primary">
+      <span color="primary">My Requests</span>
+    </md-toolbar>
 
-      <md-input-container class='md-block' flex-get-sm>
-        <input type="text" mdInput placeholder="Campus">
-      </md-input-container>
+    <md-card-content>
+      <md-list dense *ngIf="requests">
+        <md-list-item *ngFor="let request of requests"> {{request.resource_uri}} </md-list-item>
+      </md-list>
+    </md-card-content>
+  </md-card>
 
-      <md-input-container class='md-block' flex-get-sm>
-        <input type="text" mdInput placeholder="Building">
-      </md-input-container>
+  <md-card fxFlex="47.5">
+    <md-toolbar color="primary">
+      <span color="primary">Submit Request</span>
+    </md-toolbar>
 
-      <md-input-container class='md-block'>
-        <input type="text" mdInput placeholder="Room">
-      </md-input-container>
+    <md-card-content fxLayout="column">
+      <form fxLayout="column">
 
-      <md-input-container class='md-block'>
-        <textarea mdInput placeholder="Reason Why"></textarea>
-      </md-input-container>
+        <md-input-container>
+          <input type="text" mdInput placeholder="Campus">
+        </md-input-container>
 
-      <md-input-container class='md-block' hintLabel='Search by name or ID number'>
-        <input type="search" mdInput placeholder="Add IDs (optional)" type='search'>
-      </md-input-container>
+        <md-input-container>
+          <input type="text" mdInput placeholder="Building">
+        </md-input-container>
 
-      <div class="submit-button">
-        <button type='submit' md-button>Submit</button>
-      </div>
+        <md-input-container>
+          <input type="text" mdInput placeholder="Room">
+        </md-input-container>
 
-    </form>
+        <md-input-container>
+          <textarea mdInput placeholder="Reason Why"></textarea>
+        </md-input-container>
+
+        <md-input-container hintLabel='Search by name or ID number'>
+          <input type="search" mdInput placeholder="Add IDs (optional)">
+        </md-input-container>
+
+        <div class="submit-button">
+          <button type='submit' md-button>Submit</button>
+        </div>
+
+      </form>
+    </md-card-content>
+
   </md-card>
 </div>

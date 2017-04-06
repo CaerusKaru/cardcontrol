@@ -50,6 +50,8 @@ expect <<- DONE
     expect -re ".*Operational MODE: preforking.*"
 DONE
 
+grip $d/doc/api.md &
+
 sudo nginx
 
 

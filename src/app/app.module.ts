@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {RequestService} from "./request/request.service";
 import {UserService} from "./user/shared/user.service";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import {UserService} from "./user/shared/user.service";
     PageNotFoundComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
     HttpModule,

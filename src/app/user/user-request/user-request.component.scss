@@ -1,25 +1,8 @@
-.card-wrapper {
-  	padding: 20px;
-	max-width: 500px;
-	margin: 0 auto;
-	text-align: center;
+md-card > md-toolbar {
+  margin: -24px 0 24px -24px;
+  width: calc(100% + 48px);
 }
 
-.request-access-form {
-	padding: 20px 40px;
-	h2{
-		margin-bottom: 30px;
-	}
-}
-
-.full-width{
-	width: 100%;
-}
-
-.md-block {
-	width: 100%;
-}
-
-.submit-button {
-	margin-top: 30px;
+:host {
+  padding: 24px;
 }
