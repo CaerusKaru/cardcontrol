@@ -33,19 +33,17 @@ DONE
 
 set +u
 echo "$1"
-if [[ -z $1 ]] || [[ $1 =~ ^[^aA].* ]]; then
-echo -e "${goodc}Checking frontend packages up to date.${noc}"
-npm install
-echo -e "${goodc}Starting frontent process.${noc}"
+#if [[ -z $1 ]] || [[ $1 =~ ^[^aA].* ]]; then
+#echo -e "${goodc}Checking frontend packages up to date.${noc}"
+#npm install
+#echo -e "${goodc}Starting frontent process.${noc}"
 
 #expect <<- DONE
 #    set timeout 120
 #    spawn -ignore HUP bash -ilc "ng serve &"
 #    expect -re ".*webpack: Compiled successfully.*"
 #DONE
-fi
-
-ng build -prod
+#fi
 
 expect <<- DONE
     spawn sudo uwsgi -T --die-on-term --ini $d/backend/uwsgi.ini

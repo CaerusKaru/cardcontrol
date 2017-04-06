@@ -22,8 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '(re*3(5*y596^l9!j($tq09@!^(ooam(2@-no9%b#fzl4q_pl8'
 GITHUB_WEBHOOK_KEY = '4QrbY8lhgwh7cwo6XuyUQguqhE8UtGk83ouruCgYV83p4GPpP3lxGSwBq8mQztPl'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['34.193.86.61', '127.0.0.1', 'localhost']
 
