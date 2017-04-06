@@ -53,9 +53,9 @@ def hook(request):
     if jdict['ref'] != "refs/heads/prod_deploy":
         return HttpResponse(status=204)
     bash_c = "~/cardcontrol/stop.sh && git -C ~/cardcontrol/ stash && git -C ~/cardcontrol/ checkout deploy && git -C ~/cardcontrol/ pull origin deploy && ~/cardcontrol/start.sh"
-        process = subprocess.Popen(bash_c.split(), stdout=subprocess.PIPE)
-        output, error = process.communicate()
-        return HttpResponse('success')
+    process = subprocess.Popen(bash_c.split(), stdout=subprocess.PIPE)
+    output, error = process.communicate()
+    return HttpResponse('success')
 
     # In case we receive an event that's not ping or push
     return HttpResponse(status=204)
