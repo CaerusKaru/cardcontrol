@@ -39,7 +39,7 @@ class UserAccount(models.Model):
 
 class Resource(models.Model):
     zipcode = models.CharField(max_length=10)
-    street = models.CharField(max_length=120)
+    address = models.CharField(max_length=120)
     city = models.CharField(max_length=120)
     state = models.CharField(max_length=120)
     country = models.CharField(max_length=120)
@@ -50,7 +50,7 @@ class Resource(models.Model):
     modified_at = models.DateTimeField(default=datetime.datetime.now)
     class Meta:
         app_label = 'cardcontrol'
-        unique_together = ('zipcode', 'street', 'city', 'resource_name')
+        unique_together = ('zipcode', 'address', 'city', 'resource_name')
 
     def __str__(self):
         return self.building_name
