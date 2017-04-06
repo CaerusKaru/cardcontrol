@@ -45,6 +45,13 @@ expect <<- DONE
 DONE
 fi
 
+expect <<- DONE
+    spawn sudo uwsgi --die-on-term --ini $d/backend/uwsgi.ini
+    expect -re ".*Operational MODE: preforking.*"
+DONE
+
+sudo nginx
+
 echo "" 
 echo -e "${goodc}Database, frontend, and backend started successfully.${noc}"
 echo ""
