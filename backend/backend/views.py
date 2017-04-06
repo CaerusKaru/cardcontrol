@@ -17,18 +17,6 @@ import json
 @require_POST
 @csrf_exempt
 def hook(request):
-    # Verify if request came from GitHub
-    print(request)
-    forwarded_for = u'{}'.format(request.META.get('HTTP_X_FORWARDED_FOR'))
-    client_ip_address = ip_address(forwarded_for)
-    whitelist = requests.get('https://api.github.com/meta').json()['hooks']
-
-    for valid_ip in whitelist:
-        if client_ip_address in ip_network(valid_ip):
-            break
-    else:
-        return HttpResponseForbidden('Permission denied.')
-
     # Verify the request signature
     header_signature = request.META.get('HTTP_X_HUB_SIGNATURE')
     if header_signature is None:
