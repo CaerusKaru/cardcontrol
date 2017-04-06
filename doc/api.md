@@ -1,44 +1,54 @@
 
-# Introduction
+# [Introduction](#intro)
 
 Hello! Welcome to the CardControl API. This interface allows you to interact with your ID card directly, submitting critical requests from the comfort of your own environment, or wrapping our service in a more convenient form. The following serves as documentation for our API, and will hopefully guide you well in your access control ventures. 
 
-# Table of Contents
-[Notes](#notes)
-GET /api/v1/card/`$id`
-GET /api/v1/card?utln=`$utln`
-POST/PUT /api/v1/card
-GET /api/v1/user_account/`$id`
-GET /api/v1/user_account?utln=`$utln`
-POST/PUT /api/v1/user_account
-GET /api/v1/access_point/`$id`
-GET /api/v1/access_point?access_point_name=`$access_point_name`
-GET /api/v1/access_point?resource=`$resource`
-POST/PUT /api/v1/access_point
-GET /api/v1/resource/`$id`
-GET /api/v1/resource?resource_name=`$resource_name`
-GET /api/v1/resource?city=`$city`
-GET /api/v1/resource?state=`$state`
-GET /api/v1/resource?country=`$country`
-GET /api/v1/resource?address=`$address`
-GET /api/v1/resource?zipcode=`$zipcode`
-POST/PUT /api/v1/resource
-GET /api/v1/request/`$id`
-GET /api/v1/request/?user=`$user`
-GET /api/v1/request/?request_level=`$request_level`
-GET /api/v1/request/?status=`$status`
-GET /api/v1/request/?modified_at=`$modified_at`
-GET /api/v1/request/?created_at=`$created_at`
-PUT/POST /api/v1/request` 
+# [Table of Contents](#toc)
+* [Introduction](#intro)
+* [Table of Contents](#toc)
+* [Notes](#notes)
+* [Structure of the API](#structure)
+** [Card](#card)
+*** [GET /api/v1/card/`$id`](#get-card-id)
+*** [GET /api/v1/card?utln=`$utln`](#get-card-utln)
+*** [POST/PUT /api/v1/card](#post-card)
+** [User Account](#user-account)
+*** [GET /api/v1/user_account/`$id`](#get-user-account-id)
+*** [GET /api/v1/user_account?utln=`$utln`](#get-user-account-utln)
+*** [POST/PUT /api/v1/user_account](post-user-account)
+** [Access Point](#access-point)
+*** [GET /api/v1/access_point/`$id`](#get-access-point-id)
+*** [GET /api/v1/access_point?access_point_name=`$access_point_name`](#get-access-point-name)
+*** [GET /api/v1/access_point?resource=`$resource`](#get-access-point-resource)
+*** [POST/PUT /api/v1/access_point](#post-access-point)
+** [Resource](#resource)
+*** [GET /api/v1/resource/`$id`](get-resource-id)
+*** [GET /api/v1/resource?resource_name=`$resource_name`](#get-resource-name)
+*** [GET /api/v1/resource?city=`$city`](#get-resource-city)
+*** [GET /api/v1/resource?state=`$state`](#get-resource-state)
+*** [GET /api/v1/resource?country=`$country`](#get-resource-country)
+*** [GET /api/v1/resource?address=`$address`](#get-resource-address)
+*** [GET /api/v1/resource?zipcode=`$zipcode`](#get-resource-zipcode)
+*** [POST/PUT /api/v1/resource](#post-resource)
+** [Request](#request)
+*** [GET /api/v1/request/`$id`](#get-request-id)
+*** [GET /api/v1/request/?user=`$user`](#get-request-user)
+*** [GET /api/v1/request/?request_level=`$request_level`](#get-request-level)
+*** [GET /api/v1/request/?status=`$status`](#get-request-status)
+*** [GET /api/v1/request/?modified_at=`$modified_at`](#get-request-modified-at)
+*** [GET /api/v1/request/?created_at=`$created_at`](#get-request-created-at)
+*** [PUT/POST /api/v1/request`](#post-request)
 
-### [Notes](#notes)
+
+# [Notes](#notes)
 
 * The current production URL of our service is http://34.193.86.61/. All paths referenced in the following documentation should be appended to that URL.
 
 * Our production URL is subject to change as our still-developing architecture evolves, but the relative paths referenced here are guaranteed for our users.
 
+* Some API requests may require authentication in the future.
 
-# Structure of the API
+# [Structure of the API](#structure)
 
 Our API has a single main endpoint at `/api/` which is a reference to this documentation. This supports only a simple `GET` request, as it is simply documentation for the API to follow.
 
@@ -62,11 +72,11 @@ In the documentation below, the `$` symbol will be used to denote variable value
 
 We use a system of queries to filter responses by a given attribute. The root path to a component, e.g. `/api/v1/request/` can be followed by the symbol `?` to filter all requests by a set of allowed values documented below.
 
-## Card
+## [Card](#card)
 
 A card is an object representing the physical ID card each system user holds. It contains all relevant text fields one would find on the card. The relevant methods are as follows:
 
-### GET /api/v1/card/`$id`
+### [GET /api/v1/card/`$id`](#get-card-id)
 
 Returns the card with a given ID. This is not the card ID of the institution, but rather a unique identifier beginning from 1, identifying cards within the CardControl system.
 
@@ -104,11 +114,11 @@ An example JSON object is as follows:
 }
 ```
 
-### GET /api/v1/card?utln=`$utln`
+### [GET /api/v1/card?utln=`$utln`](#get-card-utln)
 
 Returns all available cards in a list format. In JSON, this is an array. The card objects are exactly as above. Users are only allowed access to cards which match their UTLN, and as such this method is only allowed if the user is authenticated and $utln is equal to that user's UTLN.
 
-### POST/PUT /api/v1/card
+### [POST/PUT /api/v1/card](#post-card)
 
 Sends a new card object to be created in the database. This will only work if the UTLN of the user_account sending the request is equal to the card's UTLN, or if the user account in question is a manager.
 
@@ -129,11 +139,11 @@ The object to be send should have the following fields. Any additional fields wi
 
 The header of the HTTP request must match the format of the data being sent, and that format must be either JSON or XML. All fields above *must* be included. 
 
-## User Account
+## [User Account](#user-account)
 
 A user account is the primary means by which users interact with the system. Each user has a user account with a unique UTLN, and this identifies the user across the system. A user account posesses a card, an access level, and a set of resources, domains, and access points to which that user has access. A card is considered 'active' if and only if the user_account with the same UTLN has its card reference set to that card.
 
-### GET /api/v1/user_account/`$id`
+### [GET /api/v1/user_account/`$id`](#get-user-account-id)
 
 Returns the user account with the given ID. A manager level is an integer corresponding to how much system control a given user has. A manager level of 0 is an unpriveleged user, a manager level of 1 is a user who manages one or more resources, and a manager level of 2 is a user who is a system administrator for the CardControl system. Other values are invalid.
 
@@ -173,7 +183,7 @@ An example JSON object is as follows:
 }
 ```
 
-### GET /api/v1/user_account?utln=`$utln`
+### [GET /api/v1/user_account?utln=`$utln`](#get-user-account-utln)
 
 Returns an array guaranteed to contain one object, which is the unique user whose UTLN is the string specified. 
 
@@ -213,7 +223,7 @@ An example JSON object is as follows:
 ```
 
 
-### POST/PUT /api/v1/user_account
+### [POST/PUT /api/v1/user_account](post-user-account)
 
 Sends a new user_account object to be created in the database. 
 
@@ -232,11 +242,11 @@ The object to be send should have the following fields. Any additional fields wi
 The header of the HTTP request must match the format of the data being sent, and that format must be either JSON or XML. All fields above *must* be included. 
 
 
-## Access Point
+## [Access Point](#access-point)
 
 An access point is any single location to which access can be granted or revoked, e.g. a door on campus, or a web application.
 
-### GET /api/v1/access_point/`$id`
+### [GET /api/v1/access_point/`$id`](#get-access-point-id)
 
 Returns the access point with the given ID. 
 
@@ -262,7 +272,7 @@ An example JSON object is as follows:
 }
 ```
 
-### GET /api/v1/access_point?access_point_name=`$access_point_name`
+### [GET /api/v1/access_point?access_point_name=`$access_point_name`](#get-access-point-name)
 
 Returns an array of access points with the given access point name. Multiple access points many have the same name. If the access point name contains spaces, those spaces should be present, and the name should not be placed in quotes of any kind.
 
@@ -290,7 +300,7 @@ An example JSON object is as follows:
 }
 ```
 
-### GET /api/v1/access_point?resource=`$resource`
+### [GET /api/v1/access_point?resource=`$resource`](#get-access-point-resource)
 
 Returns an array of access points belonging to the given resource. The variable $resource should contain the ID of the resource in question.
 
@@ -327,7 +337,7 @@ An example JSON object is as follows:
 ```
 
 
-### POST/PUT /api/v1/access_point
+### [POST/PUT /api/v1/access_point](#post-access-point)
 
 Sends a new access point object to the database.
 
@@ -344,11 +354,11 @@ The header of the HTTP request must match the format of the data being sent, and
 
 
 
-## Resource
+## [Resource](#resource)
 
 A resource is a collection of access points, e.g. a building; a resource is something with a distinct address.
 
-### GET /api/v1/resource/`$id`
+### [GET /api/v1/resource/`$id`](get-resource-id)
 
 Returns the access point with the given ID. 
 
@@ -382,31 +392,37 @@ An example JSON object is as follows:
 }
 ```
 
-### GET /api/v1/resource?resource_name=`$resource_name`
+### [GET /api/v1/resource?resource_name=`$resource_name`](#get-resource-name)
+
 Returns an array of access points with the resource name set to `$resource_name`.
 Note that requests with the `?` query operator can be chained, e.g. `/api/v1/resource/?city=$city&zipcode=$zipcode`.
 
-### GET /api/v1/resource?city=`$city`
+### [GET /api/v1/resource?city=`$city`](#get-resource-city)
+
 Returns an array of access points with the city set to `$city`.
 Note that requests with the `?` query operator can be chained, e.g. `/api/v1/resource/?city=$city&zipcode=$zipcode`.
 
-### GET /api/v1/resource?state=`$state`
+### [GET /api/v1/resource?state=`$state`](#get-resource-state)
+
 Returns an array of access points with the state set to `$state`.
 Note that requests with the `?` query operator can be chained, e.g. `/api/v1/resource/?city=$city&zipcode=$zipcode`.
 
-### GET /api/v1/resource?country=`$country`
+### [GET /api/v1/resource?country=`$country`](#get-resource-country)
+
 Returns an array of access points with the country set to `$country`.
 Note that requests with the `?` query operator can be chained, e.g. `/api/v1/resource/?city=$city&zipcode=$zipcode`.
 
-### GET /api/v1/resource?address=`$address`
+### [GET /api/v1/resource?address=`$address`](#get-resource-address)
+
 Returns an array of access points with the address set to `$address`.
 Note that requests with the `?` query operator can be chained, e.g. `/api/v1/resource/?city=$city&zipcode=$zipcode`.
 
-### GET /api/v1/resource?zipcode=`$zipcode`
+### [GET /api/v1/resource?zipcode=`$zipcode`](#get-resource-zipcode)
+
 Returns an array of access points with the zipcode set to `$zipcode`.
 Note that requests with the `?` query operator can be chained, e.g. `/api/v1/resource/?city=$city&zipcode=$zipcode`.
 
-### POST/PUT /api/v1/resource
+### [POST/PUT /api/v1/resource](#post-resource)
 
 Sends a new access point object to the database.
 
@@ -427,11 +443,11 @@ The header of the HTTP request must match the format of the data being sent, and
 
 Fields will be checked for validity (e.g. zipcode) before being added to the database.
 
-## Request
+## [Request](#request)
 
 A request is an item connecting a user account to a new group of resources or a new card; this is the primary mode by which modification are made to cards. When a request is made, managers with appropriate clearance will be able to see and interact with the request and thereby accept or reject it from inside the CardControl system.
 
-### GET /api/v1/request/`$id`
+### [GET /api/v1/request/`$id`](#get-request-id)
 
 Returns the request with the given ID. 
 
@@ -471,28 +487,32 @@ An example JSON object is as follows:
 }
 ```
 
-### GET /api/v1/request/?user=`$user`
+### [GET /api/v1/request/?user=`$user`](#get-request-user)
+
 Returns an array of access points with the resource name set to `$user`.
 Note that requests with the `?` query operator can be chained, e.g. `/api/v1/request/?status=$status&created_at=$created_at`.
 
-### GET /api/v1/request/?request_level=`$request_level`
+### [GET /api/v1/request/?request_level=`$request_level`](#get-request-level)
+
 Returns an array of access points with the request_level set to `$request_level`.
 Note that requests with the `?` query operator can be chained, e.g. `/api/v1/request/?status=$status&created_at=$created_at`.
 
-### GET /api/v1/request/?status=`$status`
+### [GET /api/v1/request/?status=`$status`](#get-request-status)
+
 Returns an array of access points with the status set to `$status`.
 Note that requests with the `?` query operator can be chained, e.g. `/api/v1/request/?status=$status&created_at=$created_at`.
 
-### GET /api/v1/request/?modified_at=`$modified_at`
+### [GET /api/v1/request/?modified_at=`$modified_at`](#get-request-modified-at)
+
 Returns an array of access points with the modified_at set to `$modified_at`.
 Note that requests with the `?` query operator can be chained, e.g. `/api/v1/request/?status=$status&created_at=$created_at`.
 
-### GET /api/v1/request/?created_at=`$created_at`
+### [GET /api/v1/request/?created_at=`$created_at`](#get-request-created-at)
+
 Returns an array of access points with the created_at set to `$created_at`.
 Note that requests with the `?` query operator can be chained, e.g. `/api/v1/request/?status=$status&created_at=$created_at`.
 
-### PUT/POST /api/v1/request` 
-
+### [PUT/POST /api/v1/request`](#post-request)
 
 Sends a new access point object to the database.
 
