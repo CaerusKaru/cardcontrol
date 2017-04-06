@@ -32,7 +32,7 @@ def hook(request):
 
     # If request reached this point we are in a good shape
     # Process the GitHub events
-    event = request.META.get('HTTP_X_GITHUB_EVENT', 'ping')   
+    event = request.META.get('HTTP_X_GITHUB_EVENT', 'ping')
 
 
     if event == 'ping':
@@ -41,7 +41,7 @@ def hook(request):
         jdict = json.loads(request.body)
         if jdict['ref'] != "refs/heads/deploy":
             return HttpResponse(jdict['ref'], status=204)
-        bash_c = "/home/ec2-user/cardcontrol/deploy.sh &"
+        bash_c = "sudo -u ec2-user /home/ec2-user/cardcontrol/deploy.sh &"
         process = subprocess.Popen(bash_c.split(), stdout=subprocess.PIPE)
         output, error = process.communicate()
         return HttpResponse('success')    
