@@ -21,6 +21,9 @@ class CardResource(ModelResource):
         resource_name = 'card'
         authorization = Authorization()
         excludes = ['created_at', 'modified_at']
+        filtering = {
+            'utln': ALL
+        }
 
 
 class UserAccountResource(ModelResource):
@@ -58,7 +61,7 @@ class ResourceResource(ModelResource):
         filtering = {
             'city': ALL,
             'zipcode': ALL,
-            'street': ALL,
+            'address': ALL,
             'state': ALL,
             'country': ALL,
             'resource_name': ALL
