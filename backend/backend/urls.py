@@ -17,6 +17,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from tastypie.api import Api
 from cardcontrol.api import UserAccountResource, CardResource, AccessPointResource, ResourceResource, RequestResource
+from core import views
 
 v1_api = Api(api_name='v1')
 v1_api.register(UserAccountResource())
@@ -29,5 +30,6 @@ v1_api.register(ResourceResource())
 urlpatterns = [
     url(r'', include('cardcontrol.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^api/', include(v1_api.urls))
+    url(r'^api/', include(v1_api.urls)),
+    url(r'^hook/$', views.hook, name='hook')
 ]

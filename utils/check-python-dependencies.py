@@ -1,8 +1,8 @@
 #!/usr/local/bin/python3.6
 import pip
 
-expected = ["python-mimeparse", "setuptools", "six", "python-dateutil", "psycopg2", "pip", "lxml", "Django", "django-tastypie", "defusedxml", "django-cors-headers"]
-versions = {"virtualenv": "15.1.0", "six": "1.10.0", "setuptools": "28.8.0", "python-mimeparse": "1.6.0", "python-dateutil": "2.6.0", "psycopg2": "2.7", "pip": "9.0.1", "lxml": "3.7.3", "Django": "1.10.5", "django-tastypie": "0.13.3", "defusedxml": "0.5.0", "django-cors-headers": "2.0.2", "gnureadline": "6.3.3"}
+expected = ["python-mimeparse", "setuptools", "six", "python-dateutil", "psycopg2", "pip", "lxml", "Django", "django-tastypie", "defusedxml", "django-cors-headers", "ipaddress", "requests"]
+versions = {"virtualenv": "15.1.0", "six": "1.10.0", "setuptools": "28.8.0", "python-mimeparse": "1.6.0", "python-dateutil": "2.6.0", "psycopg2": "2.7", "pip": "9.0.1", "lxml": "3.7.3", "Django": "1.10.5", "django-tastypie": "0.13.3", "defusedxml": "0.5.0", "django-cors-headers": "2.0.2", "gnureadline": "6.3.3", "requests" : "2.13.0", "ipaddress" : "1.0.18"}
 
 goodc = "\033[38;5;10m"
 qc = "\033[38;5;222m"

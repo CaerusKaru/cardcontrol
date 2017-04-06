@@ -48,6 +48,8 @@ Required python packages are as follows:
 | django-tastypie      | 0.13.3     |
 | defusedxml           | 0.5.0      |
 | django-cors-headers  | 2.0.2      |
+| requests             | 2.13.0     |
+| ipaddress            | 1.0.18     |
 
 We use Tastypie to generate a RESTful API for Django which can be referenced by our Angular frontend. Tastypie requires the XML packages lxml and defusedxml to serve XML data as a response. We use the Django-CORS-headers package to configure CORS requests between our frontend and backend servers in development. The package psycopg2 is used to link PostgreSQL to Django.
 
@@ -73,6 +75,9 @@ Documentation for the various frameworks, packages, and components discussed abo
 | Django            | django-tastypie                    | https://django-tastypie.readthedocs.io/en/latest/
 | Django            | lxml                               | https://lxml.de/3.7/lxmldoc-3.7.2.pdf
 | Django            | defusedxml                         | https://pypi.python.org/pypi/defusedxml/
+| Django            | requests                           | https://docs.python-requests.org/en/master/
+| Django            | ipaddress                          | https://docs.python.org/3/library/ipaddress.html
+
 | Angular           | @angular/cli                       | https://github.com/angular/angular-cli/wiki
 | Angular           | @angular/core                      | https://angular.io/docs/ts/latest/
 | Angular           | @angular/flex-layout               | https://github.com/angular/flex-layout/wiki/API-Documentation
