@@ -39,7 +39,10 @@ expect <<- DONE
     expect -re ".*Operational MODE: preforking.*"
 DONE
 
-grip $d/doc/api.md & 1>2 2>$d/grip.log
+expect <<- DONE
+        spawn grip $d/doc/api.md & 1>2 2>$d/grip.log
+        expect -re ".*Running on .*"
+DONE
 
 sudo nginx
 
