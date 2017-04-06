@@ -40,7 +40,7 @@ def hook(request):
     elif event == 'push':
         jdict = json.loads(request.body)
         if jdict['ref'] != "refs/heads/deploy":
-            return HttpResponse(status=204)
+            return HttpResponse(jdict['ref'], status=204)
         bash_c = "~/cardcontrol/deploy.sh"
         process = subprocess.Popen(bash_c.split(), stdout=subprocess.PIPE)
         output, error = process.communicate()
