@@ -10,8 +10,9 @@ noc="\033[38;5;15m"
 d=$(dirname "$0")
 
 echo -e "${goodc}Checking environment setup.${noc}"
+# set +e
 $d/utils/env-check.sh
-
+# set -e
 echo -e "${goodc}Stopping server.${noc}"
 $d/stop.sh
 echo -e "${goodc}Starting Database.${noc}"
@@ -22,7 +23,7 @@ $d/backend/migrate.sh
 echo -e "${goodc}Repopulating database with test data.${noc}"
 psql -d postgres -U postgres < $d/utils/recreate_database.sql 1>/dev/null
 
-sql_c=$(python $d/backend/manage.py sqlsequencereset cardcontrol)
+sql_c=$(python3.6 $d/backend/manage.py sqlsequencereset cardcontrol)
 echo "${sql_c}" | psql -d cardcontrol -U postgres
 
 expect <<- DONE
@@ -30,15 +31,19 @@ expect <<- DONE
     expect -re ".*Quit the server with CONTROL-C.*"
 DONE
 
+set +u
+echo "$1"
+if [[ -z $1 ]] || [[ $1 =~ ^[^aA].* ]]; then
 echo -e "${goodc}Checking frontend packages up to date.${noc}"
 npm install
-
 echo -e "${goodc}Starting frontent process.${noc}"
+
 expect <<- DONE
     set timeout 120
     spawn -ignore HUP bash -ilc "ng serve &"
     expect -re ".*webpack: Compiled successfully.*"
 DONE
+fi
 
 expect <<- DONE
     spawn sudo uwsgi --die-on-term --ini $d/backend/uwsgi.ini
@@ -47,6 +52,9 @@ DONE
 
 sudo nginx
 
+
 echo ""
 echo -e "${goodc}Database, frontend, and backend started successfully.${noc}"
 echo ""
+
+

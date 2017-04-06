@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {MdDialog} from '@angular/material';
-import {UserService} from "../user.service";
-import {User} from "../../user";
+import {UserService} from "../shared/user.service";
+import {User} from "../../shared/user";
+import {RequestService} from "../../request/request.service";
 
 @Component({
   selector: 'app-user-id',
@@ -12,31 +13,43 @@ export class UserIdComponent implements OnInit {
 
   constructor(
     public dialog : MdDialog,
+    private requestService : RequestService,
     private userService : UserService
   ) { }
 
-  user = new User();
-  errorMessage : string;
-
   ngOnInit() {
     this.getUser();
+    this.requestService.getResources().subscribe(
+      data => {
+        console.log(data);
+        this.requestService.getAccessPoints(data[0]).subscribe(
+          data => {
+            console.log(data);
+          }
+        )
+      }
+    )
   }
 
-  getUser () {
-    this.userService.getUser(this.utln)
-                    .subscribe(
-                      users => this.user = users[0],
-                      error =>  this.errorMessage = <any>error);
-  }
+  public user : User;
+  public utln : string;
 
-  utln = this.userService.getUtln();
-
-  requestChange() {
+  public requestChange() {
+    this.requestService.makeUpdateCard(this.user);
     this.dialog.open(UserIdRequestDialog);
   }
 
-  report() {
-    alert("Report lost/stolen");
+  public report() {
+
+  }
+
+  private errorMessage : string;
+
+  private getUser () {
+    this.utln = this.userService.getUtln();
+    this.userService.userCard.subscribe(
+      data => this.user = data
+    );
   }
 
 }

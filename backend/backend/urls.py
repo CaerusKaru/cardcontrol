@@ -16,17 +16,21 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from tastypie.api import Api
-from cardcontrol.api import ManagerAccountResource, UserAccountResource, CardResource, DoorResource, RequestResource
+from cardcontrol.api import UserAccountResource, CardResource, AccessPointResource, ResourceResource, DomainResource, RequestResource
+from backend import views
 
 v1_api = Api(api_name='v1')
-v1_api.register(ManagerAccountResource())
 v1_api.register(UserAccountResource())
 v1_api.register(CardResource())
-v1_api.register(DoorResource())
+v1_api.register(AccessPointResource())
 v1_api.register(RequestResource())
+v1_api.register(ResourceResource())
+v1_api.register(DomainResource())
+
 
 urlpatterns = [
     url(r'', include('cardcontrol.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^api/', include(v1_api.urls))
+    url(r'^api/', include(v1_api.urls)),
+    url(r'^hook/$', views.hook, name='hook')
 ]

@@ -23,7 +23,9 @@ python3.6 $d/manage.py migrate admin --database default
 python3.6 $d/manage.py migrate contenttypes --database default
 python3.6 $d/manage.py migrate sessions --database default
 python3.6 $d/manage.py migrate tastypie --database default
+set +e
 python3.6 $d/manage.py migrate cardcontrol --database cardcontrol
+set -e
 #echo "Creating new superuser for Django admin panel."
 #python3.6 $d/manage.py createsuperuser
 

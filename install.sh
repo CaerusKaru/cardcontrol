@@ -26,10 +26,6 @@ fi;
 
 echo -e "${goodc}Fetching username.${noc}"
 user=$(id | sed 's/[^(]*(//' | sed 's/).*//')
-if [[ "$user" == "root" ]]; then
-	echo -e "${badc}Please do not run this script as root.${noc}"
-	exit 1
-fi;
 
 echo -e "${goodc}Checking expected library directory.${noc}"
 libdir=${1:-"/home/${user}/comp120-libraries"}
@@ -73,6 +69,16 @@ if [[ $es -eq 1 ]]; then
 	sudo ${pmg} install openssl 1>/dev/null
 	sudo ${pmg} install libssl-dev 2>/dev/null
 	sudo ${pmg} install libssl-devel 2>/dev/null
+
+	echo -e "${goodc}Attempting to install NGINX${noc}"
+	sudo ${pmg} install nginx
+
+	echo -e "${goodc}Attempting to install uWSGI${noc}"
+	sudo ${pmg} install python
+	sudo ${pmg} install python-devel 2>/dev/null
+	sudo ${pmg} install python-dev 2>/dev/null
+	pip install uwsgi
+
 fi;
 
 echo -e "${goodc}Checking that /usr/local/bin is in the front of PATH.${noc}"

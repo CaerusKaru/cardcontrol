@@ -1,0 +1,13 @@
+defusedxml==0.5.0
+dj-database-url==0.4.2
+Django==1.10.5
+django-cors-headers==2.0.2
+django-tastypie==0.13.3
+lxml==3.7.3
+psycopg2==2.7.1
+python-dateutil==2.6.0
+python-mimeparse==1.6.0
+six==1.10.0
+ipaddress==1.0.18
+requests==2.13.0
+uWSGI==2.0.15

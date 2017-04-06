@@ -11,7 +11,8 @@ import 'hammerjs';
 
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import {AgmCoreModule} from "angular2-google-maps/core";
+import {RequestService} from "./request/request.service";
+import {UserService} from "./user/shared/user.service";
 
 @NgModule({
   declarations: [
@@ -26,12 +27,9 @@ import {AgmCoreModule} from "angular2-google-maps/core";
     MaterialModule,
     UserModule,
     ManagerModule,
-    AppRoutingModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDc8MZkYtflM5jVFga5x4gzH55x2c5kx9M'
-    })
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [RequestService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

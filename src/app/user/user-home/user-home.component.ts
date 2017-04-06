@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute} from "@angular/router";
-import {UserService} from "../user.service";
+import {UserService} from "../shared/user.service";
 
 @Component({
   selector: 'app-user-home',
@@ -35,10 +35,16 @@ export class UserHomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('init home');
+    this.userService.userAccount.filter(data => data !== null).subscribe(
+      data => {
+        this.isAdmin = data.manager_level > 0
+      }
+    )
   }
 
   utln = this.userService.getUtln();
-  isAdmin = this.userService.isAdmin();
+  isAdmin : boolean = false;
 
   settings() {
     this.activeLinkIndex = -1;

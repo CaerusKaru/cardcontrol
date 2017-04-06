@@ -10,7 +10,7 @@ export class ManagerMainComponent implements OnInit {
   navItems = [
     {route: ".", name: "Home", admin: false},
     {route: "buildings", name: "My Buildings", admin: false},
-    {route: "requests", name: "Pending Requests", admin: false},
+    {route: "requests", name: "Requests", admin: false},
     {route: "createID", name: "Create ID", admin: true},
     {route: "createBuilding", name: "Create Building", admin: true},
     {route: "search", name: "Search", admin: false},
