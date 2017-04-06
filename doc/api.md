@@ -29,7 +29,7 @@ The API has six major components. Each supports different operations. They are a
 
 The use and description of each component will be in the following six sections.
 
-The data returned from or sent to a given API endpoint can be either JSON or XML. To change the format when making a request from the browser, the parameter `?format=json` or `?format=xml` can be appended to any endpoint on any `GET` request to force the API to ignore HTTP headers and return a given format.
+The data returned from or sent to a given API endpoint can be either JSON or XML. All fields above *must* be included. To change the format when making a request from the browser, the parameter `?format=json` or `?format=xml` can be appended to any endpoint on any `GET` request to force the API to ignore HTTP headers and return a given format.
 
 In the documentation below, the `$` symbol will be used to denote variable values; for example the string `$utln` will be used to denote the UTLN of a given user, which could be e.g. `jsmith01` or `mredis05`, or the variable `$id` could be the integer `1`, `2`, or `438`. 
 
@@ -100,7 +100,7 @@ The object to be send should have the following fields. Any additional fields wi
 | student_type    | STRING          | The type of community member the card owner is.                  | Graduate                |
 | utln            | STRING          | The UTLN of the card owner.                                      | jsmith01                |
 
-The header of the HTTP request must match the format of the data being sent, and that format must be either JSON or XML. 
+The header of the HTTP request must match the format of the data being sent, and that format must be either JSON or XML. All fields above *must* be included. 
 
 ## User Account
 
@@ -295,7 +295,7 @@ The object to be send should have the following fields. Any additional fields wi
 | created_by      | STRING          | The user who created this access point.                          | /api/v1/user_account/1  |
 | modified_by     | STRING          | The user who last modified this access point.                    | /api/v1/user_account/1  |
 
-The header of the HTTP request must match the format of the data being sent, and that format must be either JSON or XML. 
+The header of the HTTP request must match the format of the data being sent, and that format must be either JSON or XML. All fields above *must* be included. 
 
 
 
@@ -378,7 +378,7 @@ The object to be send should have the following fields. Any additional fields wi
 | created_by      | STRING          | The user who created this access point.                          | /api/v1/user_account/1  |
 | modified_by     | STRING          | The user who last modified this access point.                    | /api/v1/user_account/1  |
 
-The header of the HTTP request must match the format of the data being sent, and that format must be either JSON or XML. 
+The header of the HTTP request must match the format of the data being sent, and that format must be either JSON or XML. All fields above *must* be included. 
 
 Fields will be checked for validity (e.g. zipcode) before being added to the database.
 
@@ -467,10 +467,11 @@ The object to be send should have the following fields. Any additional fields wi
 | created_by      | STRING          | The user who created this access point.                          | /api/v1/user_account/1  |
 | modified_by     | STRING          | The user who last modified this access point.                    | /api/v1/user_account/1  |
 
-The header of the HTTP request must match the format of the data being sent, and that format must be either JSON or XML. 
+The header of the HTTP request must match the format of the data being sent, and that format must be either JSON or XML. All fields above *must* be included. 
 
 Fields will be checked for validity; for example, changing the status is not allowed if the user in question is not a manager.
 
 # Implementation
 
 Our API is implemented in our Django backend through use of the Tastypie module.
+
