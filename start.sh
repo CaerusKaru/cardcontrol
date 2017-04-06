@@ -38,12 +38,14 @@ echo -e "${goodc}Checking frontend packages up to date.${noc}"
 npm install
 echo -e "${goodc}Starting frontent process.${noc}"
 
-expect <<- DONE
-    set timeout 120
-    spawn -ignore HUP bash -ilc "ng serve &"
-    expect -re ".*webpack: Compiled successfully.*"
-DONE
+#expect <<- DONE
+#    set timeout 120
+#    spawn -ignore HUP bash -ilc "ng serve &"
+#    expect -re ".*webpack: Compiled successfully.*"
+#DONE
 fi
+
+ng build -prod
 
 expect <<- DONE
     spawn sudo uwsgi -T --die-on-term --ini $d/backend/uwsgi.ini
