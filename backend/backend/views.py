@@ -32,7 +32,7 @@ def hook(request):
 
     # If request reached this point we are in a good shape
     # Process the GitHub events
-    event = request.META.get('HTTP_X_GITHUB_EVENT', 'ping')
+    event = request.META.get('HTTP_X_GITHUB_EVENT', 'ping')   
 
 
     if event == 'ping':
