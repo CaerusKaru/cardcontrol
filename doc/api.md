@@ -3,8 +3,35 @@
 
 Hello! Welcome to the CardControl API. This interface allows you to interact with your ID card directly, submitting critical requests from the comfort of your own environment, or wrapping our service in a more convenient form. The following serves as documentation for our API, and will hopefully guide you well in your access control ventures. 
 
+# Table of Contents
+[Notes](#notes)
+GET /api/v1/card/`$id`
+GET /api/v1/card?utln=`$utln`
+POST/PUT /api/v1/card
+GET /api/v1/user_account/`$id`
+GET /api/v1/user_account?utln=`$utln`
+POST/PUT /api/v1/user_account
+GET /api/v1/access_point/`$id`
+GET /api/v1/access_point?access_point_name=`$access_point_name`
+GET /api/v1/access_point?resource=`$resource`
+POST/PUT /api/v1/access_point
+GET /api/v1/resource/`$id`
+GET /api/v1/resource?resource_name=`$resource_name`
+GET /api/v1/resource?city=`$city`
+GET /api/v1/resource?state=`$state`
+GET /api/v1/resource?country=`$country`
+GET /api/v1/resource?address=`$address`
+GET /api/v1/resource?zipcode=`$zipcode`
+POST/PUT /api/v1/resource
+GET /api/v1/request/`$id`
+GET /api/v1/request/?user=`$user`
+GET /api/v1/request/?request_level=`$request_level`
+GET /api/v1/request/?status=`$status`
+GET /api/v1/request/?modified_at=`$modified_at`
+GET /api/v1/request/?created_at=`$created_at`
+PUT/POST /api/v1/request` 
 
-### Notes
+### [Notes](#notes)
 
 * The current production URL of our service is http://34.193.86.61/. All paths referenced in the following documentation should be appended to that URL.
 
