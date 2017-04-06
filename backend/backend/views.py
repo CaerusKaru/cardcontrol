@@ -38,7 +38,7 @@ def hook(request):
     if event == 'ping':
         return HttpResponse('pong')
     elif event == 'push':
-        jdict = json.loads(request)
+        jdict = json.loads(request.body)
         if jdict['ref'] != "refs/heads/prod_deploy":
             return HttpResponse(status=204)
         bash_c = "~/cardcontrol/deploy.sh"
