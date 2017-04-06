@@ -488,8 +488,3 @@ The object to be send should have the following fields. Any additional fields wi
 The header of the HTTP request must match the format of the data being sent, and that format must be either JSON or XML. All fields above *must* be included. 
 
 Fields will be checked for validity; for example, changing the status is not allowed if the user in question is not a manager.
-
-# Implementation
-
-Our API is implemented in our Django backend through use of the Tastypie module.
-
