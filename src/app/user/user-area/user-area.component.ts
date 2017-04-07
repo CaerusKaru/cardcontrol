@@ -38,7 +38,8 @@ export class UserAreaComponent implements OnInit {
   ];
 
   chooseBuilding (name : string) {
-    this.dialog.open(UserAreaDialog);
+    let dialogRef = this.dialog.open(UserAreaDialog);
+    dialogRef.componentInstance.name = name;
   }
 
   lat: number = 51.678418;
@@ -51,4 +52,5 @@ export class UserAreaComponent implements OnInit {
   template: '<h1>Help!</h1>'
 })
 export class UserAreaDialog {
+  name : string;
 }
