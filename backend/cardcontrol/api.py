@@ -22,6 +22,15 @@ class CardResource(ModelResource):
             'utln': ALL
         }
 
+    def hydrate_id(self, bundle):
+        if bundle.data['id'] is not None:
+            bundle.data['id'] = None
+        return bundle
+
+    def hydrate_resource_uri(self, bundle):
+        if bundle.data['resource_uri'] is not None:
+            bundle.data['resource_uri'] = None
+        return bundle
 
 class UserAccountResource(ModelResource):
     card = fields.ToOneField('cardcontrol.api.CardResource', 'card')
