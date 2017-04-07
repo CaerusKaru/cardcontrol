@@ -1,0 +1,52 @@
+{
+  "access_points": [
+    {
+      "access_point_name": "Metcalf East",
+      "created_by": "/api/v1/user_account/1/",
+      "id": 1,
+      "modified_by": "/api/v1/user_account/1/",
+      "parents": [
+        "/api/v1/resource/1/"
+      ],
+      "resource_uri": "/api/v1/access_point/1/"
+    },
+    {
+      "access_point_name": "Metcalf West",
+      "created_by": "/api/v1/user_account/1/",
+      "id": 2,
+      "modified_by": "/api/v1/user_account/1/",
+      "parents": [
+        "/api/v1/resource/1/"
+      ],
+      "resource_uri": "/api/v1/access_point/2/"
+    },
+    {
+      "access_point_name": "Main Entrance",
+      "created_by": "/api/v1/user_account/1/",
+      "id": 3,
+      "modified_by": "/api/v1/user_account/1/",
+      "parents": [
+        "/api/v1/resource/2/"
+      ],
+      "resource_uri": "/api/v1/access_point/3/"
+    },
+    {
+      "access_point_name": "Main Entrance",
+      "created_by": "/api/v1/user_account/1/",
+      "id": 5,
+      "modified_by": "/api/v1/user_account/1/",
+      "parents": [
+        "/api/v1/resource/3/"
+      ],
+      "resource_uri": "/api/v1/access_point/5/"
+    }
+  ],
+  "card": "/api/v1/card/2/",
+  "first_name": "Matthew",
+  "id": 1,
+  "last_name": "Asnes",
+  "manager_level": 2,
+  "resource_uri": "/api/v1/user_account/1/",
+  "resources_managed": [],
+  "utln": "masnes01"
+}

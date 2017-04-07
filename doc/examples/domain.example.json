@@ -1,0 +1,214 @@
+{
+  "created_by": "/api/v1/user_account/1/",
+  "domain_children": [
+    {
+      "created_by": "/api/v1/user_account/1/",
+      "domain_children": [
+        {
+          "created_by": "/api/v1/user_account/1/",
+          "domain_children": [],
+          "domain_name": "CS Department",
+          "id": 2,
+          "modified_by": "/api/v1/user_account/1/",
+          "parents": [
+            "/api/v1/domain/4/"
+          ],
+          "resource_children": [
+            {
+              "address": "161 College Ave",
+              "children": [
+                {
+                  "access_point_name": "Main Entrance",
+                  "created_by": "/api/v1/user_account/1/",
+                  "id": 3,
+                  "modified_by": "/api/v1/user_account/1/",
+                  "parents": [
+                    "/api/v1/resource/2/"
+                  ],
+                  "resource_uri": "/api/v1/access_point/3/"
+                },
+                {
+                  "access_point_name": "Halligan Extension Entrance",
+                  "created_by": "/api/v1/user_account/1/",
+                  "id": 4,
+                  "modified_by": "/api/v1/user_account/1/",
+                  "parents": [
+                    "/api/v1/resource/2/"
+                  ],
+                  "resource_uri": "/api/v1/access_point/4/"
+                }
+              ],
+              "city": "Medford",
+              "country": "United States",
+              "created_by": "/api/v1/user_account/1/",
+              "id": 2,
+              "modified_by": "/api/v1/user_account/1/",
+              "parents": [
+                "/api/v1/domain/2/"
+              ],
+              "resource_name": "Halligan Hall",
+              "resource_uri": "/api/v1/resource/2/",
+              "state": "MA",
+              "zipcode": "02155"
+            }
+          ],
+          "resource_uri": "/api/v1/domain/2/"
+        },
+        {
+          "created_by": "/api/v1/user_account/1/",
+          "domain_children": [],
+          "domain_name": "Physics Department",
+          "id": 3,
+          "modified_by": "/api/v1/user_account/1/",
+          "parents": [
+            "/api/v1/domain/4/"
+          ],
+          "resource_children": [
+            {
+              "address": "574 Boston Ave",
+              "children": [
+                {
+                  "access_point_name": "Main Entrance",
+                  "created_by": "/api/v1/user_account/1/",
+                  "id": 5,
+                  "modified_by": "/api/v1/user_account/1/",
+                  "parents": [
+                    "/api/v1/resource/3/"
+                  ],
+                  "resource_uri": "/api/v1/access_point/5/"
+                },
+                {
+                  "access_point_name": "Physics Department",
+                  "created_by": "/api/v1/user_account/1/",
+                  "id": 6,
+                  "modified_by": "/api/v1/user_account/1/",
+                  "parents": [
+                    "/api/v1/resource/3/"
+                  ],
+                  "resource_uri": "/api/v1/access_point/6/"
+                }
+              ],
+              "city": "Medford",
+              "country": "United States",
+              "created_by": "/api/v1/user_account/1/",
+              "id": 3,
+              "modified_by": "/api/v1/user_account/1/",
+              "parents": [
+                "/api/v1/domain/3/"
+              ],
+              "resource_name": "CLIC Building",
+              "resource_uri": "/api/v1/resource/3/",
+              "state": "MA",
+              "zipcode": "02155"
+            }
+          ],
+          "resource_uri": "/api/v1/domain/3/"
+        }
+      ],
+      "domain_name": "Academic",
+      "id": 4,
+      "modified_by": "/api/v1/user_account/1/",
+      "parents": [
+        "/api/v1/domain/1/"
+      ],
+      "resource_children": [],
+      "resource_uri": "/api/v1/domain/4/"
+    },
+    {
+      "created_by": "/api/v1/user_account/1/",
+      "domain_children": [
+        {
+          "created_by": "/api/v1/user_account/1/",
+          "domain_children": [],
+          "domain_name": "Area 2",
+          "id": 5,
+          "modified_by": "/api/v1/user_account/1/",
+          "parents": [
+            "/api/v1/domain/6/"
+          ],
+          "resource_children": [
+            {
+              "address": "56 Professors Row",
+              "children": [
+                {
+                  "access_point_name": "Metcalf East",
+                  "created_by": "/api/v1/user_account/1/",
+                  "id": 1,
+                  "modified_by": "/api/v1/user_account/1/",
+                  "parents": [
+                    "/api/v1/resource/1/"
+                  ],
+                  "resource_uri": "/api/v1/access_point/1/"
+                },
+                {
+                  "access_point_name": "Metcalf West",
+                  "created_by": "/api/v1/user_account/1/",
+                  "id": 2,
+                  "modified_by": "/api/v1/user_account/1/",
+                  "parents": [
+                    "/api/v1/resource/1/"
+                  ],
+                  "resource_uri": "/api/v1/access_point/2/"
+                }
+              ],
+              "city": "Medford",
+              "country": "United States",
+              "created_by": "/api/v1/user_account/1/",
+              "id": 1,
+              "modified_by": "/api/v1/user_account/1/",
+              "parents": [
+                "/api/v1/domain/5/"
+              ],
+              "resource_name": "Metcalf Hall",
+              "resource_uri": "/api/v1/resource/1/",
+              "state": "MA",
+              "zipcode": "02155"
+            },
+            {
+              "address": "200 Packard Ave",
+              "children": [
+                {
+                  "access_point_name": "Main Entrance",
+                  "created_by": "/api/v1/user_account/1/",
+                  "id": 7,
+                  "modified_by": "/api/v1/user_account/1/",
+                  "parents": [
+                    "/api/v1/resource/4/"
+                  ],
+                  "resource_uri": "/api/v1/access_point/7/"
+                }
+              ],
+              "city": "Medford",
+              "country": "United States",
+              "created_by": "/api/v1/user_account/1/",
+              "id": 4,
+              "modified_by": "/api/v1/user_account/1/",
+              "parents": [
+                "/api/v1/domain/5/"
+              ],
+              "resource_name": "Carmichael Hall",
+              "resource_uri": "/api/v1/resource/4/",
+              "state": "MA",
+              "zipcode": "02155"
+            }
+          ],
+          "resource_uri": "/api/v1/domain/5/"
+        }
+      ],
+      "domain_name": "Residental",
+      "id": 6,
+      "modified_by": "/api/v1/user_account/1/",
+      "parents": [
+        "/api/v1/domain/1/"
+      ],
+      "resource_children": [],
+      "resource_uri": "/api/v1/domain/6/"
+    }
+  ],
+  "domain_name": "Tufts University",
+  "id": 1,
+  "modified_by": "/api/v1/user_account/1/",
+  "parents": [],
+  "resource_children": [],
+  "resource_uri": "/api/v1/domain/1/"
+}

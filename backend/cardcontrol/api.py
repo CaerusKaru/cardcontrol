@@ -1,4 +1,4 @@
-from cardcontrol.models import UserAccount, Card, AccessPoint, Request, Resource
+from cardcontrol.models import UserAccount, Card, AccessPoint, Request, Resource, Domain
 from tastypie.resources import ModelResource, NamespacedModelResource
 from tastypie.authorization import Authorization
 from tastypie.resources import ALL, ALL_WITH_RELATIONS
@@ -9,9 +9,6 @@ from tastypie.exceptions import BadRequest
 
 
 class CardResource(ModelResource):
-
-    def get_schema(self, request, **kwargs):
-        raise NotFound
 
     class Meta:
         always_return_data = True 
@@ -28,7 +25,7 @@ class CardResource(ModelResource):
 
 class UserAccountResource(ModelResource):
     card = fields.ToOneField('cardcontrol.api.CardResource', 'card')
-    access_points = fields.ManyToManyField('cardcontrol.api.AccessPointResource', 'access_points')
+    access_points = fields.ManyToManyField('cardcontrol.api.AccessPointResource', 'access_points', full=True)
     resources_managed = fields.ManyToManyField('cardcontrol.api.ResourceResource', 'resources_managed')
 
     def get_schema(self, request, **kwargs):
@@ -46,9 +43,35 @@ class UserAccountResource(ModelResource):
             'manager_level': ALL
         }
 
+
+class AccessPointResource(ModelResource):
+
+    created_by = fields.ToOneField(UserAccountResource, 'created_by')
+    modified_by = fields.ToOneField(UserAccountResource, 'modified_by')
+    parents = fields.ManyToManyField('cardcontrol.api.ResourceResource', 'resource_children', blank=True)
+
+    def get_schema(self, request, **kwargs):
+        raise NotFound
+
+    class Meta:
+        always_return_data = True
+        queryset = AccessPoint.objects.all()
+        list_allowed_methods = ['get', 'put', 'post']
+        resource_name = 'access_point'
+        detail_allowed_methods = ['get', 'put', 'post']
+        authorization = Authorization()
+        excludes = ['created_by', 'modified_by', 'created_at', 'modified_at']
+        filtering = {
+            'parents': ALL_WITH_RELATIONS,
+            'access_point_name': ALL
+        }
+
+
 class ResourceResource(ModelResource):
     created_by = fields.ToOneField(UserAccountResource, 'created_by')
     modified_by = fields.ToOneField(UserAccountResource, 'modified_by')
+    children = fields.ManyToManyField('cardcontrol.api.AccessPointResource', 'children', blank=True, full=True)
+    parents = fields.ManyToManyField('cardcontrol.api.DomainResource', 'domain_resource_children', blank=True)
 
     class Meta:
         always_return_data = True
@@ -64,48 +87,32 @@ class ResourceResource(ModelResource):
             'address': ALL,
             'state': ALL,
             'country': ALL,
-            'resource_name': ALL
+            'resource_name': ALL,
+            'children': ALL_WITH_RELATIONS,
+            'parent': ALL_WITH_RELATIONS
         }
 
 
 class DomainResource(ModelResource):
     created_by = fields.ToOneField(UserAccountResource, 'created_by')
     modified_by = fields.ToOneField(UserAccountResource, 'modified_by')
-    resource_list = fields.ManyToManyField('cardcontrol.api.ResourceResource', 'resource_list')
-    domain_list = fields.ManyToManyField('cardcontrol.api.DomainResource', 'domain_list')
+    resource_children = fields.ManyToManyField('cardcontrol.api.ResourceResource', 'resource_children', full=True)
+    domain_children = fields.ManyToManyField('cardcontrol.api.DomainResource', 'domain_children', full=True)
+    parents = fields.ManyToManyField('cardcontrol.api.DomainResource', 'domain_domain_children')
 
     class Meta:
         always_return_data = True
-        queryset = Resource.objects.all()
+        queryset = Domain.objects.all()
         list_allowed_methods = ['get', 'put', 'post']
         resource_name = 'domain'
         detail_allowed_methods = ['get', 'put', 'post']
         authorization = Authorization()
         excludes = ['created_by', 'modified_by', 'created_at', 'modified_at']
         filtering = {
-            'domain_name': ALL
-        }
-
-class AccessPointResource(ModelResource):
-
-    created_by = fields.ToOneField(UserAccountResource, 'created_by')
-    modified_by = fields.ToOneField(UserAccountResource, 'modified_by')
-    resource = fields.ToOneField(ResourceResource, 'resource')
-
-    def get_schema(self, request, **kwargs):
-        raise NotFound
-
-    class Meta:
-        always_return_data = True 
-        queryset = AccessPoint.objects.all()
-        list_allowed_methods = ['get', 'put', 'post']
-        resource_name = 'access_point'
-        detail_allowed_methods = ['get', 'put', 'post']
-        authorization = Authorization()
-        excludes = ['created_by', 'modified_by', 'created_at', 'modified_at']
-        filtering = {
-            'resource': ALL_WITH_RELATIONS,
-            'access_point_name': ALL
+            'domain_name': ALL,
+            'domain_children': ALL_WITH_RELATIONS,
+            'resource_children': ALL_WITH_RELATIONS,
+            'parents': ALL_WITH_RELATIONS
         }
 
 
