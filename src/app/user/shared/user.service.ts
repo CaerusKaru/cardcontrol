@@ -33,13 +33,13 @@ export class UserService {
   }
 
   private getUserAccount (): Observable<UserAccount[]> {
-    return this.http.get(Constants.API_PORT + '/api/v1/user_account/?utln=' + this.getUtln())
+    return this.http.get(environment.API_PORT + '/api/v1/user_account/?utln=' + this.getUtln())
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   private getCard (url : string): Observable<User> {
-    return this.http.get(Constants.API_PORT + url)
+    return this.http.get(environment.API_PORT + url)
       .map(this.extractData)
       .catch(this.handleError);
   }
