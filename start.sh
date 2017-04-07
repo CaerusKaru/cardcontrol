@@ -14,7 +14,7 @@ prod=1
 aoff=1
 abld=1
 
-while [[ $# -gt 1 ]]; do
+while [[ $# -gt 0 ]]; do
 key="$1"
 
 case $key in
@@ -25,7 +25,7 @@ case $key in
     prod=0
     ;;
     -b|--build)
-    albd=0
+    abld=0
     ;;
     *)
     ;;
@@ -33,19 +33,21 @@ esac
 shift # past argument or value
 done
 
-echo -e "${goodc}Checking environment setup.${noc}"
-if [[ -n ${prod} ]]; then set +e; fi
-$d/utils/env-check.sh
-if [[ -n ${prod} ]]; then set -e; fi
+echo -e "${goodc}Running with -a ${aoff} -p ${prod} -b ${abld}.${noc}"
 
-if [[ -z ${prod} ]]; then
+echo -e "${goodc}Checking environment setup.${noc}"
+if [[ "${prod}" != "0" ]]; then set +e; fi
+$d/utils/env-check.sh
+if [[ "${prod}" != "0" ]]; then set -e; fi
+
+if [[ "${prod}" == "0" ]]; then
         export DJANGO_DEBUG=''
 fi
 
 echo -e "${goodc}Stopping server.${noc}"
 $d/stop.sh
 
-if [[ -z ${abld} ]]; then
+if [[ "${abld}" == "0" ]]; then
     $d/ng-build.sh
 fi;
 
@@ -65,7 +67,7 @@ expect <<- DONE
     expect -re ".*Quit the server with CONTROL-C.*"
 DONE
 
-if [[ -n ${aoff} ]] && [[ -n ${prod} ]]; then
+if [[ "${aoff}" != "0" ]] && [[ "${prod}" != "0" ]]; then
 echo -e "${goodc}Checking frontend packages up to date.${noc}"
 npm install
 echo -e "${goodc}Starting frontent process.${noc}"
@@ -77,7 +79,7 @@ expect <<- DONE
 DONE
 fi
 
-if [[ -z ${prod} ]]; then
+if [[ "${prod}" == "0" ]]; then
 echo -e "${goodc}Starting uWSGI.${noc}"
 expect <<- DONE
     spawn sudo uwsgi -T --die-on-term --ini $d/backend/uwsgi.ini
