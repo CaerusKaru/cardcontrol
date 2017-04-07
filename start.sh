@@ -40,8 +40,8 @@ expect <<- DONE
 DONE
 
 expect <<- DONE
-        spawn grip $d/doc/api.md & 1>&2 2>$d/grip.log
-        expect -re ".*Running on .*"
+    spawn bash -ic "grip $d/doc/api.md & 1>&2 2>$d/grip.log"
+    expect -re ".*Running on .*"
 DONE
 
 sudo nginx
