@@ -1,10 +1,9 @@
 #TODO:
 ###High Prority:
 # Matt
-* README
 * Get deploy working in production with a GitHub webhook
-* Edit schemas to limit duplicate values
-* Write technical writing API guide
+* Fix HttpBadRequest when hydrating parent in domains
+* Enable memcache
 
 # Adam
 * Start working on manager API workflows
