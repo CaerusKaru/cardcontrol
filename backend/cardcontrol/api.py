@@ -49,6 +49,16 @@ class UserAccountResource(ModelResource):
             'manager_level': ALL
         }
 
+    def hydrate_id(self, bundle):
+        if bundle.data['id'] is not None:
+            bundle.data['id'] = None
+        return bundle
+
+    def hydrate_resource_uri(self, bundle):
+        if bundle.data['resource_uri'] is not None:
+            bundle.data['resource_uri'] = None
+        return bundle
+
 
 class AccessPointResource(ModelResource):
     created_by = fields.ToOneField(UserAccountResource, 'created_by')
@@ -67,6 +77,16 @@ class AccessPointResource(ModelResource):
             'parent': ALL_WITH_RELATIONS,
             'access_point_name': ALL
         }
+
+    def hydrate_id(self, bundle):
+        if bundle.data['id'] is not None:
+            bundle.data['id'] = None
+        return bundle
+
+    def hydrate_resource_uri(self, bundle):
+        if bundle.data['resource_uri'] is not None:
+            bundle.data['resource_uri'] = None
+        return bundle
 
 
 class ResourceResource(ModelResource):
@@ -93,6 +113,16 @@ class ResourceResource(ModelResource):
             'children': ALL_WITH_RELATIONS,
             'parent': ALL_WITH_RELATIONS
         }
+
+    def hydrate_id(self, bundle):
+        if bundle.data['id'] is not None:
+            bundle.data['id'] = None
+        return bundle
+
+    def hydrate_resource_uri(self, bundle):
+        if bundle.data['resource_uri'] is not None:
+            bundle.data['resource_uri'] = None
+        return bundle
 
 
 class DomainResource(ModelResource):
@@ -122,6 +152,16 @@ class DomainResource(ModelResource):
             return HttpBadRequest({'code': 401, 'message': 'Creation of new domains with no parent is not allowed.'})
         return bundle
 
+    def hydrate_id(self, bundle):
+        if bundle.data['id'] is not None:
+            bundle.data['id'] = None
+        return bundle
+
+    def hydrate_resource_uri(self, bundle):
+        if bundle.data['resource_uri'] is not None:
+            bundle.data['resource_uri'] = None
+        return bundle
+
 
 class RequestResource(ModelResource):
     created_by = fields.ToOneField(UserAccountResource, 'created_by')
@@ -146,3 +186,13 @@ class RequestResource(ModelResource):
             'request_level': ALL_WITH_RELATIONS,
             'status': ALL_WITH_RELATIONS
         }
+
+    def hydrate_id(self, bundle):
+        if bundle.data['id'] is not None:
+            bundle.data['id'] = None
+        return bundle
+
+    def hydrate_resource_uri(self, bundle):
+        if bundle.data['resource_uri'] is not None:
+            bundle.data['resource_uri'] = None
+        return bundle
