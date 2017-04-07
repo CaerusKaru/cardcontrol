@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MdDialog} from '@angular/material';
+import {MdDialog, MdDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-user-area',
@@ -37,9 +37,9 @@ export class UserAreaComponent implements OnInit {
     }
   ];
 
-  chooseBuilding (name : string) {
+  chooseBuilding (resource) {
     let dialogRef = this.dialog.open(UserAreaDialog);
-    dialogRef.componentInstance.name = name;
+    dialogRef.componentInstance.name = resource.name;
   }
 
   lat: number = 51.678418;
@@ -49,8 +49,11 @@ export class UserAreaComponent implements OnInit {
 
 @Component({
   selector: 'app-user-area-dialog',
-  template: '<h1>Help!</h1>'
+  templateUrl: 'user-area-building-dialog.component.html'
 })
 export class UserAreaDialog {
+
+  constructor (dialogRef : MdDialogRef<UserAreaDialog>) {
+  }
   name : string;
 }
