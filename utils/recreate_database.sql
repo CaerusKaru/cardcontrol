@@ -13,45 +13,25 @@ INSERT INTO cardcontrol_useraccount VALUES(1, 'Matthew', 'Asnes', 'masnes01', no
 INSERT INTO cardcontrol_useraccount VALUES(2, 'Harrison', 'Kaiser', 'hkaise01', now(), now(), 0, 1);
 INSERT INTO cardcontrol_useraccount VALUES(3, 'Adam', 'Plumer', 'aplume01', now(), now(), 1, 1);
 
-INSERT INTO cardcontrol_accesspoint VALUES(1, 'Metcalf East', now(), now(), 1, 1);
-INSERT INTO cardcontrol_accesspoint VALUES(2, 'Metcalf West', now(), now(), 1, 1);
-INSERT INTO cardcontrol_accesspoint VALUES(3, 'Main Entrance', now(), now(), 1, 1);
-INSERT INTO cardcontrol_accesspoint VALUES(4, 'Halligan Extension Entrance', now(), now(), 1, 1);
-INSERT INTO cardcontrol_accesspoint VALUES(5, 'Main Entrance', now(), now(), 1, 1);
-INSERT INTO cardcontrol_accesspoint VALUES(6, 'Physics Department', now(), now(), 1, 1);
-INSERT INTO cardcontrol_accesspoint VALUES(7, 'Main Entrance', now(), now(), 1, 1);
+INSERT INTO cardcontrol_domain VALUES(1, 'Tufts University', now(), now(), 1, 1, null);
+INSERT INTO cardcontrol_domain VALUES(4, 'Academic', now(), now(), 1, 1, 1);
+INSERT INTO cardcontrol_domain VALUES(2, 'CS Department', now(), now(), 1, 1, 4);
+INSERT INTO cardcontrol_domain VALUES(3, 'Physics Department', now(), now(), 1, 1, 4);
+INSERT INTO cardcontrol_domain VALUES(6, 'Residental', now(), now(), 1, 1, 1);
+INSERT INTO cardcontrol_domain VALUES(5, 'Area 2', now(), now(), 1, 1, 6);
 
-INSERT INTO cardcontrol_resource VALUES(1, '02155', '56 Professors Row', 'Medford', 'MA', 'United States', 'Metcalf Hall', now(), now(), 1, 1);
-INSERT INTO cardcontrol_resource VALUES(2, '02155', '161 College Ave', 'Medford', 'MA', 'United States', 'Halligan Hall', now(), now(), 1, 1);
-INSERT INTO cardcontrol_resource VALUES(3, '02155', '574 Boston Ave', 'Medford', 'MA', 'United States', 'CLIC Building', now(), now(), 1, 1);
-INSERT INTO cardcontrol_resource VALUES(4, '02155', '200 Packard Ave', 'Medford', 'MA', 'United States', 'Carmichael Hall', now(), now(), 1, 1);
+INSERT INTO cardcontrol_resource VALUES(1, '02155', '56 Professors Row', 'Medford', 'MA', 'United States', 'Metcalf Hall', now(), now(), 1, 1, 5);
+INSERT INTO cardcontrol_resource VALUES(4, '02155', '200 Packard Ave', 'Medford', 'MA', 'United States', 'Carmichael Hall', now(), now(), 1, 1, 5);
+INSERT INTO cardcontrol_resource VALUES(2, '02155', '161 College Ave', 'Medford', 'MA', 'United States', 'Halligan Hall', now(), now(), 1, 1, 2);
+INSERT INTO cardcontrol_resource VALUES(3, '02155', '574 Boston Ave', 'Medford', 'MA', 'United States', 'CLIC Building', now(), now(), 1, 1, 3);
 
-
-INSERT INTO cardcontrol_domain VALUES(1, 'Tufts University', now(), now(), 1, 1);
-INSERT INTO cardcontrol_domain VALUES(2, 'CS Department', now(), now(), 1, 1);
-INSERT INTO cardcontrol_domain VALUES(3, 'Physics Department', now(), now(), 1, 1);
-INSERT INTO cardcontrol_domain VALUES(4, 'Academic', now(), now(), 1, 1);
-INSERT INTO cardcontrol_domain VALUES(5, 'Area 2', now(), now(), 1, 1);
-INSERT INTO cardcontrol_domain VALUES(6, 'Residental', now(), now(), 1, 1);
-
-INSERT INTO cardcontrol_resource_children VALUES(1, 1, 1);
-INSERT INTO cardcontrol_resource_children VALUES(2, 1, 2);
-INSERT INTO cardcontrol_resource_children VALUES(3, 2, 3);
-INSERT INTO cardcontrol_resource_children VALUES(4, 2, 4);
-INSERT INTO cardcontrol_resource_children VALUES(5, 3, 5);
-INSERT INTO cardcontrol_resource_children VALUES(6, 3, 6);
-INSERT INTO cardcontrol_resource_children VALUES(7, 4, 7);
-
-INSERT INTO cardcontrol_domain_resource_children VALUES(1, 2, 2);
-INSERT INTO cardcontrol_domain_resource_children VALUES(2, 3, 3);
-INSERT INTO cardcontrol_domain_resource_children VALUES(3, 5, 1);
-INSERT INTO cardcontrol_domain_resource_children VALUES(4, 5, 4);
-
-INSERT INTO cardcontrol_domain_domain_children VALUES(1, 4, 2);
-INSERT INTO cardcontrol_domain_domain_children VALUES(2, 4, 3);
-INSERT INTO cardcontrol_domain_domain_children VALUES(3, 6, 5);
-INSERT INTO cardcontrol_domain_domain_children VALUES(4, 1, 4);
-INSERT INTO cardcontrol_domain_domain_children VALUES(5, 1, 6);
+INSERT INTO cardcontrol_accesspoint VALUES(1, 'Metcalf East', now(), now(), 1, 1, 1);
+INSERT INTO cardcontrol_accesspoint VALUES(2, 'Metcalf West', now(), now(), 1, 1, 1);
+INSERT INTO cardcontrol_accesspoint VALUES(3, 'Main Entrance', now(), now(), 1, 1, 2);
+INSERT INTO cardcontrol_accesspoint VALUES(4, 'Halligan Extension Entrance', now(), now(), 1, 1, 2);
+INSERT INTO cardcontrol_accesspoint VALUES(5, 'Main Entrance', now(), now(), 1, 1, 3);
+INSERT INTO cardcontrol_accesspoint VALUES(6, 'Physics Department', now(), now(), 1, 1, 3);
+INSERT INTO cardcontrol_accesspoint VALUES(7, 'Main Entrance', now(), now(), 1, 1, 4);
 
 INSERT INTO cardcontrol_useraccount_access_points VALUES(1, 1, 1);
 INSERT INTO cardcontrol_useraccount_access_points VALUES(2, 1, 2);

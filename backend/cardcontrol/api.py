@@ -48,8 +48,10 @@ class AccessPointResource(ModelResource):
 
     created_by = fields.ToOneField(UserAccountResource, 'created_by')
     modified_by = fields.ToOneField(UserAccountResource, 'modified_by')
-    parents = fields.ManyToManyField('cardcontrol.api.ResourceResource', 'resource_children', blank=True)
+    parent = fields.ForeignKey('cardcontrol.api.ResourceResource', 'parent')
 
+    #parents = fields.ManyToManyField('cardcontrol.api.ResourceResource', 'resource_children', blank=True)
+    
     def get_schema(self, request, **kwargs):
         raise NotFound
 
@@ -62,7 +64,7 @@ class AccessPointResource(ModelResource):
         authorization = Authorization()
         excludes = ['created_by', 'modified_by', 'created_at', 'modified_at']
         filtering = {
-            'parents': ALL_WITH_RELATIONS,
+            'parent': ALL_WITH_RELATIONS,
             'access_point_name': ALL
         }
 
@@ -70,8 +72,11 @@ class AccessPointResource(ModelResource):
 class ResourceResource(ModelResource):
     created_by = fields.ToOneField(UserAccountResource, 'created_by')
     modified_by = fields.ToOneField(UserAccountResource, 'modified_by')
-    children = fields.ManyToManyField('cardcontrol.api.AccessPointResource', 'children', blank=True, full=True)
-    parents = fields.ManyToManyField('cardcontrol.api.DomainResource', 'domain_resource_children', blank=True)
+    parent = fields.ForeignKey('cardcontrol.api.DomainResource', 'parent')
+    children = fields.ToManyField('cardcontrol.api.AccessPointResource', 'accesspoint_parent', blank=True, full=True)
+
+    #children = fields.ManyToManyField('cardcontrol.api.AccessPointResource', 'children', blank=True, full=True)
+    #parents = fields.ManyToManyField('cardcontrol.api.DomainResource', 'domain_resource_children', blank=True)
 
     class Meta:
         always_return_data = True
@@ -96,9 +101,12 @@ class ResourceResource(ModelResource):
 class DomainResource(ModelResource):
     created_by = fields.ToOneField(UserAccountResource, 'created_by')
     modified_by = fields.ToOneField(UserAccountResource, 'modified_by')
-    resource_children = fields.ManyToManyField('cardcontrol.api.ResourceResource', 'resource_children', full=True)
-    domain_children = fields.ManyToManyField('cardcontrol.api.DomainResource', 'domain_children', full=True)
-    parents = fields.ManyToManyField('cardcontrol.api.DomainResource', 'domain_domain_children')
+    parent = fields.ForeignKey('cardcontrol.api.DomainResource', 'parent', blank=True, null=True)
+    resource_children = fields.ToManyField('cardcontrol.api.ResourceResource', 'resource_parent', blank=True, full=True)
+    domain_children = fields.ToManyField('cardcontrol.api.DomainResource', 'domain_parent', blank=True, full=True)
+    #resource_children = fields.ManyToManyField('cardcontrol.api.ResourceResource', 'resource_children', full=True)
+    #domain_children = fields.ManyToManyField('cardcontrol.api.DomainResource', 'domain_children', full=True)
+    #parents = fields.ManyToManyField('cardcontrol.api.DomainResource', 'domain_domain_children')
 
     class Meta:
         always_return_data = True
@@ -112,7 +120,7 @@ class DomainResource(ModelResource):
             'domain_name': ALL,
             'domain_children': ALL_WITH_RELATIONS,
             'resource_children': ALL_WITH_RELATIONS,
-            'parents': ALL_WITH_RELATIONS
+            'parent': ALL_WITH_RELATIONS
         }
 
 

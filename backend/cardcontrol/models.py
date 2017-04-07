@@ -44,12 +44,12 @@ class UserAccount(models.Model):
 
 class AccessPoint(models.Model):
     access_point_name = models.CharField(max_length=60)
-    #parent = models.ForeignKey(Resource, on_delete=models.CASCADE)
     created_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_created_by')
     modified_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_modified_by')
     created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
     modified_at = models.DateTimeField(default=datetime.datetime.now)
-    
+    parent = models.ForeignKey('Resource', on_delete=models.CASCADE, related_name='%(class)s_parent')
+
     class Meta:
         app_label = 'cardcontrol'
 
@@ -64,8 +64,8 @@ class Resource(models.Model):
     state = models.CharField(max_length=60)
     country = models.CharField(max_length=60)
     resource_name = models.CharField(max_length=60)
-    #parent = model.ForeignKey('Domain', on_delete=models.CASCADE)
-    children = models.ManyToManyField('AccessPoint', blank=True, related_name='%(class)s_children')
+   #children = models.ManyToManyField('AccessPoint', blank=True, related_name='%(class)s_children')
+    parent = models.ForeignKey('Domain', on_delete=models.CASCADE, related_name='%(class)s_parent')
     created_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_created_by')
     modified_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_modified_by')
     created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
@@ -81,9 +81,9 @@ class Resource(models.Model):
 
 class Domain(models.Model):
     domain_name = models.CharField(max_length=60, unique=True)
-    #parent = models.ForeignKey('Domain', on_delete=models.CASCADE)
-    domain_children = models.ManyToManyField('Domain', blank=True, related_name='%(class)s_domain_children')
-    resource_children = models.ManyToManyField('Resource', blank=True, related_name='%(class)s_resource_children')
+   #domain_children = models.ManyToManyField('Domain', blank=True, related_name='%(class)s_domain_children')
+   #resource_children = models.ManyToManyField('Resource', blank=True, related_name='%(class)s_resource_children')
+    parent = models.ForeignKey('Domain', on_delete=models.CASCADE, related_name='%(class)s_parent', blank=True, null=True)
     created_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_created_by')
     modified_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_modified_by')
     created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
