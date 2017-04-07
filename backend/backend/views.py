@@ -10,21 +10,13 @@ from django.utils.encoding import force_bytes
 import requests
 from ipaddress import ip_address, ip_network
 import subprocess
+import json
+
+# From: https://simpleisbetterthancomplex.com/tutorial/2016/10/31/how-to-handle-github-webhooks-using-django.html
 
 @require_POST
 @csrf_exempt
 def hook(request):
-    # Verify if request came from GitHub
-    forwarded_for = u'{}'.format(request.META.get('HTTP_X_FORWARDED_FOR'))
-    client_ip_address = ip_address(forwarded_for)
-    whitelist = requests.get('https://api.github.com/meta').json()['hooks']
-
-    for valid_ip in whitelist:
-        if client_ip_address in ip_network(valid_ip):
-            break
-    else:
-        return HttpResponseForbidden('Permission denied.')
-
     # Verify the request signature
     header_signature = request.META.get('HTTP_X_HUB_SIGNATURE')
     if header_signature is None:
@@ -42,13 +34,17 @@ def hook(request):
     # Process the GitHub events
     event = request.META.get('HTTP_X_GITHUB_EVENT', 'ping')
 
+
     if event == 'ping':
         return HttpResponse('pong')
     elif event == 'push':
-        bash_c = "~/cardcontrol/stop.sh && git -C ~/cardcontrol/ stash && git -C ~/cardcontrol/ checkout master && git -C ~/cardcontrol/ pull origin master && ~/cardcontrol/start.sh"
+        jdict = json.loads(request.body)
+        if jdict['ref'] != "refs/heads/deploy":
+            return HttpResponse(jdict['ref'], status=204)
+        bash_c = "sudo -u ec2-user /home/ec2-user/cardcontrol/deploy.sh &"
         process = subprocess.Popen(bash_c.split(), stdout=subprocess.PIPE)
         output, error = process.communicate()
-        return HttpResponse('success')
+        return HttpResponse('success')    
 
     # In case we receive an event that's not ping or push
-    return HttpResponse(status=204)
+    return HttpResponse("request object not recognized", status=204)

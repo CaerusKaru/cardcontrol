@@ -21,10 +21,12 @@ class CardResource(ModelResource):
         resource_name = 'card'
         authorization = Authorization()
         excludes = ['created_at', 'modified_at']
+        filtering = {
+            'utln': ALL
+        }
 
 
 class UserAccountResource(ModelResource):
-
     card = fields.ToOneField('cardcontrol.api.CardResource', 'card')
     access_points = fields.ManyToManyField('cardcontrol.api.AccessPointResource', 'access_points')
     resources_managed = fields.ManyToManyField('cardcontrol.api.ResourceResource', 'resources_managed')
@@ -34,8 +36,8 @@ class UserAccountResource(ModelResource):
 
     class Meta:
         queryset = UserAccount.objects.all()
-        list_allowed_methods = ['get']
-        detail_allowed_methods = ['get']
+        list_allowed_methods = ['get', 'put', 'post']
+        detail_allowed_methods = ['get', 'put', 'post']
         resource_name = 'user_account'
         authorization = Authorization()
         excludes = ['created_at', 'modified_at']
@@ -59,17 +61,18 @@ class ResourceResource(ModelResource):
         filtering = {
             'city': ALL,
             'zipcode': ALL,
-            'street': ALL,
+            'address': ALL,
             'state': ALL,
             'country': ALL,
             'resource_name': ALL
         }
 
+
 class DomainResource(ModelResource):
     created_by = fields.ToOneField(UserAccountResource, 'created_by')
     modified_by = fields.ToOneField(UserAccountResource, 'modified_by')
-    resources = fields.ManyToManyField('cardcontrol.api.ResourceResource', 'resources')
-    domains = fields.ManyToManyField('cardcontrol.api.DomainResource', 'domains')
+    resource_list = fields.ManyToManyField('cardcontrol.api.ResourceResource', 'resource_list')
+    domain_list = fields.ManyToManyField('cardcontrol.api.DomainResource', 'domain_list')
 
     class Meta:
         always_return_data = True
@@ -82,7 +85,6 @@ class DomainResource(ModelResource):
         filtering = {
             'domain_name': ALL
         }
-
 
 class AccessPointResource(ModelResource):
 
@@ -125,6 +127,7 @@ class RequestResource(ModelResource):
         detail_allowed_methods = ['get', 'put', 'post']
         resource_name = 'request'
         authorization = Authorization()
+
         excludes = ['created_by', 'modified_by']
         filtering = {
             'created_at': ALL,
@@ -133,5 +136,3 @@ class RequestResource(ModelResource):
             'request_level': ALL_WITH_RELATIONS,
             'status': ALL_WITH_RELATIONS
         }
-
-
