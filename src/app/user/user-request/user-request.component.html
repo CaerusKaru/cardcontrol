@@ -5,9 +5,32 @@
     </md-toolbar>
 
     <md-card-content>
-      <md-list dense *ngIf="requests">
-        <md-list-item *ngFor="let request of requests"> {{request.resource_uri}} </md-list-item>
-      </md-list>
+      <md-nav-list *ngIf="requests">
+        <h3 md-subheader>Open Requests</h3>
+        <md-list-item *ngFor="let request of openRequests" [ngSwitch]="request.status">
+          <md-icon md-list-icon [ngStyle]="{color: '#FFC107'}" *ngSwitchCase="0" (click)="editRequest(request)">watch_later</md-icon>
+          <md-icon md-list-icon [ngStyle]="{color: 'blue'}" *ngSwitchCase="2" (click)="editRequest(request)">comment</md-icon>
+          <span fxFlex="10px"></span>
+          <h4 md-line (click)="editRequest(request)">Request for:
+            <span *ngIf="request.new_card">New Card</span>
+            <span *ngIf="!request.new_card">Access</span>
+          </h4>
+          <p md-line *ngSwitchCase="0" (click)="editRequest(request)">Submitted on: {{getDate(request.modified_at)}}</p>
+          <p md-line *ngSwitchCase="2" (click)="editRequest(request)">Modified on: {{getDate(request.modified_at)}}</p>
+        </md-list-item>
+
+        <h3 md-subheader>Closed Requests</h3>
+        <md-list-item *ngFor="let request of closedRequests" [ngSwitch]="request.status">
+          <md-icon *ngSwitchCase="1" md-list-icon [ngStyle]="{color: 'green'}" (click)="editRequest(request)">check_circle</md-icon>
+          <md-icon *ngSwitchCase="3" md-list-icon [ngStyle]="{color: 'red'}" (click)="editRequest(request)">error</md-icon>
+          <span fxFlex="10px"></span>
+          <h4 md-line (click)="editRequest(request)">Request for:
+            <span *ngIf="request.new_card">New Card</span>
+            <span *ngIf="!request.new_card">Access</span>
+          </h4>
+          <p md-line (click)="editRequest(request)">Closed on: {{getDate(request.modified_at)}}</p>
+        </md-list-item>
+      </md-nav-list>
     </md-card-content>
   </md-card>
 

@@ -20,14 +20,13 @@ export class RequestService {
   ) {
     this.userService.userAccount.subscribe(
       data => {
-        console.log(data);
         this.userAccount = data
       }
     )
   }
 
-  public getRequests () : Observable<ChangeRequest[]> {
-    return this.http.get(environment.API_PORT + '/api/v1/request?user=' + this.userAccount.id)
+  public getRequests (id : number) : Observable<ChangeRequest[]> {
+    return this.http.get(environment.API_PORT + '/api/v1/request?user=' + id)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -79,7 +78,8 @@ export class RequestService {
       reason : reasonWhy,
       feedback : null,
       created_by: this.userAccount.resource_uri,
-      modified_by: this.userAccount.resource_uri
+      modified_by: this.userAccount.resource_uri,
+      modified_at: null
     };
 
     this.http.post(environment.API_PORT + '/api/v1/request/', newReq, options)
@@ -105,7 +105,8 @@ export class RequestService {
           reason : null,
           feedback : null,
           created_by: this.userAccount.resource_uri,
-          modified_by: this.userAccount.resource_uri
+          modified_by: this.userAccount.resource_uri,
+          modified_at: null
         };
         this.http.post(environment.API_PORT + '/api/v1/request/', newReq, options)
           .map(this.extractData)

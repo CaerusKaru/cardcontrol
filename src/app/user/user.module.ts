@@ -9,9 +9,11 @@ import {UserAreaComponent, UserAreaDialog} from './user-area/user-area.component
 import { UserRequestComponent } from './user-request/user-request.component';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { UserAccountComponent } from './user-account/user-account.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   imports: [
+    FormsModule,
     CommonModule,
     MaterialModule,
     FlexLayoutModule,

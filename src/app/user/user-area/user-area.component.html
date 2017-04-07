@@ -1,11 +1,10 @@
 <div class="building-wrapper">
-    <!--<sebm-google-map [latitude]="lat" [longitude]="lng"></sebm-google-map>-->
     <md-grid-list cols="5" rowHeight='4:3'>
-        <md-grid-tile *ngFor="let building of buildings" 
+        <md-grid-tile *ngFor="let resource of resources"
                       class="building-card"
-                      (click)="chooseBuilding(building)">
-            <md-grid-tile-footer>{{building.name}}</md-grid-tile-footer>
+                      [style.background]="'lightblue'"
+                      (click)="chooseBuilding(resource)">
+            <md-grid-tile-footer>{{resource.resource_name}}</md-grid-tile-footer>
         </md-grid-tile>
     </md-grid-list>
-
 </div>
