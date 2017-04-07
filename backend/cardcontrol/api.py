@@ -83,7 +83,7 @@ class DomainResource(ModelResource):
         authorization = Authorization()
         excludes = ['created_by', 'modified_by', 'created_at', 'modified_at']
         filtering = {
-            'domain_name': ALL
+            'domain_name': ALL,
         }
 
 class AccessPointResource(ModelResource):

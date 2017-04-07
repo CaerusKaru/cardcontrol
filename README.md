@@ -77,7 +77,6 @@ Documentation for the various frameworks, packages, and components discussed abo
 | Django            | defusedxml                         | https://pypi.python.org/pypi/defusedxml/
 | Django            | requests                           | https://docs.python-requests.org/en/master/
 | Django            | ipaddress                          | https://docs.python.org/3/library/ipaddress.html
-
 | Angular           | @angular/cli                       | https://github.com/angular/angular-cli/wiki
 | Angular           | @angular/core                      | https://angular.io/docs/ts/latest/
 | Angular           | @angular/flex-layout               | https://github.com/angular/flex-layout/wiki/API-Documentation

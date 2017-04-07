@@ -25,7 +25,6 @@ INSERT INTO cardcontrol_domain_resources VALUES(2, 1, 2);
 INSERT INTO cardcontrol_domain_resources VALUES(3, 1, 3);
 
 INSERT INTO cardcontrol_domain_resources VALUES(4, 2, 2);
-
 INSERT INTO cardcontrol_domain_domains VALUES(1, 1, 2);
 
 INSERT INTO cardcontrol_accesspoint VALUES(1, 'Metcalf East', now(), now(), 1, 1, 1);

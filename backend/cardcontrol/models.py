@@ -53,7 +53,7 @@ class Resource(models.Model):
         unique_together = ('zipcode', 'address', 'city', 'resource_name')
 
     def __str__(self):
-        return self.building_name
+        return self.resource_name
 
 class Domain(models.Model):
     domain_name = models.CharField(max_length=120, unique=True)
@@ -67,7 +67,7 @@ class Domain(models.Model):
         app_label = 'cardcontrol'
 
     def __str__(self):
-        return self.building_name
+        return self.domain_name
 
 class AccessPoint(models.Model):
     resource = models.ForeignKey(Resource, on_delete=models.CASCADE)
@@ -81,7 +81,7 @@ class AccessPoint(models.Model):
         unique_together = ('resource', 'access_point_name')
 
     def __str__(self):
-        return self.access_point_name + " @ " + self.building_name
+        return self.access_point_name
 
 class Request(models.Model):
     user = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
@@ -97,14 +97,7 @@ class Request(models.Model):
     modified_at = models.DateTimeField(default=datetime.datetime.now)
     class Meta:
         app_label = 'cardcontrol'
-    
-#    def apply_filters(self, request, applicable_filters):
-#        distinct = request.GET.get('distinct', False) == 'True'
-#        if distinct:
-#            return self.get_object_list(request).filter(**applicable_filters).distinct()
-#        else:
-#            return self.get_object_list(request).filter(**applicable_filters)
-
+        
     def __str__(self):
         return self.user
 
