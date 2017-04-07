@@ -71,8 +71,8 @@ class ResourceResource(ModelResource):
 class DomainResource(ModelResource):
     created_by = fields.ToOneField(UserAccountResource, 'created_by')
     modified_by = fields.ToOneField(UserAccountResource, 'modified_by')
-    resources = fields.ManyToManyField('cardcontrol.api.ResourceResource', 'resources')
-    domains = fields.ManyToManyField('cardcontrol.api.DomainResource', 'domains')
+    resource_list = fields.ManyToManyField('cardcontrol.api.ResourceResource', 'resource_list')
+    domain_list = fields.ManyToManyField('cardcontrol.api.DomainResource', 'domain_list')
 
     class Meta:
         always_return_data = True
@@ -83,7 +83,7 @@ class DomainResource(ModelResource):
         authorization = Authorization()
         excludes = ['created_by', 'modified_by', 'created_at', 'modified_at']
         filtering = {
-            'domain_name': ALL,
+            'domain_name': ALL
         }
 
 class AccessPointResource(ModelResource):
