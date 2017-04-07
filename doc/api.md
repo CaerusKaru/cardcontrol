@@ -30,6 +30,10 @@ Hello! Welcome to the CardControl API. This interface allows you to interact wit
         * [GET /api/v1/resource?address=`$address`](#get-apiv1resourceaddressaddress)
         * [GET /api/v1/resource?zipcode=`$zipcode`](#get-apiv1resourcezipcodezipcode)
         * [POST /api/v1/resource](#post-apiv1resource)
+    * [Domain](#domain)
+        * [GET /api/v1/domain/`$id`](#get-apiv1domainid)
+        * [GET /api/v1/domain?domain_name=`$domain_name`](#get-apiv1domaindomain_namedomain_name)
+        * [POST /api/v1/domain](#post-apiv1domain)
     * [Request](#request)
         * [GET /api/v1/request/`$id`](#get-apiv1requestid)
         * [GET /api/v1/request/?user=`$user`](#get-apiv1requestuseruser)
@@ -83,18 +87,18 @@ Returns the card with a given ID. This is not the card ID of the institution, bu
 
 |  Field          | Value Type      | Description                                                      | Example                 |
 |-----------------|-----------------|------------------------------------------------------------------|-------------------------|
-| utln            | `STRING`        | The UTLN of the card owner.                                      | jsmith01                |
-| first_name      | `STRING`        | The first name of the card owner.                                | John                    |
-| middle_initial  | `CHAR`          | The middle initial of the card owner. Must be a single character.| A                       |
-| last_name       | `STRING`        | The last name of the card owner.                                 | Smith                   |
-| birth_date      | `DATETIME`      | The bithdate of the card owner.                                  | 1996-04-06              |
-| class_year      | `INT`           | The class year of the card owner. Must be a 4-digit integer.     | 2017                    |
-| school          | `STRING`        | The school within the university to which the card owner belongs.| Liberal Arts            |
-| student_type    | `STRING`        | The type of community member the card owner is.                  | Graduate                |
-| jumbocash_id    | `INT`           | The campus money system ID of the card owner.                    | 987654321               |
-| barcode         | `INT`           | The numeric barcode value of the ID.                             | 123456789               |
-| id              | `INT`           | Has value $id.                                                   | 1                       |
-| resource_uri    | `STRING`        | Has value '/api/v1/card/$id'.                                    | /api/v1/card/1          |
+| utln            | `STRING`        | The UTLN of the card owner.                                      | `jsmith01`                |
+| first_name      | `STRING`        | The first name of the card owner.                                | `John`                    |
+| middle_initial  | `CHAR`          | The middle initial of the card owner. Must be a single character.| `A`                       |
+| last_name       | `STRING`        | The last name of the card owner.                                 | `Smith`                   |
+| birth_date      | `DATETIME`      | The bithdate of the card owner.                                  | `1996-04-06`              |
+| class_year      | `INT`           | The class year of the card owner. Must be a 4-digit integer.     | `2017`                    |
+| school          | `STRING`        | The school within the university to which the card owner belongs.| `Liberal Arts`            |
+| student_type    | `STRING`        | The type of community member the card owner is.                  | `Graduate`               |
+| jumbocash_id    | `INT`           | The campus money system ID of the card owner.                    | `987654321`               |
+| barcode         | `INT`           | The numeric barcode value of the ID.                             | `123456789`               |
+| id              | `INT`           | Has value $id.                                                   | `1`                       |
+| resource_uri    | `STRING`        | Has value '/api/v1/card/$id'.                                    | `/api/v1/card/1`          |
 
 An example JSON object is as follows:
 
@@ -171,16 +175,16 @@ The object to be send should have the following fields. Any additional fields wi
 
 |  Field          | Value Type      | Description                                                      | Example                 |
 |-----------------|-----------------|------------------------------------------------------------------|-------------------------|
-| utln            | `STRING`        | The UTLN of the card owner.                                      | jsmith01                |
-| first_name      | `STRING`        | The first name of the card owner.                                | John                    |
-| middle_initial  | `CHAR`          | The middle initial of the card owner. Must be a single character.| A                       |
-| last_name       | `STRING`        | The last name of the card owner.                                 | Smith                   |
-| birth_date      | `DATETIME`      | The bithdate of the card owner.                                  | 1996-04-06              |
-| class_year      | `INT`           | The class year of the card owner. Must be a 4-digit integer.     | 2017                    |
-| school          | `STRING`        | The school within the university to which the card owner belongs.| Liberal Arts            |
-| student_type    | `STRING`        | The type of community member the card owner is.                  | Graduate                |
-| jumbocash_id    | `INT`           | The campus money system ID of the card owner.                    | 987654321               |
-| barcode         | `INT`           | The numeric barcode value of the ID.                             | 123456789               |
+| utln            | `STRING`        | The UTLN of the card owner.                                      | `jsmith01`                |
+| first_name      | `STRING`        | The first name of the card owner.                                | `John`                    |
+| middle_initial  | `CHAR`          | The middle initial of the card owner. Must be a single character.| `A`                       |
+| last_name       | `STRING`        | The last name of the card owner.                                 | `Smith`                   |
+| birth_date      | `DATETIME`      | The bithdate of the card owner.                                  | `1996-04-06`              |
+| class_year      | `INT`           | The class year of the card owner. Must be a 4-digit integer.     | `2017`                    |
+| school          | `STRING`        | The school within the university to which the card owner belongs.| `Liberal Arts`            |
+| student_type    | `STRING`        | The type of community member the card owner is.                  | `Graduate`                |
+| jumbocash_id    | `INT`           | The campus money system ID of the card owner.                    | `987654321`               |
+| barcode         | `INT`           | The numeric barcode value of the ID.                             | `123456789`               |
 
 The header of the HTTP request must match the format of the data being sent, and that format must be either JSON or XML. All fields above *must* be included. 
 
@@ -197,17 +201,18 @@ A user account is the primary means by which users interact with the system. Eac
 ### [GET /api/v1/user_account/`$id`](#get-apiv1user_accountid)
 
 Returns the user account with the given ID. 
+
 |  Field          | Value Type      | Description                                                      | Example                 |
 |-----------------|-----------------|------------------------------------------------------------------|-------------------------|
-| utln            | `STRING`        | The unqiue UTLN username associated with the user.               | jsmith01                |
-| first_name      | `STRING`        | The first name of the user.                                      | John                    |
-| last_name       | `STRING`        | The last name of the user.                                       | Smith                   |
-| card            | `STRING`        | A reference to the active card of the user.                      | /api/v1/card/1          |
-| access_points   | `ACCESS_POINT[]`| An array of access point objects to which this user has access.  | [ { "id": 1, ...}, ... ]       |
-| resources_managed | `STRING[]`    | An array of *references* to resources which this user manages.   | [ /api/v1/resource/1, ... ]    |
-| manager_level   | `INT`           | 0 == unpriveleged, 1 == resource manager, 2 == system manager    | 2                       |
-| id              | `INT`           | Has value $id.                                                   | 1                       |
-| resource_uri    | `STRING`        | Has value '/api/v1/user_account/$id'.                            | /api/v1/user_account/1  |
+| utln            | `STRING`        | The unqiue UTLN username associated with the user.               | `jsmith01              `  |
+| first_name      | `STRING`        | The first name of the user.                                      | `John                  `  |
+| last_name       | `STRING`        | The last name of the user.                                       | `Smith                 `  |
+| card            | `STRING`        | A reference to the active card of the user.                      | `/api/v1/card/1        `  |
+| access_points   | `ACCESS_POINT[]`| An array of access point objects to which this user has access.  | `[ { "id": 1, ...}, ... ]     `  |
+| resources_managed | `STRING[]`    | An array of *references* to resources which this user manages.   | `[ /api/v1/resource/1, ... ]  `  |
+| manager_level   | `INT`           | The user's manager level code as defined above.                  | `2                     `  |
+| id              | `INT`           | Has value $id.                                                   | `1                     `  |
+| resource_uri    | `STRING`        | Has value '/api/v1/user_account/$id'.                            | `/api/v1/user_account/1`  |
 
 An example JSON object is as follows:
 
@@ -332,13 +337,13 @@ The object to be send should have the following fields. Any additional fields wi
 
 |  Field          | Value Type      | Description                                                      | Example                 |
 |-----------------|-----------------|------------------------------------------------------------------|-------------------------|
-| utln            | `STRING`        | The unqiue UTLN username associated with the user.               | jsmith01                |
-| first_name      | `STRING`        | The first name of the user.                                      | John                    |
-| last_name       | `STRING`        | The last name of the user.                                       | Smith                   |
-| card            | `STRING`        | A reference to the active card of the user.                      | /api/v1/card/1          |
-| access_points   | `ACCESS_POINT[]`| An array of access point objects to which this user has access.  | [ { "id": 1, ...}, ... ]       |
-| manager_level   | `INT`           | The integer manager level code, as defined above.                | 2                       |
-| resources_managed | `STRING[]`    | An array of *references* to resources which this user manages.   | [ /api/v1/resource/1, ... ]    |
+| utln            | `STRING`        | The unqiue UTLN username associated with the user.               | `jsmith01`                |
+| first_name      | `STRING`        | The first name of the user.                                      | `John`                    |
+| last_name       | `STRING`        | The last name of the user.                                       | `Smith`                   |
+| card            | `STRING`        | A reference to the active card of the user.                      | `/api/v1/card/1 `         |
+| access_points   | `ACCESS_POINT[]`| An array of access point objects to which this user has access.  | `[ { "id": 1, ...}, ... ]`       |
+| manager_level   | `INT`           | The integer manager level code, as defined above.                | `2`                       |
+| resources_managed | `STRING[]`    | An array of *references* to resources which this user manages.   | `[ /api/v1/resource/1, ... ] `   |
 
 The header of the HTTP request must match the format of the data being sent, and that format must be either JSON or XML. All fields above *must* be included. 
 
@@ -353,12 +358,12 @@ Returns the access point with the given ID.
 
 |  Field          | Value Type      | Description                                                      | Example                 |
 |-----------------|-----------------|------------------------------------------------------------------|-------------------------|
-| access_point_name | `STRING`      | The name of this access point.                                   | Halligan Main Entrance  |
-| parent          | `STRING`        | A reference to the resource to which this access point belongs.  | /api/v1/resource/1      |
-| created_by      | `STRING`        | A reference to the user who created this access point.           | /api/v1/user_account/1  |
-| modified_by     | `STRING`        | A reference to the user who last modified this access point.     | /api/v1/user_account/1  |
-| id              | `INT`           | Has value $id.                                                   | 1                       |
-| resource_uri    | `STRING`        | Has value '/api/v1/access_point/$id'.                            | /api/v1/access_point/1  |
+| access_point_name | `STRING`      | The name of this access point.                                   | `Halligan Main Entrance`  |
+| parent          | `STRING`        | A reference to the resource to which this access point belongs.  | `/api/v1/resource/1    `  |
+| created_by      | `STRING`        | A reference to the user who created this access point.           | `/api/v1/user_account/1`  |
+| modified_by     | `STRING`        | A reference to the user who last modified this access point.     | `/api/v1/user_account/1`  |
+| id              | `INT`           | Has value $id.                                                   | `1                     `  |
+| resource_uri    | `STRING`        | Has value '/api/v1/access_point/$id'.                            | `/api/v1/access_point/1`  |
 
 An example JSON object is as follows:
 
@@ -446,10 +451,10 @@ The object to be send should have the following fields. Any additional fields wi
 
 |  Field          | Value Type      | Description                                                      | Example                 |
 |-----------------|-----------------|------------------------------------------------------------------|-------------------------|
-| access_point_name | `STRING`      | The name of this access point.                                   | Halligan Main Entrance  |
-| parent          | `STRING`        | The resource to which this access point belongs.                 | /api/v1/resource/1      |
-| created_by      | `STRING`        | The user who created this access point.                          | /api/v1/user_account/1  |
-| modified_by     | `STRING`        | The user who last modified this access point.                    | /api/v1/user_account/1  |
+| access_point_name | `STRING`      | The name of this access point.                                   | `Halligan Main Entrance`  |
+| parent          | `STRING`        | The resource to which this access point belongs.                 | `/api/v1/resource/1    `  |
+| created_by      | `STRING`        | The user who created this access point.                          | `/api/v1/user_account/1`  |
+| modified_by     | `STRING`        | The user who last modified this access point.                    | `/api/v1/user_account/1`  |
 
 The header of the HTTP request must match the format of the data being sent, and that format must be either JSON or XML. All fields above *must* be included. 
 
@@ -463,18 +468,18 @@ Returns the domain with the given ID.
 
 |  Field          | Value Type      | Description                                                      | Example                 |
 |-----------------|-----------------|------------------------------------------------------------------|-------------------------|
-| resource_name   | `STRING`        | The name of the resource.                                        | Halligan Hall           |
-| address         | `STRING`        | The address at which the resource resides.                       | 161 College Ave         |
-| city            | `STRING`        | The city in which the resource resides. Can be null.             | Medford                 |
-| state           | `STRING`        | state in which the resource resides. Can be null.                | MA                      |
-| zipcode         | `STRING`        | The area code in which the resource resides.                     | 02155                   |
-| country         | `STRING`        | The country in which the resource resides.                       | United States           |
-| parent          | `STRING`        | A reference to the domain which contains this resource.          | /api/v1/domain/1        |
-| children        | `ACCESS_POINT[]`| An array of objects containing the access points belonging to the resource. | {[ {"id":1, ...}, ... ]} |
-| created_by      | `STRING`        | The user who created this resource.                              | /api/v1/user_account/1  |
-| modified_by     | `STRING`        | The user who last modified this resource.                        | /api/v1/user_account/1  |
-| id              | `INT`           | Has value `$id`.                                                 | 1                       |
-| resource_uri    | `STRING`        | Has value '/api/v1/resource/`$id`'.                              | /api/v1/resource/1      |
+| resource_name   | `STRING`        | The name of the resource.                                        | `Halligan Hall`           |
+| address         | `STRING`        | The address at which the resource resides.                       | `161 College Ave`         |
+| city            | `STRING`        | The city in which the resource resides. Can be null.             | `Medfor`                 |
+| state           | `STRING`        | state in which the resource resides. Can be null.                | `MA`                      |
+| zipcode         | `STRING`        | The area code in which the resource resides.                     | `0215`                   |
+| country         | `STRING`        | The country in which the resource resides.                       | `United State`           |
+| parent          | `STRING`        | A reference to the domain which contains this resource.          | `/api/v1/domain/1`        |
+| children        | `ACCESS_POINT[]`| An array of objects containing the access points belonging to the resource. | `{[ {"id":1, ...}, ... ]` |
+| created_by      | `STRING`        | The user who created this resource.                              | `/api/v1/user_account/1`  |
+| modified_by     | `STRING`        | The user who last modified this resource.                        | `/api/v1/user_account/1`  |
+| id              | `INT`           | Has value `$id`.                                                 | ``                       |
+| resource_uri    | `STRING`        | Has value '/api/v1/resource/`$id`'.                              | `/api/v1/resource/1`      |
 
 An example JSON object is as follows:
 
@@ -550,16 +555,16 @@ The object to be send should have the following fields. Any additional fields wi
 
 |  Field          | Value Type      | Description                                                      | Example                 |
 |-----------------|-----------------|------------------------------------------------------------------|-------------------------|
-| resource_name   | `STRING`        | The name of the resource.                                        | Halligan Hall           |
-| address         | `STRING`        | The address at which the resource resides.                       | 161 College Ave         |
-| city            | `STRING`        | The city in which the resource resides. Can be null.             | Medford                 |
-| state           | `STRING`        | state in which the resource resides. Can be null.                | MA                      |
-| zipcode         | `STRING`        | The area code in which the resource resides.                     | 02155                   |
-| country         | `STRING`        | The country in which the resource resides.                       | United States           |
-| parent          | `STRING`        | A reference to the domain which contains this resource.          | /api/v1/domain/1        |
-| children        | `ACCESS_POINT[]`| An array of objects containing the access points belonging to the resource. | {[ {"id":1, ...}, ... ]} |
-| created_by      | `STRING`        | The user who created this resource.                              | /api/v1/user_account/1  |
-| modified_by     | `STRING`        | The user who last modified this resource.                        | /api/v1/user_account/1  |
+| resource_name   | `STRING`        | The name of the resource.                                        | `Halligan Hall`           |
+| address         | `STRING`        | The address at which the resource resides.                       | `161 College Ave`         |
+| city            | `STRING`        | The city in which the resource resides. Can be null.             | `Medford`                 |
+| state           | `STRING`        | state in which the resource resides. Can be null.                | `MA`                      |
+| zipcode         | `STRING`        | The area code in which the resource resides.                     | `02155`                   |
+| country         | `STRING`        | The country in which the resource resides.                       | `United States`           |
+| parent          | `STRING`        | A reference to the domain which contains this resource.          | `/api/v1/domain/1`        |
+| children        | `ACCESS_POINT[]`| An array of objects containing the access points belonging to the resource. | `{[ {"id":1, ...}, ... ]}` |
+| created_by      | `STRING`        | The user who created this resource.                              | `/api/v1/user_account/1`  |
+| modified_by     | `STRING`        | The user who last modified this resource.                        | `/api/v1/user_account/1`  |
 
 The header of the HTTP request must match the format of the data being sent, and that format must be either JSON or XML. All fields above *must* be included. 
 
@@ -575,14 +580,14 @@ Returns the domain with the given ID. The value of the `parent` field can be `nu
 
 |  Field          | Value Type      | Description                                                      | Example                 |
 |-----------------|-----------------|------------------------------------------------------------------|-------------------------|
-| domain_name     | `STRING`        | The name of the domain point.                                    | Halligan Hall           |
-| parent          | `STRING`        | A reference to the domain which contains this resource.          | /api/v1/user_account/1  |
-| resource_children | `RESOURCE[]`  | An array of objects containing the resources belonging to the domain. | {[ {"id":1, ...}, ... ]} |
-| domain_children | `DOMAIN[]`      | An array of objects containing the sub-domains belonging to the domain. | {[ {"id":1, ...}, ... ]} |
-| created_by      | `STRING`        | The user who created this domain.                                | /api/v1/user_account/1  |
-| modified_by     | `STRING`        | The user who last modified this domain.                          | /api/v1/user_account/1  |
-| id              | `INT`           | Has value `$id`.                                                 | 1                       |
-| resource_uri    | `STRING`        | Has value '/api/v1/resource/`$id`'.                              | /api/v1/resource/1      |
+| domain_name     | `STRING`        | The name of the domain point.                                    | `Halligan Hall`           |
+| parent          | `STRING`        | A reference to the domain which contains this resource.          | `/api/v1/user_account/1`  |
+| resource_children | `RESOURCE[]`  | An array of objects containing the resources belonging to the domain. | `{[ {"id":1, ...}, ... ]}` |
+| domain_children | `DOMAIN[]`      | An array of objects containing the sub-domains belonging to the domain. | `{[ {"id":1, ...}, ... ]}` |
+| created_by      | `STRING`        | The user who created this domain.                                | `/api/v1/user_account/1`  |
+| modified_by     | `STRING`        | The user who last modified this domain.                          | `/api/v1/user_account/1`  |
+| id              | `INT`           | Has value `$id`.                                                 | `1`                       |
+| resource_uri    | `STRING`        | Has value '/api/v1/resource/`$id`'.                              | `/api/v1/resource/1`      |
 
 An example JSON object is as follows. Note that within the domain, sub-domains and resources are fully expanded, and not passed by a URI reference.
 
@@ -684,9 +689,9 @@ An example JSON object is as follows. Note that within the domain, sub-domains a
 }
 ```
 
-### [GET /api/v1/resource?domain_name=`$domain_name`](#get-apiv1domaindomain_namedomain_name)
+### [GET /api/v1/domain?domain_name=`$domain_name`](#get-apiv1domaindomain_namedomain_name)
 
-Returns an array of domains with the resource name set to `$domain_name`.
+Returns an array of domains with the domain name set to `$domain_name`.
 
 ### [POST /api/v1/domain](#post-apiv1domain)
 
@@ -696,12 +701,12 @@ The object to be send should have the following fields. Any additional fields wi
 
 |  Field          | Value Type      | Description                                                      | Example                 |
 |-----------------|-----------------|------------------------------------------------------------------|-------------------------|
-| domain_name     | `STRING`        | The name of the domain point.                                    | Halligan Hall           |
-| parent          | `STRING`        | A reference to the domain which contains this resource.          | /api/v1/user_account/1  |
-| resource_children | `RESOURCE[]`  | An array of objects containing the resources belonging to the domain. | {[ {"id":1, ...}, ... ]} |
-| domain_children | `DOMAIN[]`      | An array of objects containing the sub-domains belonging to the domain. | {[ {"id":1, ...}, ... ]} |
-| created_by      | `STRING`        | The user who created this domain.                                | /api/v1/user_account/1  |
-| modified_by     | `STRING`        | The user who last modified this domain.                          | /api/v1/user_account/1  |
+| domain_name     | `STRING`        | The name of the domain point.                                    | `Halligan Hall`           |
+| parent          | `STRING`        | A reference to the domain which contains this resource.          | `/api/v1/user_account/1`  |
+| resource_children | `RESOURCE[]`  | An array of objects containing the resources belonging to the domain. | `{[ {"id":1, ...}, ... ]}` |
+| domain_children | `DOMAIN[]`      | An array of objects containing the sub-domains belonging to the domain. | `{[ {"id":1, ...}, ... ]}` |
+| created_by      | `STRING`        | The user who created this domain.                                | `/api/v1/user_account/1`  |
+| modified_by     | `STRING`        | The user who last modified this domain.                          | `/api/v1/user_account/1`  |
 
 The header of the HTTP request must match the format of the data being sent, and that format must be either JSON or XML. All fields above *must* be included. 
 
@@ -729,19 +734,19 @@ Returns the request with the given ID.
 
 |  Field          | Value Type      | Description                                                      | Example                 |
 |-----------------|-----------------|------------------------------------------------------------------|-------------------------|
-| user            | `STRING`        | The user account on whose behalf this request is being made.     | /api/v1/user_account/1  |
-| new_access_points| `STRING[]`     | A list of access points to which the user requests access, in addition to current ones. | [ /api/v1/access_point/1, ... ]|
-| new_card        | `STRING`        | A reference to the card which the user wishes to make their active card | /api/v1/card/1 |
-| feedback        | `STRING`        | The manager feedback on this request.                            | "Accepted."  |
-| reason          | `STRING`        | The justification as to why this request should be accepted.     | "Have class there." |
-| request_level   | `INT`           | The manager level needed to clear this request.                  | 2                   |
-| status          | `INT`           | 0 == open, 1 == accepted, 2 == rejected                          | 0                   |
-| created_at      | `DATETIME`      | The time at which the request was submitted                      | 2017-04-06T18:44:27.931607 |
-| modified_at     | `DATETIME`      | The time at which the request was last modified                  | 2017-04-06T18:44:27.931607 |
-| created_by      | `STRING`        | The user who created this access point.                          | /api/v1/user_account/1  |
-| modified_by     | `STRING`        | The user who last modified this access point.                    | /api/v1/user_account/1  |
-| id              | `INT`           | Has value `$id`.                                                 | 1                       |
-| resource_uri    | `STRING`        | Has value '/api/v1/resource/`$id`'.                              | /api/v1/resource/1      |
+| user            | `STRING`        | The user account on whose behalf this request is being made.     | `/api/v1/user_account/1`  |
+| new_access_points| `STRING[]`     | A list of access points to which the user requests access, in addition to current ones. | `[ /api/v1/access_point/1, ... ]` |
+| new_card        | `STRING`        | A reference to the card which the user wishes to make their active card | `/api/v1/card/1` |
+| feedback        | `STRING`        | The manager feedback on this request.                            | `"Accepted."`  |
+| reason          | `STRING`        | The justification as to why this request should be accepted.     | `"Have class there."` |
+| request_level   | `INT`           | The manager level needed to clear this request.                  | `2`                   |
+| status          | `INT`           | 0 == open, 1 == accepted, 2 == rejected                          | `0`                   |
+| created_at      | `DATETIME`      | The time at which the request was submitted                      | `2017-04-06T18:44:27.931607` |
+| modified_at     | `DATETIME`      | The time at which the request was last modified                  | `2017-04-06T18:44:27.931607` |
+| created_by      | `STRING`        | The user who created this access point.                          | `/api/v1/user_account/1`  |
+| modified_by     | `STRING`        | The user who last modified this access point.                    | `/api/v1/user_account/1`  |
+| id              | `INT`           | Has value `$id`.                                                 | `1`                       |
+| resource_uri    | `STRING`        | Has value '/api/v1/resource/`$id`'.                              | `/api/v1/resource/1`      |
 
 An example JSON object is as follows:
 
@@ -796,17 +801,17 @@ The object to be send should have the following fields. Any additional fields wi
 
 |  Field          | Value Type      | Description                                                      | Example                 |
 |-----------------|-----------------|------------------------------------------------------------------|-------------------------|
-| user            | `STRING`        | The user account on whose behalf this request is being made.     | /api/v1/user_account/1  |
-| new_access_points| `STRING[]`     | A list of access points to which the user requests access, in addition to current ones. | [ /api/v1/access_point/1, ... ]|
-| new_card        | `STRING`        | A reference to the card which the user wishes to make their active card | /api/v1/card/1 |
-| feedback        | `STRING`        | The manager feedback on this request.                            | "Accepted."  |
-| reason          | `STRING`        | The justification as to why this request should be accepted.     | "Have class there." |
-| request_level   | `INT`           | The manager level needed to clear this request.                  | 2                   |
-| status          | `INT`           | Status, as described above.                                      | 0                   |
-| created_at      | `DATETIME`      | The time at which the request was submitted                      | 2017-04-06T18:44:27.931607 |
-| modified_at     | `DATETIME`      | The time at which the request was last modified                  | 2017-04-06T18:44:27.931607 |
-| created_by      | `STRING`        | The user who created this access point.                          | /api/v1/user_account/1  |
-| modified_by     | `STRING`        | The user who last modified this access point.                    | /api/v1/user_account/1  |
+| user            | `STRING`        | The user account on whose behalf this request is being made.     | `/api/v1/user_account/1`  |
+| new_access_points| `STRING[]`     | A list of access points to which the user requests access, in addition to current ones. | `[ /api/v1/access_point/1, ... ]` |
+| new_card        | `STRING`        | A reference to the card which the user wishes to make their active card | `/api/v1/card/1` |
+| feedback        | `STRING`        | The manager feedback on this request.                            | `"Accepted."`  |
+| reason          | `STRING`        | The justification as to why this request should be accepted.     | `"Have class there."` |
+| request_level   | `INT`           | The manager level needed to clear this request.                  | `2`                   |
+| status          | `INT`           | Status, as described above.                                      | `0`                   |
+| created_at      | `DATETIME`      | The time at which the request was submitted                      | `2017-04-06T18:44:27.931607` |
+| modified_at     | `DATETIME`      | The time at which the request was last modified                  | `2017-04-06T18:44:27.931607` |
+| created_by      | `STRING`        | The user who created this access point.                          | `/api/v1/user_account/1`  |
+| modified_by     | `STRING`        | The user who last modified this access point.                    | `/api/v1/user_account/1`  |
 
 The header of the HTTP request must match the format of the data being sent, and that format must be either JSON or XML. All fields above *must* be included. 
 
