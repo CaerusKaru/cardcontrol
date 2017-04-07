@@ -83,7 +83,7 @@ class Domain(models.Model):
     domain_name = models.CharField(max_length=60, unique=True)
    #domain_children = models.ManyToManyField('Domain', blank=True, related_name='%(class)s_domain_children')
    #resource_children = models.ManyToManyField('Resource', blank=True, related_name='%(class)s_resource_children')
-    parent = models.ForeignKey('Domain', on_delete=models.CASCADE, related_name='%(class)s_parent', blank=True, null=True)
+    parent = models.ForeignKey('Domain', on_delete=models.CASCADE, related_name='%(class)s_parent', null=True)
     created_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_created_by')
     modified_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_modified_by')
     created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
