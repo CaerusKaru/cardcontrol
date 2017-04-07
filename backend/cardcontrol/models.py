@@ -57,7 +57,7 @@ class Resource(models.Model):
 
 class Domain(models.Model):
     domain_name = models.CharField(max_length=120, unique=True)
-    resources = models.ManyToManyField('Resource', blank=True)    
+    resources = models.ManyToManyField('Resource', blank=True)
     domains = models.ManyToManyField('self', blank=True)
     created_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_created_by')
     modified_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_modified_by')
@@ -97,7 +97,7 @@ class Request(models.Model):
     modified_at = models.DateTimeField(default=datetime.datetime.now)
     class Meta:
         app_label = 'cardcontrol'
-        
+
     def __str__(self):
         return self.user
 
