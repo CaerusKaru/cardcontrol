@@ -38,6 +38,10 @@ if [[ -n ${prod} ]]; then set +e; fi
 $d/utils/env-check.sh
 if [[ -n ${prod} ]]; then set -e; fi
 
+if [[ -z ${prod} ]]; then
+        export DJANGO_DEBUG=''
+fi
+
 echo -e "${goodc}Stopping server.${noc}"
 $d/stop.sh
 
