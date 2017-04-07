@@ -45,7 +45,11 @@ if [[ "${prod}" == "0" ]]; then
 fi
 
 echo -e "${goodc}Stopping server.${noc}"
-$d/stop.sh
+if [[ "$aoff" == "0" ]]; then
+    $d/stop.sh -a
+else
+    $d/stop.sh
+fi
 
 if [[ "${abld}" == "0" ]]; then
     $d/ng-build.sh

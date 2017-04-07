@@ -1,0 +1,36 @@
+<div fxLayout="column">
+  <md-toolbar color="accent">
+    <span>{{resource.resource_name}}</span>
+    <span fxFlex></span>
+    <button md-icon-button md-dialog-close><md-icon>close</md-icon></button>
+    <md-toolbar-row>
+      <span>{{resource.address}}</span>
+      <div *ngIf="resource.state">
+        <span>, {{resource.state}}, {{resource.zipcode}}, {{resource.country}}</span>
+      </div>
+      <!--<span class="example-spacer"></span>-->
+      <!--<md-icon class="example-icon">verified_user</md-icon>-->
+    </md-toolbar-row>
+  </md-toolbar>
+  <span fxFlex="25px"></span>
+  <md-list>
+    <h3 md-subheader>My Access Points</h3>
+    <div *ngIf="myAccessPoints">
+      <md-list-item *ngFor="let accessPoint of myAccessPoints">
+        <md-icon md-list-icon [ngStyle]="{color: 'green'}">check_circle</md-icon>
+        <span fxFlex="10px"></span>
+        <h4>{{accessPoint.access_point_name}}</h4>
+      </md-list-item>
+    </div>
+    <h3 md-subheader>Other Access Points</h3>
+    <div *ngIf="notMyAccessPoints">
+      <md-list-item *ngFor="let accessPoint of notMyAccessPoints">
+        <md-icon md-list-icon [ngStyle]="{color: 'red'}">cancel</md-icon>
+        <span fxFlex="10px"></span>
+        <h4>{{accessPoint.access_point_name}}</h4>
+        <span fxFlex></span>
+        <button md-raised-button color="accent">Request Access</button>
+      </md-list-item>
+    </div>
+  </md-list>
+</div>

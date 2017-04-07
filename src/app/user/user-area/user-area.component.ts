@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {MdDialog, MdDialogRef} from '@angular/material';
+import {ManagedResource} from "app/shared/managed-resource";
+import {UserService} from "../shared/user.service";
+import {AccessPoint} from "../../shared/access-point";
+import {User} from "../../shared/user";
 
 @Component({
   selector: 'app-user-area',
@@ -9,51 +13,52 @@ import {MdDialog, MdDialogRef} from '@angular/material';
 export class UserAreaComponent implements OnInit {
 
   constructor(
-    public dialog: MdDialog
+    public dialog: MdDialog,
+    private userService : UserService
   ) { }
 
+  resources : ManagedResource[];
+
   ngOnInit() {
+    this.userService.userResources.filter(data => data !== null).subscribe(
+      data => {
+        this.resources = data;
+      }
+    )
   }
 
-  buildings = [
-    {
-      name: "Metcalf Hall",
-      rooms: [
-        {
-          name: "East Entrance"
-        },
-        {
-          name: "West Entrance"
-        }
-      ]
-    },
-    {
-      name: "Harleston Hall",
-      rooms: [
-        {
-          name: "Main Entrance"
-        }
-      ]
-    }
-  ];
-
-  chooseBuilding (resource) {
-    let dialogRef = this.dialog.open(UserAreaDialog);
-    dialogRef.componentInstance.name = resource.name;
+  chooseBuilding (resource : ManagedResource) {
+    let dialogRef = this.dialog.open(UserAreaDialog, {
+      height: '70%',
+      width: '60%'
+    });
+    dialogRef.componentInstance.resource = resource;
   }
-
-  lat: number = 51.678418;
-  lng: number = 7.809007;
-
 }
 
 @Component({
   selector: 'app-user-area-dialog',
-  templateUrl: 'user-area-building-dialog.component.html'
+  templateUrl: 'user-area-dialog.component.html',
+  styleUrls: ['user-area-dialog.component.scss']
 })
-export class UserAreaDialog {
+export class UserAreaDialog implements OnInit {
 
-  constructor (dialogRef : MdDialogRef<UserAreaDialog>) {
+  constructor (
+    private userService : UserService,
+    private dialogRef : MdDialogRef<UserAreaDialog>
+  ) {
   }
-  name : string;
+  resource : ManagedResource;
+  myAccessPoints : AccessPoint[];
+  notMyAccessPoints : AccessPoint[];
+
+  ngOnInit () {
+    this.userService.userAccessPoints.subscribe(
+      data => {
+        let accessIds : number[] = data.map(i => i.id);
+        this.myAccessPoints = this.resource.children.filter(i => { return accessIds.indexOf(i.id) !== -1 });
+        this.notMyAccessPoints = this.resource.children.filter(i => { return accessIds.indexOf(i.id) === -1 });
+      }
+    );
+  }
 }

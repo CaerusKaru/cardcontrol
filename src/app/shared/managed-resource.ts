@@ -1,3 +1,4 @@
+import {AccessPoint} from "./access-point";
 export class ManagedResource {
   city : string;
   country : string;
@@ -5,6 +6,8 @@ export class ManagedResource {
   resource_uri : string;
   state : string;
   id : number;
-  street : string;
+  address : string;
   zipcode : string;
+  children : AccessPoint[];
+  parent : string;
 }

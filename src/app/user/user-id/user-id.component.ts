@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {MdDialog} from '@angular/material';
+import {MdDialog, MdDialogRef} from '@angular/material';
 import {UserService} from "../shared/user.service";
 import {User} from "../../shared/user";
 import {RequestService} from "../../request/request.service";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-user-id',
@@ -13,37 +14,26 @@ export class UserIdComponent implements OnInit {
 
   constructor(
     public dialog : MdDialog,
-    private requestService : RequestService,
     private userService : UserService
   ) { }
 
   ngOnInit() {
     this.getUser();
-    this.requestService.getResources().subscribe(
-      data => {
-        console.log(data);
-        this.requestService.getAccessPoints(data[0]).subscribe(
-          data => {
-            console.log(data);
-          }
-        )
-      }
-    )
   }
 
   public user : User;
   public utln : string;
 
   public requestChange() {
-    this.requestService.makeUpdateCard(this.user);
-    this.dialog.open(UserIdRequestDialog);
+
+    let dialogRef = this.dialog.open(UserIdRequestDialog, {
+    });
+    dialogRef.componentInstance.user = Object.assign({}, this.user);
   }
 
   public report() {
 
   }
-
-  private errorMessage : string;
 
   private getUser () {
     this.utln = this.userService.getUtln();
@@ -56,7 +46,23 @@ export class UserIdComponent implements OnInit {
 
 @Component({
   selector: 'app-user-id-request-dialog',
-  template: '<h1>Request dialog</h1>'
+  templateUrl: 'user-id-dialog.component.html'
 })
 export class UserIdRequestDialog {
+
+  constructor (
+    private requestService : RequestService,
+    private dialogRef : MdDialogRef<UserIdRequestDialog>
+  ) {
+  }
+
+  public user : User;
+  public schools : string[] = ["Liberal Arts", "Engineering", "Other"];
+  public types : string[] = ["Undergraduate", "Graduate", "Professor", "Employee", "Other"];
+
+  public closeDialog (f : NgForm) {
+    // TODO validate f
+    this.requestService.makeUpdateCard(this.user);
+    this.dialogRef.close();
+  }
 }

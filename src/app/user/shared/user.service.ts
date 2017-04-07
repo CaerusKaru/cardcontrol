@@ -7,27 +7,29 @@ import {User} from "../../shared/user";
 import {UserAccount} from "../../shared/user_account";
 import {Constants} from "../../shared/constants";
 import {BehaviorSubject} from "rxjs";
+import {ManagedResource} from "app/shared/managed-resource";
+import {AccessPoint} from "app/shared/access-point";
+import {environment} from "environments/environment";
 
 @Injectable()
 export class UserService {
   public userAccount : Observable<UserAccount>;
   public userCard : Observable<User>;
-  private djangoUrl = Constants.API_ENDPOINT;
+  public userResources : Observable<ManagedResource[]>;
+  public userAccessPoints : Observable<AccessPoint[]>;
 
   constructor(
     private http: Http
   ) {
     this.userCard = this._userCard.asObservable();
     this.userAccount = this._userAccount.asObservable();
+    this.userResources = this._userResources.asObservable();
+    this.userAccessPoints = this._userAccessPoints.asObservable();
     this.initData();
   }
 
   public getUtln() : string {
     return 'masnes01';
-  }
-
-  isAdmin() : boolean {
-    return true;
   }
 
   private getUserAccount (): Observable<UserAccount[]> {
@@ -44,6 +46,8 @@ export class UserService {
 
   private _userCard : BehaviorSubject<User> = new BehaviorSubject(null);
   private _userAccount : BehaviorSubject<UserAccount> = new BehaviorSubject(null);
+  private _userResources : BehaviorSubject<ManagedResource[]> = new BehaviorSubject(null);
+  private _userAccessPoints : BehaviorSubject<AccessPoint[]> = new BehaviorSubject(null);
 
   private initData () {
     this.getUserAccount().subscribe(
@@ -55,10 +59,34 @@ export class UserService {
           },
           error => {
           });
+        this.populateResources();
       },
       error => {
       }
     );
+  }
+
+  private populateResources () {
+    this.userAccount.filter(data => data !== null).first().subscribe(
+      data => {
+        let accessPoints : AccessPoint[] = data.access_points;
+        this._userAccessPoints.next(accessPoints);
+        let resources : Observable<ManagedResource>[] = accessPoints.map(data => {
+          return this.getResourceForUri(data.parent);
+        });
+        Observable.forkJoin(resources).subscribe(
+          data => {
+            let noDupe = Array.from(data.reduce((m, t) => m.set(t.id, t), new Map()).values());
+            this._userResources.next(noDupe);
+          }
+        );
+    });
+  }
+
+  private getResourceForUri (uri : string) : Observable<ManagedResource> {
+    return this.http.get(environment.API_PORT + uri)
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
   private extractData(res: Response) {

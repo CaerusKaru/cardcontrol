@@ -10,4 +10,5 @@ export class ChangeRequest {
   request_level : number;
   status : number;
   user : string;
+  modified_at : string;
 }

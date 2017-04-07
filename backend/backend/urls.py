@@ -24,8 +24,8 @@ v1_api.register(UserAccountResource())
 v1_api.register(CardResource())
 v1_api.register(AccessPointResource())
 v1_api.register(RequestResource())
-v1_api.register(ResourceResource())
 v1_api.register(DomainResource())
+v1_api.register(ResourceResource())
 
 
 urlpatterns = [
