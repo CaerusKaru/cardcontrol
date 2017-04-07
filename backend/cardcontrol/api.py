@@ -6,10 +6,10 @@ from tastypie.exceptions import NotFound
 from tastypie import fields
 from tastypie.fields import ToManyField
 from tastypie.exceptions import BadRequest
+from tastypie.http import HttpBadRequest
 
 
 class CardResource(ModelResource):
-
     class Meta:
         always_return_data = True 
         queryset = Card.objects.all()
@@ -28,9 +28,6 @@ class UserAccountResource(ModelResource):
     access_points = fields.ManyToManyField('cardcontrol.api.AccessPointResource', 'access_points', full=True)
     resources_managed = fields.ManyToManyField('cardcontrol.api.ResourceResource', 'resources_managed')
 
-    def get_schema(self, request, **kwargs):
-        raise NotFound
-
     class Meta:
         queryset = UserAccount.objects.all()
         list_allowed_methods = ['get', 'put', 'post']
@@ -45,15 +42,9 @@ class UserAccountResource(ModelResource):
 
 
 class AccessPointResource(ModelResource):
-
     created_by = fields.ToOneField(UserAccountResource, 'created_by')
     modified_by = fields.ToOneField(UserAccountResource, 'modified_by')
     parent = fields.ForeignKey('cardcontrol.api.ResourceResource', 'parent')
-
-    #parents = fields.ManyToManyField('cardcontrol.api.ResourceResource', 'resource_children', blank=True)
-    
-    def get_schema(self, request, **kwargs):
-        raise NotFound
 
     class Meta:
         always_return_data = True
@@ -117,17 +108,18 @@ class DomainResource(ModelResource):
             'parent': ALL_WITH_RELATIONS
         }
 
+    def hydrate_parent(self, bundle):
+        if bundle.data['parent'] is None:
+            return HttpBadRequest({'code': 401, 'message': 'Creation of new domains with no parent is not allowed.'})
+        return bundle
+
 
 class RequestResource(ModelResource):
-
     created_by = fields.ToOneField(UserAccountResource, 'created_by')
     modified_by = fields.ToOneField(UserAccountResource, 'modified_by')
     new_card = fields.ToOneField(CardResource, 'new_card')
-    new_access_points = fields.ManyToManyField('cardcontrol.api.AccessPointResource', 'new_access_points')
+    new_access_points = fields.ToManyField('cardcontrol.api.AccessPointResource', 'new_access_points')
     user = fields.ToOneField(UserAccountResource, 'user')
-
-    def get_schema(self, request, **kwargs):
-        raise NotFound
 
     class Meta:
         always_return_data = True 
