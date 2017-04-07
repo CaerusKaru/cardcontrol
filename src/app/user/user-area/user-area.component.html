@@ -1,10 +1,11 @@
-<div fxLayout="row"
-     fxLayoutWrap
-     class="building-wrapper"
-     fxLayoutAlign="space-around center">
-  <!--<sebm-google-map [latitude]="lat" [longitude]="lng"></sebm-google-map>-->
-  <md-card *ngFor="let building of buildings"
-           class="building-card"
-           background-color="primary"
-           (click)="chooseBuilding(building)">{{building.name}}</md-card>
+<div class="building-wrapper">
+    <!--<sebm-google-map [latitude]="lat" [longitude]="lng"></sebm-google-map>-->
+    <md-grid-list cols="5" rowHeight='4:3'>
+        <md-grid-tile *ngFor="let building of buildings" 
+                      class="building-card"
+                      (click)="chooseBuilding(building)">
+            <md-grid-tile-footer>{{building.name}}</md-grid-tile-footer>
+        </md-grid-tile>
+    </md-grid-list>
+
 </div>

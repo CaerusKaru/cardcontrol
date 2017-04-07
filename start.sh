@@ -10,9 +10,9 @@ noc="\033[38;5;15m"
 d=$(dirname "$0")
 
 echo -e "${goodc}Checking environment setup.${noc}"
-# set +e
+set +e
 $d/utils/env-check.sh
-# set -e
+set -e
 echo -e "${goodc}Stopping server.${noc}"
 $d/stop.sh
 echo -e "${goodc}Starting Database.${noc}"
