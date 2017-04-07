@@ -57,8 +57,8 @@ class Resource(models.Model):
 
 class Domain(models.Model):
     domain_name = models.CharField(max_length=120, unique=True)
-    resources = models.ManyToManyField('Resource', blank=True)
-    domains = models.ManyToManyField('self', blank=True)
+    resource_list = models.ManyToManyField(Resource, blank=True)
+    domain_list = models.ManyToManyField('Domain', blank=True)
     created_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_created_by')
     modified_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='%(class)s_modified_by')
     created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)

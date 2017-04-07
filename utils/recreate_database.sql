@@ -20,12 +20,12 @@ INSERT INTO cardcontrol_resource VALUES(3, '02155', '574 Boston Ave', 'Medford',
 INSERT INTO cardcontrol_domain VALUES(1, 'Tufts University', now(), now(), 1, 1);
 INSERT INTO cardcontrol_domain VALUES(2, 'CS Department', now(), now(), 1, 1);
 
-INSERT INTO cardcontrol_domain_resources VALUES(1, 1, 1);
-INSERT INTO cardcontrol_domain_resources VALUES(2, 1, 2);
-INSERT INTO cardcontrol_domain_resources VALUES(3, 1, 3);
+INSERT INTO cardcontrol_domain_resource_list VALUES(1, 1, 1);
+INSERT INTO cardcontrol_domain_resource_list VALUES(2, 1, 2);
+INSERT INTO cardcontrol_domain_resource_list VALUES(3, 1, 3);
 
-INSERT INTO cardcontrol_domain_resources VALUES(4, 2, 2);
-INSERT INTO cardcontrol_domain_domains VALUES(1, 1, 2);
+INSERT INTO cardcontrol_domain_resource_list VALUES(4, 2, 2);
+INSERT INTO cardcontrol_domain_domain_list VALUES(1, 1, 2);
 
 INSERT INTO cardcontrol_accesspoint VALUES(1, 'Metcalf East', now(), now(), 1, 1, 1);
 INSERT INTO cardcontrol_accesspoint VALUES(2, 'Metcalf West', now(), now(), 1, 1, 1);
