@@ -103,7 +103,7 @@ expect <<- DONE
 DONE
 echo -e "${goodc}Starting grip for API documentation.${noc}"
 expect <<- DONE
-    spawn bash -ic "grip $d/doc/api.md"
+    spawn bash -ilc "grip $d/doc/api.md &"
     expect -re ".*Running on .*"
 DONE
 
