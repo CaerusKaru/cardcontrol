@@ -7,12 +7,16 @@ from tastypie import fields
 from tastypie.fields import ToManyField
 from tastypie.exceptions import BadRequest
 from tastypie.http import HttpBadRequest
+from tastypie.cache import SimpleCache, NoCache
 
+CACHE = False
 
 class CardResource(ModelResource):
     class Meta:
         always_return_data = True 
         queryset = Card.objects.all()
+        if CACHE:
+            cache = SimpleCache()
         list_allowed_methods = ['get', 'put', 'post']
         detail_allowed_methods = ['get', 'put', 'post']
         resource_name = 'card'
@@ -42,6 +46,8 @@ class UserAccountResource(ModelResource):
         list_allowed_methods = ['get', 'put', 'post']
         detail_allowed_methods = ['get', 'put', 'post']
         resource_name = 'user_account'
+        if CACHE:
+            cache = SimpleCache()
         authorization = Authorization()
         excludes = ['created_at', 'modified_at']
         filtering = {
@@ -70,6 +76,8 @@ class AccessPointResource(ModelResource):
         queryset = AccessPoint.objects.all()
         list_allowed_methods = ['get', 'put', 'post']
         resource_name = 'access_point'
+        if CACHE:
+            cache = SimpleCache()
         detail_allowed_methods = ['get', 'put', 'post']
         authorization = Authorization()
         excludes = ['created_by', 'modified_by', 'created_at', 'modified_at']
@@ -100,6 +108,8 @@ class ResourceResource(ModelResource):
         queryset = Resource.objects.all()
         list_allowed_methods = ['get', 'put', 'post']
         resource_name = 'resource'
+        if CACHE:
+             cache = SimpleCache()
         detail_allowed_methods = ['get', 'put', 'post']
         authorization = Authorization()
         excludes = ['created_by', 'modified_by', 'created_at', 'modified_at']
@@ -135,9 +145,11 @@ class DomainResource(ModelResource):
     class Meta:
         always_return_data = True
         queryset = Domain.objects.all()
-        list_allowed_methods = ['get', 'put', 'post']
+        list_allowed_methods = ['get', 'put', 'post', 'head']
         resource_name = 'domain'
-        detail_allowed_methods = ['get', 'put', 'post']
+        if CACHE:
+            cache = SimpleCache()
+        detail_allowed_methods = ['get', 'put', 'post', 'head']
         authorization = Authorization()
         excludes = ['created_by', 'modified_by', 'created_at', 'modified_at']
         filtering = {
@@ -176,6 +188,8 @@ class RequestResource(ModelResource):
         list_allowed_methods = ['get', 'put', 'post']
         detail_allowed_methods = ['get', 'put', 'post']
         resource_name = 'request'
+        if CACHE:
+            cache = SimpleCache()
         authorization = Authorization()
 
         excludes = ['created_by', 'modified_by']
@@ -196,3 +210,5 @@ class RequestResource(ModelResource):
         if bundle.data['resource_uri'] is not None:
             bundle.data['resource_uri'] = None
         return bundle
+
+

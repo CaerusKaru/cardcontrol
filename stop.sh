@@ -13,13 +13,13 @@ echo -e "${goodc}Stopping database.${noc}"
 $d/utils/stop_db.sh 2> /dev/null
 echo -e "${goodc}Gathering PIDs for Angular and Django.${noc}"
 set +e
-
+redis-cli -s /tmp/redis.sock shutdown
 ang="angular|"
 set +u
 if [[ "$1" == "-a" ]]; then
 	ang=""
 fi;
-pids=$(ps auxww | grep -E "${ang}runserve|nginx|uwsgi|postgres|psql|pgsql|grip" | grep -v grep | awk '{print $2}' | sort | uniq)
+pids=$(ps auxww | grep -E "${ang}runserve|nginx|redis|varnish|uwsgi|postgres|psql|pgsql|grip" | grep -v grep | awk '{print $2}' | sort | uniq)
 set -e
 echo -e "${goodc}Killing PIDs:${noc}"
 for pid in $pids; do

@@ -60,6 +60,8 @@ $d/utils/start_db.sh
 
 echo -e "${goodc}Beginning Django migrations.${noc}"
 $d/backend/migrate.sh
+python $d/backend/manage.py createcachetable
+
 echo -e "${goodc}Repopulating database with test data.${noc}"
 psql -d postgres -U postgres < $d/utils/recreate_database.sql 1>/dev/null
 
@@ -89,17 +91,25 @@ expect <<- DONE
     spawn sudo uwsgi -T --die-on-term --ini $d/backend/uwsgi.ini
     expect -re ".*Operational MODE: preforking.*"
 DONE
-echo -e "${goodc}Starting NGINX.${noc}"
+echo -e "${goodc}Starting grip for API documentation.${noc}"
 expect <<- DONE
-    spawn bash -ic "grip $d/doc/api.md & 1>&2 2>$d/grip.log"
+    spawn bash -ic "grip $d/doc/api.md &>$d/grip.log &"
     expect -re ".*Running on .*"
 DONE
 
+echo -e "${goodc}Starting Redis for memcaching.${noc}"
+sudo redis-server $d/redis.conf &>$d/redis.log & 
+
+echo -e "${goodc}Starting NGINX.${noc}"
 sudo nginx
+
+echo -e "${goodc}Starting Varnish.${noc}"
+sudo /usr/sbin/varnishd -f /etc/varnish/default.vcl -s malloc,256m -a :80
+
 fi
 
 echo ""
-echo -e "${goodc}Database, frontend, and backend started successfully.${noc}"
+echo -e "${goodc}Database, frontend, and backend started. Server should now be accessible.${noc}"
 echo ""
 
 
