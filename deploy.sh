@@ -1,7 +1,8 @@
 #!/bin/bash
+set -e
 log='/home/ec2-user/cardcontrol/log/deploysh.log'
 branch='dev'
-
+echo "Deployment Script."
 if [[ ! -w $log ]]; then echo "" > $log; fi
 
 echo "[$(date +%Y-%m-%d:%H:%M:%S)]: Starting deployment." >> $log 
@@ -15,13 +16,18 @@ if [[ "$es" -eq "0" ]]; then
         exit 103
 fi
 
-bash /home/ec2-user/cardcontrol/stop.sh 2>> $log
-git stash 2>> $log
+bash /home/ec2-user/cardcontrol/start.sh 2>> $log
+echo "[$(date +%Y-%m-%d:%H:%M:%S)]: Stopping server." >> $log
+sudo bash /home/ec2-user/cardcontrol/stop.sh &>> $log
+echo "[$(date +%Y-%m-%d:%H:%M:%S)]: Stash modified files." >> $log
+git stash &>> $log
+echo "[$(date +%Y-%m-%d:%H:%M:%S)]: Checkout $branch and pull from origin." >> $log
 set +e
 git checkout $branch
 set -e
-git pull origin $branch 2>> $log
-bash /home/ec2-user/cardcontrol/start.sh 2>> $log
+git pull origin $branch &>> $log
+echo "[$(date +%Y-%m-%d:%H:%M:%S)]: Start server again." >> $log
+sudo bash /home/ec2-user/cardcontrol/start.sh &>> $log
 
 echo "[$(date +%Y-%m-%d:%H:%M:%S)]: Attempted to pull." >> $log
 

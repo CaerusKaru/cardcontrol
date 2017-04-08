@@ -11,7 +11,7 @@ import requests
 from ipaddress import ip_address, ip_network
 import subprocess
 import json
-import sys, pwd, os
+import sys, pwd, os, pty
 
 # From: https://simpleisbetterthancomplex.com/tutorial/2016/10/31/how-to-handle-github-webhooks-using-django.html
 
@@ -52,14 +52,14 @@ def hook(request):
             f.close()
             return HttpResponse(jdict['ref'], status=204)
         f.write("Beginning call to deploy script.\n")
-        cmd = ['/home/ec2-user/cardcontrol/deploy.sh']
+        cmd = ['script', '--return', '-c', '"/home/ec2-user/cardcontrol/deploy.sh"', '/dev/null']
         pw_record = pwd.getpwnam('ec2-user')
         user_name = pw_record.pw_name
         user_home_dir = pw_record.pw_dir
         user_uid = pw_record.pw_uid
         user_gid = pw_record.pw_gid
         env = os.environ.copy()
-        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, preexec_fn=demote(user_uid, user_gid), shell=True)
+        p = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, preexec_fn=demote(user_uid, user_gid), start_new_session=True) 
         for line in p.stdout:
             f.write(line.decode('utf-8'))
         p.wait()
