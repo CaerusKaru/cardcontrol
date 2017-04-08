@@ -69,7 +69,7 @@ sql_c=$(python3.6 $d/backend/manage.py sqlsequencereset cardcontrol)
 echo "${sql_c}" | psql -d cardcontrol -U postgres &>>$d/log/sqlsequencereset.log
 
 expect <<- DONE
-    spawn -ignore HUP bash -ilc "python3.6 $d/backend/manage.py runserver" &>>$d/log/django.log
+    spawn -ignore HUP bash -ilc "python3.6 $d/backend/manage.py runserver" 
     expect -re ".*Quit the server with CONTROL-C.*"
 DONE
 
@@ -80,7 +80,7 @@ echo -e "${goodc}Starting frontent process.${noc}"
 
 expect <<- DONE
     set timeout 120
-    spawn -ignore HUP bash -ilc "ng serve &" &>>/$d/log/angular.log
+    spawn -ignore HUP bash -ilc "ng serve &" 
     expect -re ".*webpack: Compiled successfully.*"
 DONE
 fi
@@ -88,12 +88,12 @@ fi
 if [[ "${prod}" == "0" ]]; then
 echo -e "${goodc}Starting uWSGI.${noc}"
 expect <<- DONE
-    spawn sudo uwsgi -T --die-on-term --ini $d/backend/uwsgi.ini &>>$d/log/uwsgi.log
+    spawn bash -ilc "sudo uwsgi -T --die-on-term --ini $d/backend/uwsgi.ini" 
     expect -re ".*Operational MODE: preforking.*"
 DONE
 echo -e "${goodc}Starting grip for API documentation.${noc}"
 expect <<- DONE
-    spawn bash -ic "grip $d/doc/api.md &>>$d/log/grip.log &"
+    spawn bash -ic "grip $d/doc/api.md"
     expect -re ".*Running on .*"
 DONE
 
