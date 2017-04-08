@@ -41,6 +41,8 @@ testem.log
 .DS_Store
 Thumbs.db
 
+*.pyc
+
 # Python Cache
 backend/cardcontrol/__pycache__/
 backend/backend/__pycache__/

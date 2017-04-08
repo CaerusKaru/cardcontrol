@@ -8,7 +8,7 @@ import {UserService} from "../user/shared/user.service";
 import {ManagedResource} from "../shared/managed-resource";
 import {AccessPoint} from "../shared/access-point";
 import {environment} from "../../environments/environment";
-import {MdSnackBar} from "@angular/material";
+import {MdSnackBar, MdSnackBarConfig} from "@angular/material";
 
 @Injectable()
 export class RequestService {
@@ -43,7 +43,16 @@ export class RequestService {
   }
 
   public updateRequest (request : ChangeRequest) {
-    this.http.put(environment.API_PORT + request.resource_uri, request).subscribe();
+    this.http.put(environment.API_PORT + request.resource_uri, request).subscribe(data => {
+      this.snackBar.open('Request updated', '', {
+        duration: 1750
+      });
+    },
+    error => {
+      this.snackBar.open('Unable to update request', '', {
+        duration: 1750
+      })
+    });
   }
 
   public getResources () : Observable<ManagedResource[]> {
@@ -135,14 +144,24 @@ export class RequestService {
   }
 
   public updateCard (newCard : User) {
-    this.http.put(environment.API_PORT + newCard.resource_uri, newCard).subscribe();
+    this.http.put(environment.API_PORT + newCard.resource_uri, newCard).subscribe(
+      data => {
+        this.snackBar.open('Request updated', '', {
+          duration: 1750
+        })
+      },
+      error => {
+        this.snackBar.open('Unable to update request', '', {
+          duration: 1750
+        });
+      });
   }
 
   private makeNewCard(newCard : User) : Observable<User> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post(environment.API_PORT + '/api/v1/card/', newCard, options)
+    return this.http.post(environment.API_PORT + '/api/v1/edited_card/', newCard, options)
       .map(this.extractData)
       .catch(this.handleError);
   }

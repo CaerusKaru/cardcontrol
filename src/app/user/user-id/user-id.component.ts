@@ -70,12 +70,10 @@ export class UserIdRequestDialog {
 
   public closeDialog (f : NgForm) {
     // TODO validate f
-    console.log('onsubmit');
     this.dialogRef.close(this.user);
   }
 
   public closeRequest () {
-    console.log('close request');
     this.dialogRef.close({closeRequest: true});
   }
 }

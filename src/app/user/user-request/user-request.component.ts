@@ -64,7 +64,6 @@ export class UserRequestComponent implements OnInit {
                 return;
               }
               this.requestService.updateCard(data);
-              console.log(data);
             }
           });
         }
