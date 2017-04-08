@@ -85,7 +85,7 @@ DONE
 
 if [[ "${aoff}" != "0" ]] && [[ "${prod}" != "0" ]]; then
 echo -e "${goodc}Checking frontend packages up to date.${noc}"
-npm install &>>$d/log/npm_install.log
+sudo npm install &>>$d/log/npm_install.log
 echo -e "${goodc}Starting frontent process.${noc}"
 
 expect <<- DONE
