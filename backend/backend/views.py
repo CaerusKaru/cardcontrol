@@ -11,7 +11,7 @@ import requests
 from ipaddress import ip_address, ip_network
 import subprocess
 import json
-import sys, pwd, os, pty
+import sys, pwd, os
 
 # From: https://simpleisbetterthancomplex.com/tutorial/2016/10/31/how-to-handle-github-webhooks-using-django.html
 
