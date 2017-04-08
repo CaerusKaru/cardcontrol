@@ -35,6 +35,16 @@ done
 
 echo -e "${goodc}Running with -a ${aoff} -p ${prod} -b ${abld}.${noc}"
 
+mkdir -p $d/log
+
+if [[ ! -w $d/log/migrations.log ]]; then echo "" > $d/log/migrations.log; fi
+if [[ ! -w $d/log/repopulate_db.log ]]; then echo "" > $d/log/repopulate_db.log; fi
+if [[ ! -w $d/log/sqlsequencereset.log ]]; then echo "" > $d/log/sqlsequencereset.log; fi
+if [[ ! -w $d/log/npm_install.log ]]; then echo "" > $d/log/npm_install.log; fi
+if [[ ! -w $d/log/redis.log ]]; then echo "" > $d/log/redis.log; fi
+if [[ ! -w $d/log/nginx.log ]]; then echo "" > $d/log/nginx.log; fi
+if [[ ! -w $d/log/varnish.log ]]; then echo "" > $d/log/varnish.log; fi
+
 echo -e "${goodc}Checking environment setup.${noc}"
 if [[ "${prod}" != "0" ]]; then set +e; fi
 $d/utils/env-check.sh
@@ -75,7 +85,7 @@ DONE
 
 if [[ "${aoff}" != "0" ]] && [[ "${prod}" != "0" ]]; then
 echo -e "${goodc}Checking frontend packages up to date.${noc}"
-npm install &>>/log/npm_install.log
+npm install &>>$d/log/npm_install.log
 echo -e "${goodc}Starting frontent process.${noc}"
 
 expect <<- DONE

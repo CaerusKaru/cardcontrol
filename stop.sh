@@ -13,7 +13,7 @@ echo -e "${goodc}Stopping database.${noc}"
 $d/utils/stop_db.sh 2> /dev/null
 echo -e "${goodc}Gathering PIDs for Angular and Django.${noc}"
 set +e
-redis-cli -s /tmp/redis.sock shutdown
+hash redis-cli &>/dev/null && redis-cli -s /tmp/redis.sock shutdown
 ang="angular|"
 set +u
 if [[ "$1" == "-a" ]]; then

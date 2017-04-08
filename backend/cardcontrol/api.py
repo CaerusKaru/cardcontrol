@@ -27,13 +27,19 @@ class CardResource(ModelResource):
         }
 
     def hydrate_id(self, bundle):
-        if bundle.data['id'] is not None:
-            bundle.data['id'] = None
+        try:
+            if bundle.data['id'] is not None:
+                bundle.data['id'] = None
+        except KeyError:
+            return bundle
         return bundle
 
     def hydrate_resource_uri(self, bundle):
-        if bundle.data['resource_uri'] is not None:
-            bundle.data['resource_uri'] = None
+        try:
+            if bundle.data['resource_uri'] is not None:
+                bundle.data['resource_uri'] = None
+        except KeyError:
+            return bundle
         return bundle
 
 
@@ -53,13 +59,19 @@ class EditedCardResource(ModelResource):
         }
 
     def hydrate_id(self, bundle):
-        if bundle.data['id'] is not None:
-            bundle.data['id'] = None
+        try:
+            if bundle.data['id'] is not None:
+                bundle.data['id'] = None
+        except KeyError:
+            return bundle
         return bundle
 
     def hydrate_resource_uri(self, bundle):
-        if bundle.data['resource_uri'] is not None:
-            bundle.data['resource_uri'] = None
+        try:
+            if bundle.data['resource_uri'] is not None:
+                bundle.data['resource_uri'] = None
+        except KeyError:
+            return bundle
         return bundle
 
 
@@ -83,13 +95,19 @@ class UserAccountResource(ModelResource):
         }
 
     def hydrate_id(self, bundle):
-        if bundle.data['id'] is not None:
-            bundle.data['id'] = None
+        try:
+            if bundle.data['id'] is not None:
+                bundle.data['id'] = None
+        except KeyError:
+            return bundle
         return bundle
 
     def hydrate_resource_uri(self, bundle):
-        if bundle.data['resource_uri'] is not None:
-            bundle.data['resource_uri'] = None
+        try:
+            if bundle.data['resource_uri'] is not None:
+                bundle.data['resource_uri'] = None
+        except KeyError:
+            return bundle
         return bundle
 
 
@@ -114,13 +132,19 @@ class AccessPointResource(ModelResource):
         }
 
     def hydrate_id(self, bundle):
-        if bundle.data['id'] is not None:
-            bundle.data['id'] = None
+        try:
+            if bundle.data['id'] is not None:
+                bundle.data['id'] = None
+        except KeyError:
+            return bundle
         return bundle
 
     def hydrate_resource_uri(self, bundle):
-        if bundle.data['resource_uri'] is not None:
-            bundle.data['resource_uri'] = None
+        try:
+            if bundle.data['resource_uri'] is not None:
+                bundle.data['resource_uri'] = None
+        except KeyError:
+            return bundle
         return bundle
 
 
@@ -152,13 +176,19 @@ class ResourceResource(ModelResource):
         }
 
     def hydrate_id(self, bundle):
-        if bundle.data['id'] is not None:
-            bundle.data['id'] = None
+        try:
+            if bundle.data['id'] is not None:
+                bundle.data['id'] = None
+        except KeyError:
+            return bundle
         return bundle
 
     def hydrate_resource_uri(self, bundle):
-        if bundle.data['resource_uri'] is not None:
-            bundle.data['resource_uri'] = None
+        try:
+            if bundle.data['resource_uri'] is not None:
+                bundle.data['resource_uri'] = None
+        except KeyError:
+            return bundle
         return bundle
 
 
@@ -192,13 +222,19 @@ class DomainResource(ModelResource):
         return bundle
 
     def hydrate_id(self, bundle):
-        if bundle.data['id'] is not None:
-            bundle.data['id'] = None
+        try:
+            if bundle.data['id'] is not None:
+                bundle.data['id'] = None
+        except KeyError:
+            return bundle
         return bundle
 
     def hydrate_resource_uri(self, bundle):
-        if bundle.data['resource_uri'] is not None:
-            bundle.data['resource_uri'] = None
+        try:
+            if bundle.data['resource_uri'] is not None:
+                bundle.data['resource_uri'] = None
+        except KeyError:
+            return bundle
         return bundle
 
 
@@ -229,13 +265,19 @@ class RequestResource(ModelResource):
         }
 
     def hydrate_id(self, bundle):
-        if bundle.data['id'] is not None:
-            bundle.data['id'] = None
+        try:
+            if bundle.data['id'] is not None:
+                bundle.data['id'] = None
+        except KeyError:
+            return bundle
         return bundle
 
     def hydrate_resource_uri(self, bundle):
-        if bundle.data['resource_uri'] is not None:
-            bundle.data['resource_uri'] = None
+        try:
+            if bundle.data['resource_uri'] is not None:
+                bundle.data['resource_uri'] = None
+        except KeyError:
+            return bundle
         return bundle
 
 
