@@ -17,7 +17,10 @@ fi
 
 bash /home/ec2-user/cardcontrol/stop.sh 2>> $log
 git stash 2>> $log
-git checkout $branch && git pull origin $branch 2>> $log
+set +e
+git checkout $branch
+set -e
+git pull origin $branch 2>> $log
 bash /home/ec2-user/cardcontrol/start.sh 2>> $log
 
 echo "[$(date +%Y-%m-%d:%H:%M:%S)]: Attempted to pull." >> $log
