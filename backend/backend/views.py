@@ -59,7 +59,7 @@ def hook(request):
         user_uid = pw_record.pw_uid
         user_gid = pw_record.pw_gid
         env = os.environ.copy()
-        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, preexec_fn=demote(user_uid, user_gid))
+        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, preexec_fn=demote(user_uid, user_gid), shell=True)
         for line in p.stdout:
             f.write(line.decode('utf-8'))
         p.wait()
