@@ -16,9 +16,8 @@ if [[ "$es" -eq "0" ]]; then
         exit 103
 fi
 
-bash /home/ec2-user/cardcontrol/start.sh 2>> $log
 echo "[$(date +%Y-%m-%d:%H:%M:%S)]: Stopping server." >> $log
-sudo bash /home/ec2-user/cardcontrol/stop.sh &>> $log
+bash /home/ec2-user/cardcontrol/stop.sh &>> $log
 echo "[$(date +%Y-%m-%d:%H:%M:%S)]: Stash modified files." >> $log
 git stash &>> $log
 echo "[$(date +%Y-%m-%d:%H:%M:%S)]: Checkout $branch and pull from origin." >> $log
@@ -27,7 +26,7 @@ git checkout $branch
 set -e
 git pull origin $branch &>> $log
 echo "[$(date +%Y-%m-%d:%H:%M:%S)]: Start server again." >> $log
-sudo bash /home/ec2-user/cardcontrol/start.sh &>> $log
+bash /home/ec2-user/cardcontrol/start.sh &>> $log
 
 echo "[$(date +%Y-%m-%d:%H:%M:%S)]: Attempted to pull." >> $log
 
