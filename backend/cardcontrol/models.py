@@ -23,6 +23,27 @@ class Card(models.Model):
     def __str__(self):
         return self.utln
 
+class EditedCard(models.Model):
+    first_name = models.CharField(max_length=40)
+    last_name = models.CharField(max_length=40)
+    middle_initial = models.CharField(max_length=1)
+    utln = models.CharField(max_length=10)
+    student_type = models.CharField(max_length=20)
+    jumbocash_id = models.IntegerField()
+    birth_date = models.DateField()
+    school = models.CharField(max_length=30)
+    class_year = models.IntegerField()
+    barcode = models.IntegerField()
+    created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
+    modified_at = models.DateTimeField(default=datetime.datetime.now)
+
+    class Meta:
+        app_label = 'cardcontrol'
+        unique_together = ('first_name', 'last_name', 'middle_initial', 'utln', 'student_type', 'jumbocash_id', 'birth_date', 'school', 'class_year', 'barcode')
+
+    def __str__(self):
+        return self.utln
+
 
 class UserAccount(models.Model):
     first_name = models.CharField(max_length=40)
@@ -95,7 +116,7 @@ class Domain(models.Model):
 
 class Request(models.Model):
     user = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
-    new_card = models.ForeignKey(Card, on_delete=models.CASCADE, null=True)
+    new_card = models.ForeignKey(EditedCard, on_delete=models.CASCADE, null=True)
     new_access_points = models.ManyToManyField(AccessPoint)
     request_level = models.IntegerField()
     status = models.IntegerField()

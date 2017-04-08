@@ -1,4 +1,4 @@
-from cardcontrol.models import UserAccount, Card, AccessPoint, Request, Resource, Domain
+from cardcontrol.models import UserAccount, Card, EditedCard, AccessPoint, Request, Resource, Domain
 from tastypie.resources import ModelResource, NamespacedModelResource
 from tastypie.authorization import Authorization
 from tastypie.resources import ALL, ALL_WITH_RELATIONS
@@ -7,12 +7,16 @@ from tastypie import fields
 from tastypie.fields import ToManyField
 from tastypie.exceptions import BadRequest
 from tastypie.http import HttpBadRequest
+from tastypie.cache import SimpleCache, NoCache
 
+CACHE = False
 
 class CardResource(ModelResource):
     class Meta:
         always_return_data = True 
         queryset = Card.objects.all()
+        if CACHE:
+            cache = SimpleCache()
         list_allowed_methods = ['get', 'put', 'post']
         detail_allowed_methods = ['get', 'put', 'post']
         resource_name = 'card'
@@ -23,14 +27,53 @@ class CardResource(ModelResource):
         }
 
     def hydrate_id(self, bundle):
-        if bundle.data['id'] is not None:
-            bundle.data['id'] = None
+        try:
+            if bundle.data['id'] is not None:
+                bundle.data['id'] = None
+        except KeyError:
+            return bundle
         return bundle
 
     def hydrate_resource_uri(self, bundle):
-        if bundle.data['resource_uri'] is not None:
-            bundle.data['resource_uri'] = None
+        try:
+            if bundle.data['resource_uri'] is not None:
+                bundle.data['resource_uri'] = None
+        except KeyError:
+            return bundle
         return bundle
+
+
+class EditedCardResource(ModelResource):
+    class Meta:
+        always_return_data = True
+        queryset = EditedCard.objects.all()
+        if CACHE:
+            cache = SimpleCache()
+        list_allowed_methods = ['get', 'put', 'post']
+        detail_allowed_methods = ['get', 'put', 'post']
+        resource_name = 'edited_card'
+        authorization = Authorization()
+        excludes = ['created_at', 'modified_at']
+        filtering = {
+            'utln': ALL
+        }
+
+    def hydrate_id(self, bundle):
+        try:
+            if bundle.data['id'] is not None:
+                bundle.data['id'] = None
+        except KeyError:
+            return bundle
+        return bundle
+
+    def hydrate_resource_uri(self, bundle):
+        try:
+            if bundle.data['resource_uri'] is not None:
+                bundle.data['resource_uri'] = None
+        except KeyError:
+            return bundle
+        return bundle
+
 
 class UserAccountResource(ModelResource):
     card = fields.ToOneField('cardcontrol.api.CardResource', 'card')
@@ -42,6 +85,8 @@ class UserAccountResource(ModelResource):
         list_allowed_methods = ['get', 'put', 'post']
         detail_allowed_methods = ['get', 'put', 'post']
         resource_name = 'user_account'
+        if CACHE:
+            cache = SimpleCache()
         authorization = Authorization()
         excludes = ['created_at', 'modified_at']
         filtering = {
@@ -50,13 +95,19 @@ class UserAccountResource(ModelResource):
         }
 
     def hydrate_id(self, bundle):
-        if bundle.data['id'] is not None:
-            bundle.data['id'] = None
+        try:
+            if bundle.data['id'] is not None:
+                bundle.data['id'] = None
+        except KeyError:
+            return bundle
         return bundle
 
     def hydrate_resource_uri(self, bundle):
-        if bundle.data['resource_uri'] is not None:
-            bundle.data['resource_uri'] = None
+        try:
+            if bundle.data['resource_uri'] is not None:
+                bundle.data['resource_uri'] = None
+        except KeyError:
+            return bundle
         return bundle
 
 
@@ -70,6 +121,8 @@ class AccessPointResource(ModelResource):
         queryset = AccessPoint.objects.all()
         list_allowed_methods = ['get', 'put', 'post']
         resource_name = 'access_point'
+        if CACHE:
+            cache = SimpleCache()
         detail_allowed_methods = ['get', 'put', 'post']
         authorization = Authorization()
         excludes = ['created_by', 'modified_by', 'created_at', 'modified_at']
@@ -79,13 +132,19 @@ class AccessPointResource(ModelResource):
         }
 
     def hydrate_id(self, bundle):
-        if bundle.data['id'] is not None:
-            bundle.data['id'] = None
+        try:
+            if bundle.data['id'] is not None:
+                bundle.data['id'] = None
+        except KeyError:
+            return bundle
         return bundle
 
     def hydrate_resource_uri(self, bundle):
-        if bundle.data['resource_uri'] is not None:
-            bundle.data['resource_uri'] = None
+        try:
+            if bundle.data['resource_uri'] is not None:
+                bundle.data['resource_uri'] = None
+        except KeyError:
+            return bundle
         return bundle
 
 
@@ -100,6 +159,8 @@ class ResourceResource(ModelResource):
         queryset = Resource.objects.all()
         list_allowed_methods = ['get', 'put', 'post']
         resource_name = 'resource'
+        if CACHE:
+             cache = SimpleCache()
         detail_allowed_methods = ['get', 'put', 'post']
         authorization = Authorization()
         excludes = ['created_by', 'modified_by', 'created_at', 'modified_at']
@@ -115,13 +176,19 @@ class ResourceResource(ModelResource):
         }
 
     def hydrate_id(self, bundle):
-        if bundle.data['id'] is not None:
-            bundle.data['id'] = None
+        try:
+            if bundle.data['id'] is not None:
+                bundle.data['id'] = None
+        except KeyError:
+            return bundle
         return bundle
 
     def hydrate_resource_uri(self, bundle):
-        if bundle.data['resource_uri'] is not None:
-            bundle.data['resource_uri'] = None
+        try:
+            if bundle.data['resource_uri'] is not None:
+                bundle.data['resource_uri'] = None
+        except KeyError:
+            return bundle
         return bundle
 
 
@@ -135,9 +202,11 @@ class DomainResource(ModelResource):
     class Meta:
         always_return_data = True
         queryset = Domain.objects.all()
-        list_allowed_methods = ['get', 'put', 'post']
+        list_allowed_methods = ['get', 'put', 'post', 'head']
         resource_name = 'domain'
-        detail_allowed_methods = ['get', 'put', 'post']
+        if CACHE:
+            cache = SimpleCache()
+        detail_allowed_methods = ['get', 'put', 'post', 'head']
         authorization = Authorization()
         excludes = ['created_by', 'modified_by', 'created_at', 'modified_at']
         filtering = {
@@ -153,20 +222,26 @@ class DomainResource(ModelResource):
         return bundle
 
     def hydrate_id(self, bundle):
-        if bundle.data['id'] is not None:
-            bundle.data['id'] = None
+        try:
+            if bundle.data['id'] is not None:
+                bundle.data['id'] = None
+        except KeyError:
+            return bundle
         return bundle
 
     def hydrate_resource_uri(self, bundle):
-        if bundle.data['resource_uri'] is not None:
-            bundle.data['resource_uri'] = None
+        try:
+            if bundle.data['resource_uri'] is not None:
+                bundle.data['resource_uri'] = None
+        except KeyError:
+            return bundle
         return bundle
 
 
 class RequestResource(ModelResource):
     created_by = fields.ToOneField(UserAccountResource, 'created_by')
     modified_by = fields.ToOneField(UserAccountResource, 'modified_by')
-    new_card = fields.ToOneField(CardResource, 'new_card')
+    new_card = fields.ToOneField(EditedCardResource, 'new_card')
     new_access_points = fields.ToManyField('cardcontrol.api.AccessPointResource', 'new_access_points')
     user = fields.ToOneField(UserAccountResource, 'user')
 
@@ -176,6 +251,8 @@ class RequestResource(ModelResource):
         list_allowed_methods = ['get', 'put', 'post']
         detail_allowed_methods = ['get', 'put', 'post']
         resource_name = 'request'
+        if CACHE:
+            cache = SimpleCache()
         authorization = Authorization()
 
         excludes = ['created_by', 'modified_by']
@@ -188,11 +265,19 @@ class RequestResource(ModelResource):
         }
 
     def hydrate_id(self, bundle):
-        if bundle.data['id'] is not None:
-            bundle.data['id'] = None
+        try:
+            if bundle.data['id'] is not None:
+                bundle.data['id'] = None
+        except KeyError:
+            return bundle
         return bundle
 
     def hydrate_resource_uri(self, bundle):
-        if bundle.data['resource_uri'] is not None:
-            bundle.data['resource_uri'] = None
+        try:
+            if bundle.data['resource_uri'] is not None:
+                bundle.data['resource_uri'] = None
+        except KeyError:
+            return bundle
         return bundle
+
+

@@ -30,6 +30,20 @@ TASTYPIE_CANNED_ERROR = "Sorry, the CardControl API did not understand your requ
 
 # Application definition
 
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+ 	'LOCATION': 'unix:/tmp/redis.sock',       
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        },
+        "KEY_PREFIX": "cardcontrol",
+        "TIMEOUT": 15 
+    }
+
+}
+
+
 INSTALLED_APPS = [
     'cardcontrol.apps.CardcontrolConfig',
     'tastypie',
@@ -54,14 +68,12 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_ALLOW_ALL=True
-#CORS_ORIGIN_WHITELIST = (
-#    'ec2-107-20-90-253.compute-1.amazonaws.com:4200'
-#)
 
 CORS_ALLOW_METHODS = (
     'GET',
     'POST',
     'PUT',
+    'HEAD'
 )
 
 CORS_ALLOW_HEADERS = (
