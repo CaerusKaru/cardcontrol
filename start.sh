@@ -59,28 +59,28 @@ echo -e "${goodc}Starting Database.${noc}"
 $d/utils/start_db.sh
 
 echo -e "${goodc}Beginning Django migrations.${noc}"
-$d/backend/migrate.sh
+$d/backend/migrate.sh &>>$d/log/migrations.log
 python $d/backend/manage.py createcachetable
 
 echo -e "${goodc}Repopulating database with test data.${noc}"
-psql -d postgres -U postgres < $d/utils/recreate_database.sql 1>/dev/null
+psql -d postgres -U postgres < $d/utils/recreate_database.sql &>>$d/log/repopulate_db.log
 
 sql_c=$(python3.6 $d/backend/manage.py sqlsequencereset cardcontrol)
-echo "${sql_c}" | psql -d cardcontrol -U postgres
+echo "${sql_c}" | psql -d cardcontrol -U postgres &>>$d/log/sqlsequencereset.log
 
 expect <<- DONE
-    spawn -ignore HUP python3.6 $d/backend/manage.py runserver 
+    spawn -ignore HUP bash -ilc "python3.6 $d/backend/manage.py runserver" &>>$d/log/django.log
     expect -re ".*Quit the server with CONTROL-C.*"
 DONE
 
 if [[ "${aoff}" != "0" ]] && [[ "${prod}" != "0" ]]; then
 echo -e "${goodc}Checking frontend packages up to date.${noc}"
-npm install
+npm install &>>/log/npm_install.log
 echo -e "${goodc}Starting frontent process.${noc}"
 
 expect <<- DONE
     set timeout 120
-    spawn -ignore HUP bash -ilc "ng serve &"
+    spawn -ignore HUP bash -ilc "ng serve &" &>>/$d/log/angular.log
     expect -re ".*webpack: Compiled successfully.*"
 DONE
 fi
@@ -88,23 +88,23 @@ fi
 if [[ "${prod}" == "0" ]]; then
 echo -e "${goodc}Starting uWSGI.${noc}"
 expect <<- DONE
-    spawn sudo uwsgi -T --die-on-term --ini $d/backend/uwsgi.ini
+    spawn sudo uwsgi -T --die-on-term --ini $d/backend/uwsgi.ini &>>$d/log/uwsgi.log
     expect -re ".*Operational MODE: preforking.*"
 DONE
 echo -e "${goodc}Starting grip for API documentation.${noc}"
 expect <<- DONE
-    spawn bash -ic "grip $d/doc/api.md &>$d/grip.log &"
+    spawn bash -ic "grip $d/doc/api.md &>>$d/log/grip.log &"
     expect -re ".*Running on .*"
 DONE
 
 echo -e "${goodc}Starting Redis for memcaching.${noc}"
-sudo redis-server $d/redis.conf &>$d/redis.log & 
+sudo redis-server $d/redis.conf &>>$d/log/redis.log & 
 
 echo -e "${goodc}Starting NGINX.${noc}"
-sudo nginx
+sudo nginx &>>$d/log/nginx.log
 
 echo -e "${goodc}Starting Varnish.${noc}"
-sudo /usr/sbin/varnishd -f /etc/varnish/default.vcl -s malloc,256m -a :80
+sudo /usr/sbin/varnishd -f /etc/varnish/default.vcl -s malloc,256m -a :80 &>>$d/log/varnish.log
 
 fi
 

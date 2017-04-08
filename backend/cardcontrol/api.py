@@ -1,4 +1,4 @@
-from cardcontrol.models import UserAccount, Card, AccessPoint, Request, Resource, Domain
+from cardcontrol.models import UserAccount, Card, EditedCard, AccessPoint, Request, Resource, Domain
 from tastypie.resources import ModelResource, NamespacedModelResource
 from tastypie.authorization import Authorization
 from tastypie.resources import ALL, ALL_WITH_RELATIONS
@@ -35,6 +35,33 @@ class CardResource(ModelResource):
         if bundle.data['resource_uri'] is not None:
             bundle.data['resource_uri'] = None
         return bundle
+
+
+class EditedCardResource(ModelResource):
+    class Meta:
+        always_return_data = True
+        queryset = EditedCard.objects.all()
+        if CACHE:
+            cache = SimpleCache()
+        list_allowed_methods = ['get', 'put', 'post']
+        detail_allowed_methods = ['get', 'put', 'post']
+        resource_name = 'edited_card'
+        authorization = Authorization()
+        excludes = ['created_at', 'modified_at']
+        filtering = {
+            'utln': ALL
+        }
+
+    def hydrate_id(self, bundle):
+        if bundle.data['id'] is not None:
+            bundle.data['id'] = None
+        return bundle
+
+    def hydrate_resource_uri(self, bundle):
+        if bundle.data['resource_uri'] is not None:
+            bundle.data['resource_uri'] = None
+        return bundle
+
 
 class UserAccountResource(ModelResource):
     card = fields.ToOneField('cardcontrol.api.CardResource', 'card')
@@ -178,7 +205,7 @@ class DomainResource(ModelResource):
 class RequestResource(ModelResource):
     created_by = fields.ToOneField(UserAccountResource, 'created_by')
     modified_by = fields.ToOneField(UserAccountResource, 'modified_by')
-    new_card = fields.ToOneField(CardResource, 'new_card')
+    new_card = fields.ToOneField(EditedCardResource, 'new_card')
     new_access_points = fields.ToManyField('cardcontrol.api.AccessPointResource', 'new_access_points')
     user = fields.ToOneField(UserAccountResource, 'user')
 

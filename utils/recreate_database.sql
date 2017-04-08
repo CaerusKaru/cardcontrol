@@ -46,8 +46,8 @@ INSERT INTO cardcontrol_useraccount_access_points VALUES(10, 3, 1);
 INSERT INTO cardcontrol_useraccount_access_points VALUES(11, 3, 2);
 INSERT INTO cardcontrol_useraccount_access_points VALUES(12, 3, 4);
 
-INSERT INTO cardcontrol_request VALUES(1, 1, 0, null, null, now(), now(), 1, 1, 5, 1);
-INSERT INTO cardcontrol_request VALUES(2, 1, 0, null, null, now(), now(), 1, 1, 5, 2);
+-- INSERT INTO cardcontrol_request VALUES(1, 1, 0, null, null, now(), now(), 1, 1, 5, 1);
+-- INSERT INTO cardcontrol_request VALUES(2, 1, 0, null, null, now(), now(), 1, 1, 5, 2);
 
 \q
 
