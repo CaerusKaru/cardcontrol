@@ -70,7 +70,7 @@ $d/utils/start_db.sh
 
 echo -e "${goodc}Beginning Django migrations.${noc}"
 $d/backend/migrate.sh &>>$d/log/migrations.log
-python $d/backend/manage.py createcachetable
+python3.6 $d/backend/manage.py createcachetable
 
 echo -e "${goodc}Repopulating database with test data.${noc}"
 psql -d postgres -U postgres < $d/utils/recreate_database.sql &>>$d/log/repopulate_db.log
