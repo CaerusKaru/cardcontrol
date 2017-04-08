@@ -1,73 +1,56 @@
-<div class="card-wrapper" fxLayout="row" fxLayoutAlign="space-around stretch" fxFlex>
-  <md-card fxFlex="47.5">
-    <md-toolbar color="primary">
-      <span color="primary">My Requests</span>
-    </md-toolbar>
+<div class="card-wrapper" fxLayout="column" fxFlex>
+  <div fxLayout="row" fxLayoutAlign="space-around start" fxFill>
+    <md-card fxFlex="47.5">
+      <md-toolbar color="primary">
+        <span color="primary">My Requests</span>
+      </md-toolbar>
 
-    <md-card-content>
-      <md-nav-list *ngIf="requests">
-        <h3 md-subheader>Open Requests</h3>
-        <md-list-item *ngFor="let request of openRequests" [ngSwitch]="request.status">
-          <md-icon md-list-icon [ngStyle]="{color: '#FFC107'}" *ngSwitchCase="0" (click)="editRequest(request)">watch_later</md-icon>
-          <md-icon md-list-icon [ngStyle]="{color: 'blue'}" *ngSwitchCase="2" (click)="editRequest(request)">comment</md-icon>
-          <span fxFlex="10px"></span>
-          <h4 md-line (click)="editRequest(request)">Request for:
-            <span *ngIf="request.new_card">New Card</span>
-            <span *ngIf="!request.new_card">Access</span>
-          </h4>
-          <p md-line *ngSwitchCase="0" (click)="editRequest(request)">Submitted on: {{getDate(request.modified_at)}}</p>
-          <p md-line *ngSwitchCase="2" (click)="editRequest(request)">Modified on: {{getDate(request.modified_at)}}</p>
-        </md-list-item>
+      <md-card-content>
+        <md-nav-list *ngIf="requests" style="max-height: 70vh; overflow-y: auto">
+          <h3 md-subheader>Open Requests</h3>
+          <div *ngFor="let request of openRequests" (click)="editRequest(request, true)">
+            <md-list-item [ngSwitch]="request.status" >
+              <md-icon md-list-icon [ngStyle]="{color: '#FFC107'}" *ngSwitchCase="0">watch_later</md-icon>
+              <md-icon md-list-icon [ngStyle]="{color: 'blue'}" *ngSwitchCase="2">comment</md-icon>
+              <span fxFlex="10px"></span>
+              <h4 md-line>Request for:
+                <span *ngIf="request.new_card">New Card</span>
+                <span *ngIf="!request.new_card">Access</span>
+              </h4>
+              <p md-line *ngSwitchCase="0">Submitted on: {{getDate(request.modified_at)}}</p>
+              <p md-line *ngSwitchCase="2">Modified on: {{getDate(request.modified_at)}}</p>
+            </md-list-item>
+          </div>
+          <h3 md-subheader>Closed Requests</h3>
+          <div *ngFor="let request of closedRequests" (click)="editRequest(request, false)">
+            <md-list-item [ngSwitch]="request.status">
+              <md-icon *ngSwitchCase="1" md-list-icon [ngStyle]="{color: 'green'}">check_circle</md-icon>
+              <md-icon *ngSwitchCase="3" md-list-icon [ngStyle]="{color: 'red'}">error</md-icon>
+              <span fxFlex="10px"></span>
+              <h4 md-line>Request for:
+                <span *ngIf="request.new_card">New Card</span>
+                <span *ngIf="!request.new_card">Access</span>
+              </h4>
+              <p md-line>Closed on: {{getDate(request.modified_at)}}</p>
+            </md-list-item>
+          </div>
+        </md-nav-list>
+      </md-card-content>
+    </md-card>
 
-        <h3 md-subheader>Closed Requests</h3>
-        <md-list-item *ngFor="let request of closedRequests" [ngSwitch]="request.status">
-          <md-icon *ngSwitchCase="1" md-list-icon [ngStyle]="{color: 'green'}" (click)="editRequest(request)">check_circle</md-icon>
-          <md-icon *ngSwitchCase="3" md-list-icon [ngStyle]="{color: 'red'}" (click)="editRequest(request)">error</md-icon>
-          <span fxFlex="10px"></span>
-          <h4 md-line (click)="editRequest(request)">Request for:
-            <span *ngIf="request.new_card">New Card</span>
-            <span *ngIf="!request.new_card">Access</span>
-          </h4>
-          <p md-line (click)="editRequest(request)">Closed on: {{getDate(request.modified_at)}}</p>
-        </md-list-item>
-      </md-nav-list>
-    </md-card-content>
-  </md-card>
+    <md-card fxFlex="47.5">
+      <md-toolbar color="primary">
+        <span color="primary">Submit Request</span>
+      </md-toolbar>
 
-  <md-card fxFlex="47.5">
-    <md-toolbar color="primary">
-      <span color="primary">Submit Request</span>
-    </md-toolbar>
+      <md-card-content fxLayout="column">
+        <form fxLayout="column">
 
-    <md-card-content fxLayout="column">
-      <form fxLayout="column">
+          <app-domain-list domains="domains"></app-domain-list>
 
-        <md-input-container>
-          <input type="text" mdInput placeholder="Campus">
-        </md-input-container>
+        </form>
+      </md-card-content>
 
-        <md-input-container>
-          <input type="text" mdInput placeholder="Building">
-        </md-input-container>
-
-        <md-input-container>
-          <input type="text" mdInput placeholder="Room">
-        </md-input-container>
-
-        <md-input-container>
-          <textarea mdInput placeholder="Reason Why"></textarea>
-        </md-input-container>
-
-        <md-input-container hintLabel='Search by name or ID number'>
-          <input type="search" mdInput placeholder="Add IDs (optional)">
-        </md-input-container>
-
-        <div class="submit-button">
-          <button type='submit' md-button>Submit</button>
-        </div>
-
-      </form>
-    </md-card-content>
-
-  </md-card>
+    </md-card>
+  </div>
 </div>

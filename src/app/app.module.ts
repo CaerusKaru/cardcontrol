@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MaterialModule } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { UserModule } from './user/user.module';
 import { ManagerModule } from './manager/manager.module';
@@ -14,6 +13,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import {RequestService} from "./request/request.service";
 import {UserService} from "./user/shared/user.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {AppMaterialModule} from "./app-material/app-material.module";
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     FormsModule,
     HttpModule,
     FlexLayoutModule,
-    MaterialModule,
+    AppMaterialModule,
     UserModule,
     ManagerModule,
     AppRoutingModule

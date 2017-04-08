@@ -14,6 +14,7 @@ export class UserIdComponent implements OnInit {
 
   constructor(
     public dialog : MdDialog,
+    public requestService : RequestService,
     private userService : UserService
   ) { }
 
@@ -29,6 +30,11 @@ export class UserIdComponent implements OnInit {
     let dialogRef = this.dialog.open(UserIdRequestDialog, {
     });
     dialogRef.componentInstance.user = Object.assign({}, this.user);
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        this.requestService.makeUpdateCard(data);
+      }
+    })
   }
 
   public report() {
@@ -51,18 +57,25 @@ export class UserIdComponent implements OnInit {
 export class UserIdRequestDialog {
 
   constructor (
-    private requestService : RequestService,
     private dialogRef : MdDialogRef<UserIdRequestDialog>
   ) {
   }
 
+  public requestOpen : boolean;
+  public feedback : string;
+  public readOnly : boolean;
   public user : User;
   public schools : string[] = ["Liberal Arts", "Engineering", "Other"];
   public types : string[] = ["Undergraduate", "Graduate", "Professor", "Employee", "Other"];
 
   public closeDialog (f : NgForm) {
     // TODO validate f
-    this.requestService.makeUpdateCard(this.user);
-    this.dialogRef.close();
+    console.log('onsubmit');
+    this.dialogRef.close(this.user);
+  }
+
+  public closeRequest () {
+    console.log('close request');
+    this.dialogRef.close({closeRequest: true});
   }
 }
