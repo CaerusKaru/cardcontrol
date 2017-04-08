@@ -22,7 +22,7 @@ echo "[$(date +%Y-%m-%d:%H:%M:%S)]: Stash modified files." >> $log
 git stash &>> $log
 echo "[$(date +%Y-%m-%d:%H:%M:%S)]: Checkout $branch and pull from origin." >> $log
 set +e
-git checkout $branch
+git checkout $branch &>> $log
 set -e
 git pull origin $branch &>> $log
 echo "[$(date +%Y-%m-%d:%H:%M:%S)]: Start server again." >> $log
