@@ -19,7 +19,7 @@ set +u
 if [[ "$1" == "-a" ]]; then
 	ang=""
 fi;
-pids=$(ps auxww | grep -E "${ang}runserve|nginx|redis|varnish|uwsgi|postgres|psql|pgsql|grip" | grep -v grep | awk '{print $2}' | sort | uniq)
+pids=$(ps auxww | grep -E "nginx|${ang}runserve|redis|varnish|uwsgi|postgres|psql|pgsql|grip" | grep -v grep | awk '{print $2}' | sort | uniq)
 set -e
 echo -e "${goodc}Killing PIDs:${noc}"
 for pid in $pids; do

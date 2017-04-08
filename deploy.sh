@@ -26,7 +26,7 @@ git checkout $branch
 set -e
 git pull origin $branch &>> $log
 echo "[$(date +%Y-%m-%d:%H:%M:%S)]: Start server again." >> $log
-bash /home/ec2-user/cardcontrol/start.sh &>> $log
+bash /home/ec2-user/cardcontrol/start.sh -p -b &>> $log
 
 echo "[$(date +%Y-%m-%d:%H:%M:%S)]: Attempted to pull." >> $log
 
