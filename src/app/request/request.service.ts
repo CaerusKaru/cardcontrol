@@ -8,6 +8,7 @@ import {UserService} from "../user/shared/user.service";
 import {ManagedResource} from "../shared/managed-resource";
 import {AccessPoint} from "../shared/access-point";
 import {environment} from "../../environments/environment";
+import {MdSnackBar} from "@angular/material";
 
 @Injectable()
 export class RequestService {
@@ -16,7 +17,8 @@ export class RequestService {
 
   constructor(
     private http : Http,
-    private userService : UserService
+    private userService : UserService,
+    public snackBar: MdSnackBar
   ) {
     this.userService.userAccount.subscribe(
       data => {
@@ -52,6 +54,12 @@ export class RequestService {
 
   public getAccessPoints (resource : ManagedResource) : Observable<AccessPoint[]> {
     return this.http.get(environment.API_PORT + '/api/v1/access_point?resource=' + resource.id)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  public getAccessPoint (accessPointUri : string) : Observable<AccessPoint> {
+    return this.http.get(environment.API_PORT + accessPointUri)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -111,9 +119,23 @@ export class RequestService {
         this.http.post(environment.API_PORT + '/api/v1/request/', newReq, options)
           .map(this.extractData)
           .catch(this.handleError)
-          .subscribe();
+          .subscribe(data => {
+            this.snackBar.open('Request submitted!', '', {
+              duration: 1750
+            });
+          });
+      },
+      error => {
+        this.snackBar.open('Unable to submit request', '', {
+          duration: 1750
+        });
+        // TODO add form validation return
       }
     );
+  }
+
+  public updateCard (newCard : User) {
+    this.http.put(environment.API_PORT + newCard.resource_uri, newCard).subscribe();
   }
 
   private makeNewCard(newCard : User) : Observable<User> {

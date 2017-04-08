@@ -1,18 +1,21 @@
 <div fxLayout="column">
   <md-toolbar color="primary">Update Card for {{user.utln}}</md-toolbar>
   <span fxFlex="25px"></span>
-  <form #f="ngForm" style="padding: 16px;" fxLayout="column" (ngSubmit)="closeDialog(f)">
+  <form #f="ngForm" style="padding: 16px;" fxLayout="column">
     <div fxLayout="row" fxLayoutAlign="center center">
       <md-input-container style="max-width: 100px">
-        <input mdInput placeholder="First name" [(ngModel)]="user.first_name" name="first_name" required>
+        <input mdInput placeholder="First name" [(ngModel)]="user.first_name"
+               name="first_name" required [disabled]="readOnly">
       </md-input-container>
       <span fxFlex="25px"></span>
       <md-input-container style="max-width: 100px">
-        <input mdInput placeholder="Middle initial" [(ngModel)]="user.middle_initial" name="middle_initial" required>
+        <input mdInput placeholder="Middle initial" [(ngModel)]="user.middle_initial"
+               name="middle_initial" required [disabled]="readOnly">
       </md-input-container>
       <span fxFlex="25px"></span>
       <md-input-container style="max-width: 100px">
-        <input mdInput placeholder="Last name" [(ngModel)]="user.last_name" name="last_name" required>
+        <input mdInput placeholder="Last name" [(ngModel)]="user.last_name"
+               name="last_name" required [disabled]="readOnly">
       </md-input-container>
     </div>
 
@@ -20,33 +23,45 @@
 
     <div fxLayout="row" fxLayoutAlign="center center">
       <md-input-container style="max-width: 162px">
-        <input mdInput placeholder="Date of birth" [(ngModel)]="user.birth_date" name="birth_date" required>
+        <input mdInput placeholder="Date of birth" [(ngModel)]="user.birth_date"
+               name="birth_date" required [disabled]="readOnly">
       </md-input-container>
       <span fxFlex="25px"></span>
       <md-input-container style="max-width: 162px">
-        <input mdInput placeholder="Year of graduation" [(ngModel)]="user.class_year" name="class_year" required>
+        <input mdInput placeholder="Year of graduation" [(ngModel)]="user.class_year"
+               name="class_year" required [disabled]="readOnly">
       </md-input-container>
     </div>
     <span fxFlex="25px"></span>
     <div fxLayout="row" fxLayoutAlign="center center">
-      <md-select placeholder="School" [(ngModel)]="user.school" name="school" style="min-width: 152px" required>
+      <md-select placeholder="School" [(ngModel)]="user.school"
+                 name="school" style="min-width: 152px" required [disabled]="readOnly">
         <md-option *ngFor="let school of schools" [value]="school">
           {{school}}
         </md-option>
       </md-select>
       <span fxFlex="25px"></span>
-      <md-select placeholder="Type" [(ngModel)]="user.student_type" name="student_type" style="min-width: 152px" required>
+      <md-select placeholder="Type" [(ngModel)]="user.student_type"
+                 name="student_type" style="min-width: 152px" required [disabled]="readOnly">
         <md-option *ngFor="let type of types" [value]="type">
           {{type}}
         </md-option>
       </md-select>
     </div>
 
+    <div fxLayout="row" fxLayoutAlign="center center" *ngIf="feedback" style="width: 100%">
+      <md-input-container>
+        <textarea mdInput disabled>{{feedback}}</textarea>
+      </md-input-container>
+    </div>
+
     <span fxFlex="15px"></span>
 
     <div fxLayout="row" fxLayoutAlign="end center">
+      <button md-button color="warn" *ngIf="requestOpen" (click)="closeRequest()">CLOSE REQUEST</button>
+      <span fxFlex></span>
       <button md-button md-dialog-close>CANCEL</button>
-      <button md-button type="submit" color="primary">SUBMIT</button>
+      <button md-button (click)="closeDialog(f)" color="primary" [disabled]="readOnly">SUBMIT</button>
     </div>
 
 

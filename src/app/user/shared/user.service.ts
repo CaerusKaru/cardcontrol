@@ -38,8 +38,8 @@ export class UserService {
       .catch(this.handleError);
   }
 
-  private getCard (url : string): Observable<User> {
-    return this.http.get(environment.API_PORT + url)
+  public getCard (uri : string): Observable<User> {
+    return this.http.get(environment.API_PORT + uri)
       .map(this.extractData)
       .catch(this.handleError);
   }

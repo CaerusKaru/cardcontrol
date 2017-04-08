@@ -6,10 +6,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import {UserIdComponent, UserIdRequestDialog} from './user-id/user-id.component';
 import {UserAreaComponent, UserAreaDialog} from './user-area/user-area.component';
-import { UserRequestComponent } from './user-request/user-request.component';
+import {UserRequestComponent, UserRequestDialogComponent} from './user-request/user-request.component';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { UserAccountComponent } from './user-account/user-account.component';
 import {FormsModule} from "@angular/forms";
+import { DomainListComponent } from './user-request/domain-list/domain-list.component';
 
 @NgModule({
   imports: [
@@ -26,13 +27,17 @@ import {FormsModule} from "@angular/forms";
     UserHomeComponent,
     UserAreaDialog,
     UserAccountComponent,
-    UserIdRequestDialog
+    UserIdRequestDialog,
+    UserRequestDialogComponent,
+    DomainListComponent
   ],
   bootstrap: [
     UserAreaComponent,
     UserAreaDialog,
     UserIdComponent,
-    UserIdRequestDialog
+    UserIdRequestDialog,
+    UserRequestComponent,
+    UserRequestDialogComponent
   ],
   providers: [
   ]
