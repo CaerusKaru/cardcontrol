@@ -18,7 +18,7 @@ djangc=$(echo "$rout" | grep "python" | wc -l)
 postgc=$(echo "$rout" | grep "postgres" | wc -l)
 
 if [[ "$nginxc" == "0" ]] || [[ "$uwsgic" == "0" ]] || [[ "$varnic" == "0" ]] || [[ "$djangc" == "0" ]] || [[ "$postgc" == "0" ]]; then
-    sudo -u ec2-user $d/stop.sh
-    sudo -u ec2-user $d/start.sh -b -p
+    sudo -u ec2-user $d/deploy.sh
+    sudo -u ec2-user $d/start.sh -p -b
 fi;
 
