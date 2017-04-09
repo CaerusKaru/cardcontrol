@@ -117,7 +117,7 @@ echo -e "${goodc}Starting NGINX.${noc}"
 sudo nginx &>>$d/log/nginx.log
 
 echo -e "${goodc}Starting Varnish.${noc}"
-sudo /usr/sbin/varnishd -f /etc/varnish/default.vcl -s malloc,256m -a :80 &>>$d/log/varnish.log
+sudo /usr/sbin/varnishd -n cardcontrol -f /etc/varnish/default.vcl -s malloc,256m -a :80 &>>$d/log/varnish.log
 
 fi
 
