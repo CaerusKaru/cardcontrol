@@ -103,6 +103,7 @@ expect <<- DONE
     spawn bash -ilc "sudo uwsgi -T --die-on-term --ini $d/backend/uwsgi.ini" 
     expect -re ".*Operational MODE: preforking.*"
 DONE
+
 echo -e "${goodc}Starting grip for API documentation.${noc}"
 expect <<- DONE
     spawn bash -ilc "grip $d/doc/api.md &"
