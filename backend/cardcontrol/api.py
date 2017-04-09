@@ -241,8 +241,8 @@ class DomainResource(ModelResource):
 class RequestResource(ModelResource):
     created_by = fields.ToOneField(UserAccountResource, 'created_by')
     modified_by = fields.ToOneField(UserAccountResource, 'modified_by')
-    new_card = fields.ToOneField(EditedCardResource, 'new_card')
-    new_access_points = fields.ToManyField('cardcontrol.api.AccessPointResource', 'new_access_points')
+    new_card = fields.ToOneField(EditedCardResource, 'new_card', null=True)
+    new_access_points = fields.ToManyField('cardcontrol.api.AccessPointResource', 'new_access_points', blank=True)
     user = fields.ToOneField(UserAccountResource, 'user')
 
     class Meta:

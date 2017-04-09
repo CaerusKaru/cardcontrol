@@ -33,6 +33,8 @@ esac
 shift # past argument or value
 done
 
+cd $d
+
 echo -e "${goodc}Running with -a ${aoff} -p ${prod} -b ${abld}.${noc}"
 
 mkdir -p $d/log
