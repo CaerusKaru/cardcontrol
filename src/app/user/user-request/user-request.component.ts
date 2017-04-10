@@ -8,6 +8,7 @@ import {UserIdRequestDialog} from "../user-id/user-id.component";
 import {AccessPoint} from "../../shared/access-point";
 import {Observable} from "rxjs/Observable";
 import {Domain} from "../../shared/domain";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-user-request',
@@ -142,6 +143,11 @@ export class UserRequestDialogComponent {
   feedback : string;
   readOnly : boolean;
   newAccessPoints : AccessPoint[];
+
+  public closeDialog (f : NgForm) {
+    // TODO validate f
+    this.dialogRef.close();
+  }
 
   public closeRequest () {
     this.dialogRef.close({closeRequest: true});
