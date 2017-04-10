@@ -77,8 +77,10 @@ class EditedCardResource(ModelResource):
 
 class UserAccountResource(ModelResource):
     card = fields.ToOneField('cardcontrol.api.CardResource', 'card')
-    access_points = fields.ManyToManyField('cardcontrol.api.AccessPointResource', 'access_points', full=True)
-    resources_managed = fields.ManyToManyField('cardcontrol.api.ResourceResource', 'resources_managed')
+    access_points = fields.ManyToManyField('cardcontrol.api.AccessPointResource', 'access_points', blank=True, full=True)
+    access_points_managed = fields.ManyToManyField('cardcontrol.api.AccessPointResource', 'access_points_managed', blank=True, full=True)
+    resources_managed = fields.ManyToManyField('cardcontrol.api.ResourceResource', 'resources_managed', blank=True, full=True)
+    domains_managed = fields.ManyToManyField('cardcontrol.api.DomainResource', 'domains_managed', blank=True, full=True)
 
     class Meta:
         queryset = UserAccount.objects.all()
