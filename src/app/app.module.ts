@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
@@ -21,6 +21,7 @@ import {AppMaterialModule} from "./app-material/app-material.module";
     PageNotFoundComponent
   ],
   imports: [
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,

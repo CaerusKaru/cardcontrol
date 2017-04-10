@@ -1,37 +1,17 @@
-<!--<md-input-container>-->
-  <!--<input mdInput placeholder="State" [mdAutocomplete]="auto" [formControl]="stateCtrl">-->
-<!--</md-input-container>-->
+<md-input-container floatPlaceholder="never">
+  <input mdInput placeholder="Domain" [mdAutocomplete]="domainAuto" [formControl]="domainControl">
+</md-input-container>
 
-<!--<md-autocomplete #auto="mdAutocomplete">-->
-  <!--<md-option *ngFor="let state of filteredStates | async" [value]="state">-->
-    <!--{{ state }}-->
-  <!--</md-option>-->
-<!--</md-autocomplete>-->
+<md-autocomplete #domainAuto="mdAutocomplete" [displayWith]="domainName">
+  <md-option *ngFor="let domain of flDomains | async" [value]="domain">
+    <span>{{ domain.domain_name }}</span>
+  </md-option>
+</md-autocomplete>
 
+<app-domain-list *ngIf="selectedDomain && selectedDomain.domain_children.length !== 0"
+                 [domains]="selectedDomain.domain_children">
+</app-domain-list>
 
-<!--
-
-Structure:
-
-:: AUTOCOMPLETE FOR DOMAIN OUT OF DOMAINS ::
-:: AUTOCOMPLETE FOR EITHER RESOURCES OUT OF DOMAIN OR DOMAINS OUT OF DOMAIN ::
-  :: AUTOCOMPLETE FOR ACCESS POINTS OUT OF RESOURCE ::
-
--->
-
-
-<!--<md-select placeholder="School" [(ngModel)]="domain"-->
-           <!--name="domain">-->
-  <!--<md-option *ngFor="let domain of domains" [value]="school">-->
-  <!--</md-option>-->
-<!--</md-select>-->
-
-<!--<app-domain-list *ngIf="domain" [domains]="domain.domains"></app-domain-list>-->
-
-<!--<md-select *ngIf="domain.resources">-->
-
-<!--</md-select>-->
-
-<!--<md-select *ngIf="resource">-->
-
-<!--</md-select>-->
+<app-resource-list *ngIf="selectedDomain && selectedDomain.resource_children.length !== 0"
+                   [resources]="selectedDomain.resource_children">
+</app-resource-list>

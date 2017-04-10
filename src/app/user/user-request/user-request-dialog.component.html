@@ -1,8 +1,18 @@
 <div fxLayout="column">
-  <md-toolbar color="primary">
-    <span>Edit Request</span>
-  </md-toolbar>
-  <span fxFlex="20px"></span>
-  <div>Hello!</div>
-  <div>None</div>
+  <md-toolbar color="primary">Update Access Point Request</md-toolbar>
+  <span fxFlex="25px"></span>
+  <form #f="ngForm" style="padding: 16px;" fxLayout="column">
+
+
+    <span fxFlex="15px"></span>
+
+    <div fxLayout="row" fxLayoutAlign="end center">
+      <button md-button color="warn" *ngIf="requestOpen" (click)="closeRequest()">CLOSE REQUEST</button>
+      <span fxFlex></span>
+      <button md-button md-dialog-close>CANCEL</button>
+      <button md-button (click)="closeDialog(f)" color="primary" [disabled]="readOnly">SUBMIT</button>
+    </div>
+
+
+  </form>
 </div>

@@ -35,14 +35,14 @@
     <span fxFlex="25px"></span>
     <div fxLayout="row" fxLayoutAlign="center center">
       <md-select placeholder="School" [(ngModel)]="user.school"
-                 name="school" style="min-width: 152px" required [disabled]="readOnly">
+                 name="school" style="min-width: 162px" required [disabled]="readOnly">
         <md-option *ngFor="let school of schools" [value]="school">
           {{school}}
         </md-option>
       </md-select>
       <span fxFlex="25px"></span>
       <md-select placeholder="Type" [(ngModel)]="user.student_type"
-                 name="student_type" style="min-width: 152px" required [disabled]="readOnly">
+                 name="student_type" style="min-width: 162px" required [disabled]="readOnly">
         <md-option *ngFor="let type of types" [value]="type">
           {{type}}
         </md-option>
@@ -50,7 +50,7 @@
     </div>
 
     <div fxLayout="row" fxLayoutAlign="center center" *ngIf="feedback" style="width: 100%">
-      <md-input-container>
+      <md-input-container fxFlex>
         <textarea mdInput disabled>{{feedback}}</textarea>
       </md-input-container>
     </div>

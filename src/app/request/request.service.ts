@@ -8,7 +8,8 @@ import {UserService} from "../user/shared/user.service";
 import {ManagedResource} from "../shared/managed-resource";
 import {AccessPoint} from "../shared/access-point";
 import {environment} from "../../environments/environment";
-import {MdSnackBar, MdSnackBarConfig} from "@angular/material";
+import {MdSnackBar} from "@angular/material";
+import {Domain} from "../shared/domain";
 
 @Injectable()
 export class RequestService {
@@ -73,23 +74,27 @@ export class RequestService {
       .catch(this.handleError);
   }
 
+  public getRootDomain () : Observable<Domain> {
+    return this.http.get(environment.API_PORT + '/api/v1/domain/1')
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   public makeAccessRequest (accessPoints : AccessPoint[], reasonWhy : string) {
 
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    let resourceUris : string[] = [];
+    let resourceUris : string[] = accessPoints.map(a => a.resource_uri);
+    console.log(resourceUris);
 
-    for (let accessPoint of accessPoints) {
-      resourceUris.push(accessPoint.resource_uri);
-    }
 
     let newReq : ChangeRequest = {
       new_access_points: resourceUris,
-      resource_uri: null,
-      id: null,
-      request_level: 0,
+      request_level: 1,
       status: 0,
+      id: null,
+      resource_uri: null,
       new_card: null,
       user: this.userAccount.resource_uri,
       reason : reasonWhy,

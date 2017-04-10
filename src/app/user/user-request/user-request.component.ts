@@ -3,7 +3,7 @@ import {ChangeRequest} from "../../shared/change-request";
 import {RequestService} from "../../request/request.service";
 import {UserAccount} from "../../shared/user_account";
 import {UserService} from "../shared/user.service";
-import {MdDialog} from "@angular/material";
+import {MdDialog, MdDialogRef} from "@angular/material";
 import {UserIdRequestDialog} from "../user-id/user-id.component";
 import {AccessPoint} from "../../shared/access-point";
 import {Observable} from "rxjs/Observable";
@@ -29,7 +29,16 @@ export class UserRequestComponent implements OnInit {
         this.userAccount = data;
         this.getRequests()
       }
-    )
+    );
+    this.requestService.getRootDomain().subscribe(
+      data => {
+        if (data.domain_children) {
+          this.domains = data.domain_children;
+        } else {
+          this.domains = [data];
+        }
+      }
+    );
   }
 
   public activeTabIndex : number;
@@ -40,7 +49,7 @@ export class UserRequestComponent implements OnInit {
   public closedRequests : ChangeRequest[];
 
   public editRequest (request : ChangeRequest, isOpen : boolean) {
-    if (request.new_card) {
+    if (request.new_access_points.length === 0) {
       this.userService.getCard(request.new_card).subscribe(
         data => {
           let dialogRef = this.dialog.open(UserIdRequestDialog);
@@ -48,7 +57,7 @@ export class UserRequestComponent implements OnInit {
           if (isOpen) {
             dialogRef.componentInstance.requestOpen = true;
           } else {
-            dialogRef.componentInstance.feedback = 'owehfowejfiowejfiowjefojewfwieofjoweijfoiwe';
+            dialogRef.componentInstance.feedback = 'Request closed by user';
             dialogRef.componentInstance.readOnly = true;
           }
 
@@ -70,10 +79,33 @@ export class UserRequestComponent implements OnInit {
       );
     } else {
       let dialogRef = this.dialog.open(UserRequestDialogComponent);
-      console.log(request.new_access_points);
-      let accessPointRequests = request.new_access_points.map(this.requestService.getAccessPoint);
-      Observable.forkJoin(accessPointRequests).subscribe(data => {
-        dialogRef.componentInstance.newAccessPoints = data;
+      let accessPointRequests : Observable<AccessPoint>[] =
+        request.new_access_points.map(d => { return this.requestService.getAccessPoint(d) });
+      if (isOpen) {
+        dialogRef.componentInstance.requestOpen = true;
+      } else {
+        dialogRef.componentInstance.feedback = 'Request closed by user';
+        dialogRef.componentInstance.readOnly = true;
+      }
+      Observable.forkJoin(accessPointRequests).subscribe(
+        data => {
+          dialogRef.componentInstance.newAccessPoints = data;
+        }
+      );
+
+      dialogRef.afterClosed().subscribe(data => {
+        if (data) {
+          if (data.closeRequest) {
+            request.status = 3;
+            request.feedback = 'Closed by user';
+            this.requestService.updateRequest(request);
+            // TODO make a more elegant way of structuring this with unshift/slice
+            this.openRequests = this.requests.filter(i => i.status === 0 || i.status === 2);
+            this.closedRequests = this.requests.filter(i => i.status === 1 || i.status === 3);
+            return;
+          }
+          // this.requestService.updateCard(data); // TODO change this to update access_points
+        }
       });
     }
   }
@@ -101,9 +133,17 @@ export class UserRequestComponent implements OnInit {
 })
 export class UserRequestDialogComponent {
 
-  constructor () {
-
+  constructor (
+    public dialogRef : MdDialogRef<UserRequestDialogComponent>
+  ) {
   }
 
+  requestOpen : boolean;
+  feedback : string;
+  readOnly : boolean;
   newAccessPoints : AccessPoint[];
+
+  public closeRequest () {
+    this.dialogRef.close({closeRequest: true});
+  }
 }

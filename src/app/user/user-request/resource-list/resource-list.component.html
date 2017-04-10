@@ -1,0 +1,30 @@
+<div fxLayout="column">
+  <md-input-container floatPlaceholder="never">
+    <input mdInput placeholder="Resource" [mdAutocomplete]="resourceAuto" [formControl]="resourceControl">
+  </md-input-container>
+
+  <md-autocomplete #resourceAuto="mdAutocomplete" [displayWith]="resourceName">
+    <md-option *ngFor="let resource of flResources | async" [value]="resource">
+      <span>{{ resource.resource_name }}</span>
+    </md-option>
+  </md-autocomplete>
+
+  <md-select *ngIf="selectedResource" placeholder="Access Point" multiple
+             [(ngModel)]="accessPoints" #apControl="ngModel" floatPlaceholder="never">
+    <md-option *ngFor="let accessPoint of selectedResource.children" [value]="accessPoint">
+      <span> {{ accessPoint.access_point_name }}</span>
+    </md-option>
+  </md-select>
+
+  <span fxFlex="15px"></span>
+
+  <md-input-container>
+    <textarea mdInput placeholder="Reason Why" [(ngModel)]="reasonWhy"></textarea>
+  </md-input-container>
+
+  <div fxLayout="row">
+    <button md-button [disabled]="accessPoints && accessPoints.length === 0 && reasonWhy && reasonWhy.length === 0"
+            color="primary" (click)="sendRequest()">SUBMIT</button>
+    <span fxFlex></span>
+  </div>
+</div>
