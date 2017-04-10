@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserRoutingModule } from './user-routing.module';
-import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import {UserIdComponent, UserIdRequestDialog} from './user-id/user-id.component';
@@ -18,7 +17,6 @@ import {ResourceListComponent} from "./user-request/resource-list/resource-list.
   imports: [
     UserMaterialModule,
     ReactiveFormsModule,
-    MaterialModule,
     FormsModule,
     CommonModule,
     FlexLayoutModule,
