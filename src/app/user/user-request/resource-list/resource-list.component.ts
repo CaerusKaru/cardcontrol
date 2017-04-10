@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ManagedResource} from "../../../shared/managed-resource";
 import {FormControl} from "@angular/forms";
 import {Observable} from "rxjs";
@@ -14,6 +14,8 @@ export class ResourceListComponent implements OnInit {
 
   @Input()
   private resources : ManagedResource[];
+
+  @Output () submitRequest : EventEmitter<any> = new EventEmitter();
 
   constructor(
     private requestService : RequestService
@@ -47,7 +49,7 @@ export class ResourceListComponent implements OnInit {
   }
 
   public sendRequest() {
-    console.log(this.accessPoints);
     this.requestService.makeAccessRequest(this.accessPoints, this.reasonWhy);
+    this.submitRequest.emit(null);
   }
 }

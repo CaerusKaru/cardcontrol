@@ -5,7 +5,7 @@ import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import {UserIdComponent, UserIdRequestDialog} from './user-id/user-id.component';
-import {UserAreaComponent, UserAreaDialog} from './user-area/user-area.component';
+import {UserAreaCommentDialog, UserAreaComponent, UserAreaDialog} from './user-area/user-area.component';
 import {UserRequestComponent, UserRequestDialogComponent} from './user-request/user-request.component';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { UserAccountComponent } from './user-account/user-account.component';
@@ -34,7 +34,8 @@ import {ResourceListComponent} from "./user-request/resource-list/resource-list.
     UserIdRequestDialog,
     UserRequestDialogComponent,
     DomainListComponent,
-    ResourceListComponent
+    ResourceListComponent,
+    UserAreaCommentDialog
   ],
   bootstrap: [
     UserAreaComponent,
@@ -42,7 +43,8 @@ import {ResourceListComponent} from "./user-request/resource-list/resource-list.
     UserIdComponent,
     UserIdRequestDialog,
     UserRequestComponent,
-    UserRequestDialogComponent
+    UserRequestDialogComponent,
+    UserAreaCommentDialog
   ],
   providers: [
   ]

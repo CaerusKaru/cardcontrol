@@ -29,7 +29,7 @@
         <span fxFlex="10px"></span>
         <h4>{{accessPoint.access_point_name}}</h4>
         <span fxFlex></span>
-        <button md-raised-button color="accent">Request Access</button>
+        <button md-raised-button color="accent" (click)="openComment(accessPoint)">Request Access</button>
       </md-list-item>
     </div>
   </md-list>

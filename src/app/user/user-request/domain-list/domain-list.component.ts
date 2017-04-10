@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Domain} from "../../../shared/domain";
 import {FormControl} from "@angular/forms";
 import {Observable} from "rxjs";
@@ -12,6 +12,8 @@ export class DomainListComponent implements OnInit {
 
   @Input ()
   private domains : Domain[];
+
+  @Output () addRequest : EventEmitter<any> = new EventEmitter();
 
   constructor() {
   }
@@ -37,5 +39,9 @@ export class DomainListComponent implements OnInit {
 
   public domainName (domain : Domain) : string {
     return domain ? domain.domain_name : '';
+  }
+
+  public submit () {
+    this.addRequest.emit(null);
   }
 }

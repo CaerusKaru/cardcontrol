@@ -45,7 +45,7 @@
 
       <md-card-content fxLayout="column">
         <form fxLayout="column">
-          <app-domain-list [domains]="domains"></app-domain-list>
+          <app-domain-list [domains]="domains" (addRequest)="updateRequests()"></app-domain-list>
         </form>
       </md-card-content>
 

@@ -86,8 +86,6 @@ export class RequestService {
     let options = new RequestOptions({ headers: headers });
 
     let resourceUris : string[] = accessPoints.map(a => a.resource_uri);
-    console.log(resourceUris);
-
 
     let newReq : ChangeRequest = {
       new_access_points: resourceUris,
@@ -107,7 +105,18 @@ export class RequestService {
     this.http.post(environment.API_PORT + '/api/v1/request/', newReq, options)
       .map(this.extractData)
       .catch(this.handleError)
-      .subscribe();
+      .subscribe(
+        data => {
+          this.snackBar.open('Request submitted', '', {
+            duration: 1750
+          });
+        },
+        error => {
+          this.snackBar.open('Error submitting request', '', {
+            duration: 1750
+          });
+        }
+      );
   }
 
   public makeUpdateCard (newCard : User) {

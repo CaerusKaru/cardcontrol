@@ -88,15 +88,11 @@ export class UserRequestComponent implements OnInit {
         dialogRef.componentInstance.feedback = 'Request closed by user';
         dialogRef.componentInstance.readOnly = true;
       }
-      Observable.forkJoin(accessPointRequests).subscribe(
-        data => {
-          dialogRef.componentInstance.newAccessPoints = data;
-        }
-      );
+      dialogRef.componentInstance.newAccessPoints = Observable.forkJoin(accessPointRequests);
 
       dialogRef.afterClosed().subscribe(data => {
         if (data) {
-          if (data.closeRequest) {
+          if (data.closeRequest || data.length === 0) {
             request.status = 3;
             request.feedback = 'Closed by user';
             this.requestService.updateRequest(request);
@@ -105,7 +101,8 @@ export class UserRequestComponent implements OnInit {
             this.closedRequests = this.requests.filter(i => i.status === 1 || i.status === 3);
             return;
           }
-          // this.requestService.updateCard(data); // TODO change this to update access_points
+          request.new_access_points = data;
+          this.requestService.updateRequest(request);
         }
       });
     }
@@ -113,6 +110,10 @@ export class UserRequestComponent implements OnInit {
 
   public getDate (dateString : string) {
     return new Date(dateString).toLocaleDateString();
+  }
+
+  public updateRequests () {
+    setTimeout(_ => { this.getRequests() }, 250);
   }
 
   private userAccount : UserAccount;
@@ -132,21 +133,29 @@ export class UserRequestComponent implements OnInit {
   selector: 'app-user-request-dialog',
   templateUrl: './user-request-dialog.component.html'
 })
-export class UserRequestDialogComponent {
+export class UserRequestDialogComponent implements OnInit {
 
   constructor (
     public dialogRef : MdDialogRef<UserRequestDialogComponent>
   ) {
   }
 
+  ngOnInit () {
+    this.newAccessPoints.subscribe(
+      data => {
+        this.selected = data;
+      }
+    );
+  }
+
+  selected : AccessPoint[];
   requestOpen : boolean;
   feedback : string;
   readOnly : boolean;
-  newAccessPoints : AccessPoint[];
+  newAccessPoints : Observable<AccessPoint[]>;
 
   public closeDialog (f : NgForm) {
-    // TODO validate f
-    this.dialogRef.close();
+    this.dialogRef.close(this.selected.map(d => d.resource_uri).filter(d => d));
   }
 
   public closeRequest () {

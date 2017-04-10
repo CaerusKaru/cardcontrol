@@ -1,18 +1,25 @@
 <div fxLayout="column">
   <md-toolbar color="primary">Update Access Point Request</md-toolbar>
-  <span fxFlex="25px"></span>
   <form #f="ngForm" style="padding: 16px;" fxLayout="column">
 
+    <md-list *ngIf="selected">
+      <md-list-item *ngFor="let accessPoint of newAccessPoints | async; let idx = index">
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <div fxFlex>
+            <md-checkbox [(ngModel)]="selected[idx]" [name]="accessPoint">
+              {{accessPoint.access_point_name}}
+            </md-checkbox>
+          </div>
+        </div>
+      </md-list-item>
+    </md-list>
 
     <span fxFlex="15px"></span>
-
     <div fxLayout="row" fxLayoutAlign="end center">
       <button md-button color="warn" *ngIf="requestOpen" (click)="closeRequest()">CLOSE REQUEST</button>
       <span fxFlex></span>
       <button md-button md-dialog-close>CANCEL</button>
       <button md-button (click)="closeDialog(f)" color="primary" [disabled]="readOnly">SUBMIT</button>
     </div>
-
-
   </form>
 </div>

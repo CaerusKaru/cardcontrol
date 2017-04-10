@@ -9,9 +9,9 @@
 </md-autocomplete>
 
 <app-domain-list *ngIf="selectedDomain && selectedDomain.domain_children.length !== 0"
-                 [domains]="selectedDomain.domain_children">
+                 [domains]="selectedDomain.domain_children" (addRequest)="submit()">
 </app-domain-list>
 
 <app-resource-list *ngIf="selectedDomain && selectedDomain.resource_children.length !== 0"
-                   [resources]="selectedDomain.resource_children">
+                   [resources]="selectedDomain.resource_children" (submitRequest)="submit()">
 </app-resource-list>
