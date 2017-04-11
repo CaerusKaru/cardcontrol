@@ -2,14 +2,12 @@
 
 -- Note: SINGLE QUOTES ONLY!
 
-INSERT INTO cardcontrol_card VALUES(1, 'Harrison', 'Kaiser', 'M', 'hkaise01', 'Undergraduate', '111222333', date '1996-10-02', 'Liberal Arts', '2019', '000000000', now(), now());
-INSERT INTO cardcontrol_card VALUES(2, 'Matthew', 'Asnes', 'D', 'masnes01', 'Undergraduate', '111222334', date '1996-08-04', 'Liberal Arts', '2018', '000001000', now(), now());
-INSERT INTO cardcontrol_card VALUES(3, 'Marina', 'Rakhilin', 'S', 'mrakhi01', 'Undergraduate', '111222335', date '1996-02-04', 'Liberal Arts', '2018', '000001001', now(), now());
-INSERT INTO cardcontrol_card VALUES(4, 'Nicolas', 'Asnes', 'W', 'nasnes01', 'Undergraduate', '111222336', date '2001-02-03', 'Liberal Arts', '2023', '000001010', now(), now());
-INSERT INTO cardcontrol_card VALUES(5, 'Harrison', 'Kaiser', 'M', 'hkaise01', 'Undergraduate', '111222333', date '1996-09-02', 'Engineering', '2019', '000000000', now(), now());
-INSERT INTO cardcontrol_card VALUES(6, 'Matt', 'Asnes', 'D', 'masnes01', 'Undergraduate', '111222334', date '1996-08-04', 'Liberal Arts', '2018', '000001000', now(), now());
+INSERT INTO cardcontrol_card VALUES(1, 'Matthew', 'Asnes', 'D', 'masnes01', 'Undergraduate', '111222334', date '1996-08-04', 'Liberal Arts', '2018', '000001000', now(), now());
+INSERT INTO cardcontrol_card VALUES(2, 'Marina', 'Rakhilin', 'S', 'mrakhi01', 'Undergraduate', '111222335', date '1996-02-04', 'Liberal Arts', '2018', '000001001', now(), now());
+INSERT INTO cardcontrol_card VALUES(3, 'Nicolas', 'Asnes', 'W', 'nasnes01', 'Undergraduate', '111222336', date '2001-02-03', 'Liberal Arts', '2023', '000001010', now(), now());
+INSERT INTO cardcontrol_card VALUES(4, 'Harrison', 'Kaiser', 'M', 'hkaise01', 'Undergraduate', '111222333', date '1996-09-02', 'Engineering', '2019', '000000000', now(), now());
 
-INSERT INTO cardcontrol_useraccount VALUES(1, 'Matthew', 'Asnes', 'masnes01', now(), now(), 2, 2);
+INSERT INTO cardcontrol_useraccount VALUES(1, 'Matthew', 'Asnes', 'masnes01', now(), now(), 1, 1);
 INSERT INTO cardcontrol_useraccount VALUES(2, 'Harrison', 'Kaiser', 'hkaise01', now(), now(), 0, 1);
 INSERT INTO cardcontrol_useraccount VALUES(3, 'Adam', 'Plumer', 'aplume01', now(), now(), 1, 1);
 
