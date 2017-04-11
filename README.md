@@ -135,8 +135,7 @@ Run `psql -d postgres -U postgres < ./utils/recreate_database.sql` to fill the d
 #### Reload Django Counters with Test Data:
 Django expects that all primary keys are created by it, but we've added some to the database manually. To have Django reset its sequence counters by finding the maximum ID in the primary key column for each table and incrementing from there, run the following:
 ```
-sql_c=$(python3.6 ./backend/manage.py sqlsequencereset cardcontrol)
-echo "${sql_c}" | psql -d cardcontrol -U postgres
+python3.6 ./backend/manage.py sqlsequencereset cardcontrol | psql -d cardcontrol -U postgres
 ```
 
 #### Start Django Backend Server
