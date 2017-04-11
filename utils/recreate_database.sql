@@ -10,7 +10,7 @@ INSERT INTO cardcontrol_card VALUES(5, 'Adam', 'Plumer', 'X', 'aplume01', 'Gradu
 
 INSERT INTO cardcontrol_useraccount VALUES(1, 'Matthew', 'Asnes', 'masnes01', now(), now(), 2, 1);
 INSERT INTO cardcontrol_useraccount VALUES(2, 'Harrison', 'Kaiser', 'hkaise01', now(), now(), 0, 4);
-INSERT INTO cardcontrol_useraccount VALUES(3, 'Adam', 'Plumer', 'aplume01', now(), now(), 1, 1);
+INSERT INTO cardcontrol_useraccount VALUES(3, 'Adam', 'Plumer', 'aplume01', now(), now(), 1, 5);
 
 INSERT INTO cardcontrol_domain VALUES(1, 'Tufts University', now(), now(), 1, 1, null);
 INSERT INTO cardcontrol_domain VALUES(4, 'Academic', now(), now(), 1, 1, 1);
