@@ -10,7 +10,7 @@ noc="\033[38;5;15m"
 d=$(dirname "$0")
 
 echo -e "${goodc}Stopping database.${noc}"
-$d/utils/stop_db.sh 2> /dev/null
+$d/../utils/stop_db.sh 2> /dev/null
 echo -e "${goodc}Gathering PIDs for Angular and Django.${noc}"
 set +e
 hash redis-cli &>/dev/null && redis-cli -s /tmp/redis.sock shutdown

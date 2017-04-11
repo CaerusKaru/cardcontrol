@@ -7,7 +7,7 @@ noc="\033[38;5;15m"
 d=$(dirname "$0")
 pathchanged=0
 
-${d}/utils/env-check.sh 1> /dev/null 2>/dev/null
+${d}/../utils/env-check.sh 1> /dev/null 2>/dev/null
 es="$?"
 
 echo ""
@@ -211,16 +211,16 @@ if [[ "$djv" != "1.10.5" ]]; then
 fi;
 
 echo -e "${goodc}Checking Python dependencies are installed.${noc}"
-sudo /usr/local/bin/python3.6 ${d}/utils/check-python-dependencies.py
+sudo /usr/local/bin/python3.6 ${d}/../utils/check-python-dependencies.py
 
 echo ""
 echo -e "${goodc}===============================================================================${noc}"
 echo ""
 echo -e "${goodc}Clearing databases and creating database user roles.${noc}"
 echo -e "${goodc}Stopping database.${noc}"
-${d}/utils/stop_db.sh
+${d}/../utils/stop_db.sh
 echo -e "${goodc}Starting database.${noc}"
-${d}/utils/start_db.sh
+${d}/../utils/start_db.sh
 echo -e "${goodc}Emptying database contents.${noc}"
 psql -d postgres -U postgres < $d/utils/bobby_tables.sql
 $d/utils/init_db.sh
@@ -229,7 +229,7 @@ echo ""
 echo -e "${goodc}===============================================================================${noc}"
 echo ""
 
-${d}/utils/env-check.sh
+${d}/../utils/env-check.sh
 
 if [[ $pathchanged -eq 1 ]]; then
 	echo ""
