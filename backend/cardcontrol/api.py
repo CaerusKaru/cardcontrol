@@ -119,11 +119,7 @@ class UserAccountResource(ModelResource):
     access_points_managed = ToManyField('cardcontrol.api.AccessPointResource',
                                         'access_points_managed',
                                         blank=True, full=True)
-    resources_managed = ToManyField('cardcontrol.api.ResourceResource',
-                                    'resources_managed', blank=True, full=True)
-    domains_managed = ToManyField('cardcontrol.api.DomainResource',
-                                  'domains_managed', blank=True, full=True)
-
+    
     class Meta:
         """
         Additional configuration for fields, allowed HTTP methods,

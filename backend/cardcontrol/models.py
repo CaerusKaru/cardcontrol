@@ -84,8 +84,6 @@ class UserAccount(models.Model):
         'AccessPoint', related_name='%(class)s_access_points')
     access_points_managed = models.ManyToManyField(
         'AccessPoint', related_name='%(class)s_access_points_managed')
-    resources_managed = models.ManyToManyField('Resource')
-    domains_managed = models.ManyToManyField('Domain')
     created_at = models.DateTimeField(default=datetime.datetime.now,
                                       editable=False)
     modified_at = models.DateTimeField(default=datetime.datetime.now)
