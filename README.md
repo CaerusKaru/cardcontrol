@@ -1,3 +1,12 @@
+# Welcome!
+
+Hello! Welcome to CardControl. This is an access control system intended for use as part of a suite of campus services web applications. The application is being developed as a semester project for COMP-120: Web Engineering. 
+
+## Our Stack
+
+We are running a Django backend around a PostgreSQL database, interacting with and serving a RESTful API for a frontend web service written in Angular 2. Our live development server, running in AWS, can be found here [http://34.193.86.61/]. We are serving our static angular content with NGINX, caching HTTP responses with Varnish, and memcaching API responses with a Redis cache behind Varnish. Our RESTful API was created with the help of the Tastypie library for Django. In production, we are serving our Django server through uWSGI.1
+
+
 ## Dependencies
 
 The frontend of this project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0-beta.32.3. We have now migrated to 1.0.0 as it has since been released.
@@ -7,7 +16,7 @@ The required versions of the major components of our project are:
 | Framework/Service      | Version   |
 |:-----------------------|:----------|
 | node                   | 7.7.0     |
-| npm                    | 4.1.2     |
+| npm                    | 4.4.4     |
 | @angular/cli           | 1.0.0     |
 | postgres               | 9.6.2     |
 | python                 | 3.6.0     |
@@ -15,20 +24,23 @@ The required versions of the major components of our project are:
 | Django                 | 1.10.5    |
 | nginx                  | 1.10.2    |
 | uwsgi                  | 2.0.14    |
+| varnish                | 4.0.4     |
+| redis-cli              | 3.2.3     |
 
 Angular packages should be up to date with the defaults for @angular/cli. That is, versions connected to the Angular CLI should be:
 
 | Package                             | Version        |
 |:------------------------------------|:---------------|
-| @angular/common                     |   2.4.10       |
-| @angular/compiler                   |   2.4.10       |
-| @angular/core                       |   2.4.10       |
-| @angular/flex-layout                |   2.0.0-rc.1   |
-| @angular/forms                      |   2.4.10       |
-| @angular/http                       |   2.4.10       |
-| @angular/material                   |   2.0.0-beta.2 |
+| @angular/common                     |   4.0.1        |
+| @angular/compiler                   |   4.0.1        |
+| @angular/core                       |   4.0.1        |
+| @angular/animations                 |   4.0.1        |
+| @angular/flex-layout                |   2.0.0-beta.7 |
+| @angular/forms                      |   4.0.1        |
+| @angular/http                       |   4.0.1        |
+| @angular/material                   |   2.0.0-beta.3 |
 | @angular/router                     |   3.4.10       |
-| @angular/compiler-cli               |   2.4.10       |
+| @angular/compiler-cli               |   4.0.1        |
 
 We use the Angular CLI to start the frontend server, and use additional packages for flex layout and material design.
 
@@ -50,8 +62,13 @@ Required python packages are as follows:
 | django-cors-headers  | 2.0.2      |
 | requests             | 2.13.0     |
 | ipaddress            | 1.0.18     |
+| django-cachalot      | 1.4.1      |
+| redis                | 2.10.5     |
+| django-redis         | 4.7.0      |
+| django-redis-cache   | 1.7.1      |
+| grip                 | 4.3.2      |
 
-We use Tastypie to generate a RESTful API for Django which can be referenced by our Angular frontend. Tastypie requires the XML packages lxml and defusedxml to serve XML data as a response. We use the Django-CORS-headers package to configure CORS requests between our frontend and backend servers in development. The package psycopg2 is used to link PostgreSQL to Django.
+We use Tastypie to generate a RESTful API for Django which can be referenced by our Angular frontend. Tastypie requires the XML packages lxml and defusedxml to serve XML data as a response. We use the Django-CORS-headers package to configure CORS requests between our frontend and backend servers in development. The package psycopg2 is used to link PostgreSQL to Django. Redis and related caching packages are used to cache API responses in memory, as a second layer after Varnish.
 
 # Documentation
 Documentation for the various frameworks, packages, and components discussed above can be found at the following locations:
@@ -63,9 +80,12 @@ Documentation for the various frameworks, packages, and components discussed abo
 | PostgreSQL        | postgres9.6                        | https://www.postgresql.org/docs/9.6/static/
 | NGINX             | nginx                              | https://nginx.org/en/docs/
 | uWSGI             | uwsgi                              | https://uwsgi-docs.readthedocs.io/en/latest/
+| Varnish           | varnish                            | https://www.varnish-cache.org/docs/5.1/
+| Redis             | redis-cli                          | https://redis.io/documentation
 | Python            | python3.6                          | https://docs.python.org/3.6/
 | Python            | setuptools                         | https://setuptools.readthedocs.io/en/latest/
 | Python            | pip                                | https://pip.pypa.io/en/stable/
+| Python            | grip                               | https://github.com/joeyespo/grip
 | Django            | Django                             | https://docs.djangoproject.com/en/1.10/
 | Django            | six                                | https://pythonhosted.org/six/
 | Django            | python-mimeparse                   | https://pypi.python.org/pypi/python-mimeparse
@@ -77,6 +97,10 @@ Documentation for the various frameworks, packages, and components discussed abo
 | Django            | defusedxml                         | https://pypi.python.org/pypi/defusedxml/
 | Django            | requests                           | https://docs.python-requests.org/en/master/
 | Django            | ipaddress                          | https://docs.python.org/3/library/ipaddress.html
+| Django            | redis                              | https://github.com/andymccurdy/redis-py
+| Django            | django-redis                       | http://niwinz.github.io/django-redis/latest/
+| Django            | django-redis-cache                 | http://django-redis-cache.readthedocs.io/en/latest/
+| Django            | django-cachalot                    | http://django-cachalot.readthedocs.io/en/latest/quickstart.html
 | Angular           | @angular/cli                       | https://github.com/angular/angular-cli/wiki
 | Angular           | @angular/core                      | https://angular.io/docs/ts/latest/
 | Angular           | @angular/flex-layout               | https://github.com/angular/flex-layout/wiki/API-Documentation
