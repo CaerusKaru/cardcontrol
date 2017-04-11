@@ -14,7 +14,7 @@ class Card(models.Model):
     first_name = models.CharField(max_length=40)
     last_name = models.CharField(max_length=40)
     middle_initial = models.CharField(max_length=1)
-    utln = models.CharField(max_length=10)
+    utln = models.CharField(max_length=10, unique=True)
     student_type = models.CharField(max_length=20)
     jumbocash_id = models.IntegerField()
     birth_date = models.DateField()
