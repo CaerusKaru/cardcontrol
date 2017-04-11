@@ -6,9 +6,10 @@ INSERT INTO cardcontrol_card VALUES(1, 'Matthew', 'Asnes', 'D', 'masnes01', 'Und
 INSERT INTO cardcontrol_card VALUES(2, 'Marina', 'Rakhilin', 'S', 'mrakhi01', 'Undergraduate', '111222335', date '1996-02-04', 'Liberal Arts', '2018', '000001001', now(), now());
 INSERT INTO cardcontrol_card VALUES(3, 'Nicolas', 'Asnes', 'W', 'nasnes01', 'Undergraduate', '111222336', date '2001-02-03', 'Liberal Arts', '2023', '000001010', now(), now());
 INSERT INTO cardcontrol_card VALUES(4, 'Harrison', 'Kaiser', 'M', 'hkaise01', 'Undergraduate', '111222333', date '1996-09-02', 'Engineering', '2019', '000000000', now(), now());
+INSERT INTO cardcontrol_card VALUES(5, 'Adam', 'Plumer', 'X', 'aplume01', 'Graduate', '123456789', date '1995-06-23', 'Engineering', '2018', '3333333', now(), now());
 
-INSERT INTO cardcontrol_useraccount VALUES(1, 'Matthew', 'Asnes', 'masnes01', now(), now(), 1, 1);
-INSERT INTO cardcontrol_useraccount VALUES(2, 'Harrison', 'Kaiser', 'hkaise01', now(), now(), 0, 1);
+INSERT INTO cardcontrol_useraccount VALUES(1, 'Matthew', 'Asnes', 'masnes01', now(), now(), 2, 1);
+INSERT INTO cardcontrol_useraccount VALUES(2, 'Harrison', 'Kaiser', 'hkaise01', now(), now(), 0, 4);
 INSERT INTO cardcontrol_useraccount VALUES(3, 'Adam', 'Plumer', 'aplume01', now(), now(), 1, 1);
 
 INSERT INTO cardcontrol_domain VALUES(1, 'Tufts University', now(), now(), 1, 1, null);
