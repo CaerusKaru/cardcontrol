@@ -38,13 +38,13 @@ echo -e "${goodc}Running with -a ${aoff} -p ${prod} -b ${abld}.${noc}"
 
 mkdir -p $d/../log
 
-if [[ ! -w $d/log/migrations.log ]]; then echo "" > $d/../log/migrations.log; fi
-if [[ ! -w $d/log/repopulate_db.log ]]; then echo "" > $d/../log/repopulate_db.log; fi
-if [[ ! -w $d/log/sqlsequencereset.log ]]; then echo "" > $d/../log/sqlsequencereset.log; fi
-if [[ ! -w $d/log/npm_install.log ]]; then echo "" > $d/../log/npm_install.log; fi
-if [[ ! -w $d/log/redis.log ]]; then echo "" > $d/../log/redis.log; fi
-if [[ ! -w $d/log/nginx.log ]]; then echo "" > $d/../log/nginx.log; fi
-if [[ ! -w $d/log/varnish.log ]]; then echo "" > $d/../log/varnish.log; fi
+if [[ ! -w $d/../log/migrations.log ]]; then echo "" > $d/../log/migrations.log; fi
+if [[ ! -w $d/../log/repopulate_db.log ]]; then echo "" > $d/../log/repopulate_db.log; fi
+if [[ ! -w $d/../log/sqlsequencereset.log ]]; then echo "" > $d/../log/sqlsequencereset.log; fi
+if [[ ! -w $d/../log/npm_install.log ]]; then echo "" > $d/../log/npm_install.log; fi
+if [[ ! -w $d/../log/redis.log ]]; then echo "" > $d/../log/redis.log; fi
+if [[ ! -w $d/../log/nginx.log ]]; then echo "" > $d/../log/nginx.log; fi
+if [[ ! -w $d/../log/varnish.log ]]; then echo "" > $d/../log/varnish.log; fi
 
 echo -e "${goodc}Checking environment setup.${noc}"
 if [[ "${prod}" != "0" ]]; then set +e; fi
@@ -81,11 +81,11 @@ python3.6 $d/../backend/manage.py createcachetable
 echo -e "${goodc}Repopulating database with test data.${noc}"
 psql -d postgres -U postgres < $d/../utils/recreate_database.sql &>>$d/../log/repopulate_db.log
 
-sql_c=$(python3.6 $d/backend/manage.py sqlsequencereset cardcontrol)
+sql_c=$(python3.6 $d/../backend/manage.py sqlsequencereset cardcontrol)
 echo "${sql_c}" | psql -d cardcontrol -U postgres &>>$d/../log/sqlsequencereset.log
 
-
 if [[ "${prod}" != "0" ]]; then
+echo -e "Starting Django development server."
 expect <<- DONE
     spawn -ignore HUP bash -ilc "python3.6 $d/../backend/manage.py runserver" 
     expect -re ".*Quit the server with CONTROL-C.*"
