@@ -33,12 +33,12 @@ TASTYPIE_CANNED_ERROR = "Sorry, the CardControl API did not understand your requ
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
- 	'LOCATION': 'unix:/tmp/redis.sock',       
+        "LOCATION": "unix:/tmp/redis.sock",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient"
         },
         "KEY_PREFIX": "cardcontrol",
-        "TIMEOUT": 15 
+        "TIMEOUT": 15
     }
 
 }
@@ -168,4 +168,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-

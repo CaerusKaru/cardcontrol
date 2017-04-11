@@ -1,6 +1,11 @@
+"""
+Admin panel for CardControl Django application.
+"""
 from django.contrib import admin
 
-from .models import UserAccount, AccessPoint, Card, EditedCard, Request, Resource, Domain
+from .models import UserAccount, AccessPoint, Card
+from .models import EditedCard, Request, Resource
+from .models import Domain
 
 admin.site.register(UserAccount)
 admin.site.register(AccessPoint)
