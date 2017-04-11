@@ -1,0 +1,33 @@
+<div class="unicorn-dark-theme mat-app-background" fxFlex fxLayout="column">
+  <md-toolbar color="accent">
+    <span>{{resource.resource_name}}</span>
+    <span fxFlex></span>
+    <button md-icon-button md-dialog-close><md-icon>close</md-icon></button>
+  </md-toolbar>
+  <md-card fxLayout="column">
+    <md-card-content>
+      <md-list>
+        <md-list-item>
+          <span>Access Point</span>
+          <span fxFlex></span>
+          <span>Has Access</span>
+          <span fxFlex="15px"></span>
+          <span>Manages</span>
+        </md-list-item>
+        <md-divider></md-divider>
+        <md-list-item *ngFor="let accessPoint of resource.children; let i = index">
+          <span>{{accessPoint.access_point_name}}</span>
+          <span fxFlex></span>
+          <md-slide-toggle [(ngModel)]="apsAccess[i]" fxLayoutAlign="center center"></md-slide-toggle>
+          <span fxFlex="50px"></span>
+          <md-checkbox [(ngModel)]="apsManage[i]"></md-checkbox>
+          <span fxFlex="10px"></span>
+        </md-list-item>
+      </md-list>
+    </md-card-content>
+    <md-card-actions fxLayoutAlign="end center">
+      <button md-button md-dialog-close>CANCEL</button>
+      <button md-button color="accent" (click)="save()">SAVE</button>
+    </md-card-actions>
+  </md-card>
+</div>

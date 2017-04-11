@@ -8,5 +8,5 @@ export class UserAccount {
   utln : string;
   manager_level : number;
   access_points : AccessPoint[];
-  resources_managed : string[];
+  access_points_managed : AccessPoint[];
 }

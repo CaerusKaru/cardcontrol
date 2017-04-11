@@ -44,6 +44,12 @@ export class UserService {
       .catch(this.handleError);
   }
 
+  public getResourceForUri (uri : string) : Observable<ManagedResource> {
+    return this.http.get(environment.API_PORT + uri)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   private _userCard : BehaviorSubject<User> = new BehaviorSubject(null);
   private _userAccount : BehaviorSubject<UserAccount> = new BehaviorSubject(null);
   private _userResources : BehaviorSubject<ManagedResource[]> = new BehaviorSubject(null);
@@ -81,12 +87,6 @@ export class UserService {
           }
         );
     });
-  }
-
-  private getResourceForUri (uri : string) : Observable<ManagedResource> {
-    return this.http.get(environment.API_PORT + uri)
-      .map(this.extractData)
-      .catch(this.handleError);
   }
 
   private extractData(res: Response) {

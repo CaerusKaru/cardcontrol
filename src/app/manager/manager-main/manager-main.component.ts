@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from "../../user/shared/user.service";
+import {UserAccount} from "../../shared/user_account";
 
 @Component({
   selector: 'app-manager-main',
@@ -7,25 +9,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManagerMainComponent implements OnInit {
 
-  navItems = [
-    {route: ".", name: "Home", admin: false},
-    {route: "buildings", name: "My Buildings", admin: false},
-    {route: "requests", name: "Requests", admin: false},
-    {route: "createID", name: "Create ID", admin: true},
-    {route: "createBuilding", name: "Create Building", admin: true},
-    {route: "search", name: "Search", admin: false},
-  ];
-
-  constructor() { }
+  constructor(
+    private userService : UserService
+  ) { }
 
   ngOnInit() {
+    this.userService.userAccount.subscribe(
+      data => {
+        this.userAccount = data;
+        this.utln = data.utln;
+        this.isAdmin = data.manager_level == 2;
+      }
+    );
   }
 
-  utln = "hescott";
-  isAdmin = true;
+  public navItems = [
+    {route: ".", name: "Home", admin: false},
+    {route: "users", name: "Users", admin: true},
+    {route: "areas", name: "Areas", admin: false},
+    {route: "requests", name: "Requests", admin: false}
+  ];
 
-  logOut() {
-    alert("Logging out!");
+  public utln : string;
+  public isAdmin : boolean;
+
+  public logOut() {
+    console.log("Logging out!");
   }
+
+  private userAccount : UserAccount;
 
 }

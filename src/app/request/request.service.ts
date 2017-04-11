@@ -56,6 +56,18 @@ export class RequestService {
     });
   }
 
+  public getUserAccount (utln : string) : Observable<UserAccount[]> {
+    return this.http.get(environment.API_PORT + '/api/v1/user_account/?utln='+utln)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  public getUsersPartial (partialUtln : string) : Observable<User[]> {
+    return this.http.get(environment.API_PORT + '/api/v1/card/?utln__startswith='+partialUtln)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   public getResources () : Observable<ManagedResource[]> {
     return this.http.get(environment.API_PORT + '/api/v1/resource')
       .map(this.extractData)
@@ -166,6 +178,20 @@ export class RequestService {
       },
       error => {
         this.snackBar.open('Unable to update request', '', {
+          duration: 1750
+        });
+      });
+  }
+
+  public updateUserAccount (newUserAccount : UserAccount) {
+    this.http.put(environment.API_PORT + newUserAccount.resource_uri, newUserAccount).subscribe(
+      data => {
+        this.snackBar.open('User account updated', '', {
+          duration: 1750
+        })
+      },
+      error => {
+        this.snackBar.open('Unable to update user account: ' + newUserAccount.utln, '', {
           duration: 1750
         });
       });

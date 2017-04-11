@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ManagerSearchComponent } from './manager-search.component';
+import { ManagerAreasComponent } from './manager-areas.component';
 
-describe('ManagerSearchComponent', () => {
-  let component: ManagerSearchComponent;
-  let fixture: ComponentFixture<ManagerSearchComponent>;
+describe('ManagerAreasComponent', () => {
+  let component: ManagerAreasComponent;
+  let fixture: ComponentFixture<ManagerAreasComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ManagerSearchComponent ]
+      declarations: [ ManagerAreasComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ManagerSearchComponent);
+    fixture = TestBed.createComponent(ManagerAreasComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
