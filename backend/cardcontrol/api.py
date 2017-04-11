@@ -174,6 +174,8 @@ class AccessPointResource(ModelResource):
     created_by = fields.ToOneField(UserAccountResource, 'created_by')
     modified_by = fields.ToOneField(UserAccountResource, 'modified_by')
     parent = fields.ForeignKey('cardcontrol.api.ResourceResource', 'parent')
+    users = fields.ToManyField('cardcontrol.api.UserAccountResource',
+                               'useraccount_access_points', blank=True)
 
     class Meta:
         """

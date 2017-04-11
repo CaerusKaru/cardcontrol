@@ -116,7 +116,6 @@ class AccessPoint(models.Model):
     modified_at = models.DateTimeField(default=datetime.datetime.now)
     parent = models.ForeignKey('Resource', on_delete=models.CASCADE,
                                related_name='%(class)s_parent')
-
     class Meta:
         """
         Meta information for an AccessPoint, defining additional properties.
