@@ -46,6 +46,7 @@ CACHES = {
 
 INSTALLED_APPS = [
     'cardcontrol.apps.CardcontrolConfig',
+#   'cachalot',    
     'tastypie',
     'corsheaders',
     'django.contrib.admin',

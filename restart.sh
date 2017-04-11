@@ -14,10 +14,9 @@ rout=$(sudo -u ec2-user $d/running.sh)
 nginxc=$(echo "$rout" | grep "nginx" | wc -l)
 uwsgic=$(echo "$rout" | grep "uwsgi" | wc -l)
 varnic=$(echo "$rout" | grep "varnish" | wc -l)
-djangc=$(echo "$rout" | grep "python" | wc -l)
 postgc=$(echo "$rout" | grep "postgres" | wc -l)
 
-if [[ "$nginxc" == "0" ]] || [[ "$uwsgic" == "0" ]] || [[ "$varnic" == "0" ]] || [[ "$djangc" == "0" ]] || [[ "$postgc" == "0" ]]; then
+if [[ "$nginxc" == "0" ]] || [[ "$uwsgic" == "0" ]] || [[ "$varnic" == "0" ]] || [[ "$postgc" == "0" ]]; then
     sudo -u ec2-user $d/deploy.sh
     sudo -u ec2-user $d/start.sh -p -b
 fi;

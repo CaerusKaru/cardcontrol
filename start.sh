@@ -69,6 +69,11 @@ fi;
 echo -e "${goodc}Starting Database.${noc}"
 $d/utils/start_db.sh
 
+if [[ "${prod}" == "0" ]]; then
+    echo -e "${goodc}Starting Redis for memcaching.${noc}"
+    redis-server $d/redis.conf &>>$d/log/redis.log &
+fi
+    
 echo -e "${goodc}Beginning Django migrations.${noc}"
 $d/backend/migrate.sh &>>$d/log/migrations.log
 python3.6 $d/backend/manage.py createcachetable
@@ -79,10 +84,13 @@ psql -d postgres -U postgres < $d/utils/recreate_database.sql &>>$d/log/repopula
 sql_c=$(python3.6 $d/backend/manage.py sqlsequencereset cardcontrol)
 echo "${sql_c}" | psql -d cardcontrol -U postgres &>>$d/log/sqlsequencereset.log
 
+
+if [[ "${prod}" != "0" ]]; then
 expect <<- DONE
     spawn -ignore HUP bash -ilc "python3.6 $d/backend/manage.py runserver" 
     expect -re ".*Quit the server with CONTROL-C.*"
 DONE
+fi
 
 if [[ "${aoff}" != "0" ]] && [[ "${prod}" != "0" ]]; then
 echo -e "${goodc}Checking frontend packages up to date.${noc}"
@@ -108,9 +116,6 @@ expect <<- DONE
     spawn bash -ilc "grip $d/doc/api.md &"
     expect -re ".*Running on .*"
 DONE
-
-echo -e "${goodc}Starting Redis for memcaching.${noc}"
-sudo redis-server $d/redis.conf &>>$d/log/redis.log & 
 
 echo -e "${goodc}Starting NGINX.${noc}"
 sudo nginx &>>$d/log/nginx.log
