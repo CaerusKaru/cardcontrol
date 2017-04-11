@@ -1,7 +1,6 @@
 #!/bin/bash
 IFS=$'\n\t'
 
-sudo -u ec2-user cd $d
 
 goodc="\033[38;5;10m"
 qc="\033[38;5;222m"

@@ -68,7 +68,7 @@ def hook(request):
             return HttpResponse(jdict['ref'], status=204)
         log.write("Beginning call to deploy script.\n")
         cmd = ['script', '--return', '-c',
-               '"/home/ec2-user/cardcontrol/deploy.sh"',
+               '"/home/ec2-user/cardcontrol/server/deploy.sh"',
                '/dev/null']
         pw_record = pwd.getpwnam('ec2-user')
         user_uid = pw_record.pw_uid
