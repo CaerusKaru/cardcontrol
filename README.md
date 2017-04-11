@@ -9,8 +9,6 @@ We are running a Django backend around a PostgreSQL database, interacting with a
 
 ## Dependencies
 
-The frontend of this project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0-beta.32.3. We have now migrated to 1.0.0 as it has since been released.
-
 The required versions of the major components of our project are:
 
 | Framework/Service      | Version   |
@@ -147,6 +145,3 @@ Run `python3.6 $d/backend/manage.py runserver` to initialize Django.
 #### Start Angular
 `ng serve`
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.

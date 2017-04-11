@@ -1,0 +1,151 @@
+div.outer {
+        width: 100%;
+        height: 100%;
+}
+
+div.id-container {
+        margin: auto;
+        position: absolute;
+        top: 0; left: 0; bottom: 0; right: 0;
+        width: 477;
+        height: 294;
+        background-color: #FFFFFF;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 5px 5px 5px #888888;
+}
+
+div.left-img {
+        width: 27%;
+        height: 100%;
+        position: relative;
+        float: left;
+        background-color: #9CCDEF;
+}
+
+img.left-img {
+        position: relative;
+        width: 100%;
+}
+
+div.top-half {
+        width: 100%;
+        height: 55%;
+        background-color: #FFFFFF;
+}
+
+div.logo-box {
+        width: 75%;
+        height: 55%;
+        background-color: #FFFFFF;
+}
+
+div.school-info {
+        width: 75%;
+        height: 45%;
+        padding-top: 2%;
+        background-color: #7CADCF;
+}
+
+span.school-info {
+        font-family: sans-serif;
+        font-size: 1.8vh;
+        color: #FFFFFF;
+        position: relative;
+        float: left;
+        padding-top: 0.33%;
+        padding-left: 2%;
+}
+
+span.bold {
+        font-weight: bold;
+}
+
+img.logo {
+        position: relative;
+        height: 100%;
+}
+
+div.picture-box {
+        width: 25%;
+        height: 100%;
+        float: right;
+        background-color: #FFFFFF;
+        position: relative;
+}
+
+img.id-picture {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        bottom: 0;
+}
+
+div.name-strip {
+        width: 100%;
+        height: 10%;
+        background-color: #EEEEEE;
+}
+
+div.name-strip-text {
+        font-family: sans-serif;
+        font-size: 2vh;
+        vertical-align: middle;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%); 
+}
+
+span.student-name {
+        padding-left: 5%;
+}
+
+div.bottom-half {
+        width: 100%;
+        height: 35%;
+        background-color: #FFFFFF;
+}
+
+div.bottom-info {
+        height: 60%;
+        width: 100%;
+}
+
+div.bottom-info-left {
+        width: 38%;
+        height: 100%;
+        float: left;
+        background-color: #FFFFFF;
+}
+
+div.bottom-info-right {
+        width: 30%;
+        height: 100%;
+        float: right;
+        padding-left: 5%;
+        background-color: #FFFFFF;
+}
+
+div.barcode-box {
+        height: 40%;
+        width: 100%;
+        background-color: #FFFFFF;
+}
+
+div.barcode {
+        margin-top: 1%;
+        height: 60%;
+        width: 65%;
+        background-color: #303030;
+        position: relative;
+        margin-left: 30%;
+} 
+
+span.bottom-text {
+        float: left;
+        position: relative;
+        font-family: sans-serif;
+        width: 100%;
+        padding-top: 5%;
+        padding-left: 5%;
+}
