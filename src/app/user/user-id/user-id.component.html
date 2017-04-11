@@ -1,26 +1,50 @@
 <div class="id-card-wrapper" fxLayoutAlign="center center" fxFlex fxLayout="column">
   <md-card *ngIf="user">
-    <md-card-header>
-      <img md-card-avatar src="../favicon.ico">
-      <md-card-title>
-        <h3 class="id-card-header">{{user.first_name}} {{user.last_name}}</h3>
-      </md-card-title>
-      <md-card-subtitle>
-        {{utln}}
-      </md-card-subtitle>
-    </md-card-header>
-    <md-card-content class="md-padding">
-      <div fxLayout="row">
-        <p><a href="http://www.jumbocash.net">JumboCash</a>: {{user.jumbocash_id}}</p>
-        <span fxFlex></span>
-        <p>{{user.birth_date}}</p>
-      </div>
-      <div fxLayout="row">
-        <p>{{user.school}} {{user.class_year}}</p>
-        <span fxFlex></span>
-        <p>Tufts ID: {{user.id}}</p>
-      </div>
-    </md-card-content>
+    <div class="id-card-wrapper" fxLayoutAlign="center center" fxFlex fxLayout="column">
+<div class="outer">
+        <div class="id-container">
+                <div class="left-img">
+                        <img src="assets/edge.jpg" class="left-img" />
+                </div>
+                <div class="top-half">
+                        <div class="picture-box">
+                                        <img class="id-picture" src="assets/harrison.jpg" />
+                        </div>
+                        <div class="logo-box">
+                                <img class="logo" src="assets/logo.jpg" />
+                        </div>
+                        <div class="school-info">
+                                <span class="school-info bold">School of Arts and Sciences</span>
+                                <span class="school-info bold">School of Engineering</span>
+                                <span class="school-info">{{user.student_type}} Student</span>
+                        </div> 
+                </div>
+                <div class="name-strip">
+                        <div class="name-strip-text">
+                                <span class="student-name">{{user.last_name}}, {{user.first_name}} {{user.middle_inital}}.</span>
+                        </div>
+                </div>
+
+                <div class="bottom-half">
+                        <div class="bottom-info">
+                                <div class="bottom-info-left">
+                                        <span class="bottom-text">JumboCash: {{user.jumbocash_id}}</span>
+                                        <span class="bottom-text">Tufts ID: {{user.id}}</span>
+                                </div>
+                                <div class="bottom-info-right">
+                                        <span class="bottom-text">{{user.birth_date}}</span>
+                                        <span class="bottom-text">{{user.school}} {{user.class_year}}</span>
+                                </div>
+                        </div>
+                        <div class="barcode-box">
+                                <div class="barcode"></div>
+                        </div>
+                </div>
+        </div>
+</div>
+
+</div>
+
     <md-card-actions>
       <button md-button (click)="requestChange()">Request Change</button>
       <button md-button (click)="report()">Report Lost/Stolen</button>
