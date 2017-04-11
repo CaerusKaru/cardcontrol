@@ -326,7 +326,7 @@ Returns the user account with the given ID.
 | last_name       | `STRING`        | The last name of the user.                                       | `Smith                 `  |
 | card            | `STRING`        | A reference to the active card of the user.                      | `/api/v1/card/1        `  |
 | access_points   | `ACCESS_POINT[]`| An array of access point objects to which this user has access.  | `[ { "id": 1, ...}, ... ]     `  |
-| resources_managed | `STRING[]`    | An array of *references* to resources which this user manages.   | `[ /api/v1/resource/1, ... ]  `  |
+| access_points_managed | `STRING[]`    | An array of access points which this user manages.   | `[ { "id": 1, ...}, ... ]  `  |
 | manager_level   | `INT`           | The user's manager level code as defined above.                  | `2                     `  |
 | id              | `INT`           | Has value $id.                                                   | `1                     `  |
 | resource_uri    | `STRING`        | Has value '/api/v1/user_account/$id'.                            | `/api/v1/user_account/1`  |
@@ -460,7 +460,7 @@ The object to be send should have the following fields. Any additional fields wi
 | card            | `STRING`        | A reference to the active card of the user.                      | `/api/v1/card/1 `         |
 | access_points   | `ACCESS_POINT[]`| An array of access point objects to which this user has access.  | `[ { "id": 1, ...}, ... ]`       |
 | manager_level   | `INT`           | The integer manager level code, as defined above.                | `2`                       |
-| resources_managed | `STRING[]`    | An array of *references* to resources which this user manages.   | `[ /api/v1/resource/1, ... ] `   |
+| access_points_managed | `STRING[]`    | An array of access points which this user manages.   | `[ {"id": 1, ...}, ... ] `   |
 
 The header of the HTTP request must match the format of the data being sent, and that format must be either JSON or XML. All fields above *must* be included. 
 
