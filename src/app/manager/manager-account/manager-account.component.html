@@ -1,3 +1,20 @@
-<p>
-  manager-account works!
-</p>
+<div fxLayout="column">
+  <span fxFlex="25px"></span>
+  <form fxLayout="row" fxLayoutAlign="center center" #f="ngForm">
+    <md-card fxLayout="row" fxLayoutAlign="center center">
+      <md-icon>search</md-icon>
+      <span fxFlex="10px"></span>
+      <md-input-container>
+        <input mdInput placeholder="Search for UTLN" [mdAutocomplete]="userAuto" [formControl]="userControl">
+      </md-input-container>
+
+      <md-autocomplete #userAuto="mdAutocomplete" [displayWith]="userName">
+        <md-option *ngFor="let user of flUsers | async" [value]="user">
+          <span>{{ user.utln }}</span>
+        </md-option>
+      </md-autocomplete>
+      <span fxFlex="10px"></span>
+      <button md-raised-button color="primary" [disabled]="!selectedUser" (click)="change()">SWITCH</button>
+    </md-card>
+  </form>
+</div>

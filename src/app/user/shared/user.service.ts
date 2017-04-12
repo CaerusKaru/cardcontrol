@@ -29,7 +29,12 @@ export class UserService {
   }
 
   public getUtln() : string {
-    return 'masnes01';
+    return this.utln;
+  }
+
+  public setUtln (utln : string) {
+    this.utln = utln;
+    this.initData();
   }
 
   private getUserAccount (): Observable<UserAccount[]> {
@@ -88,6 +93,8 @@ export class UserService {
         );
     });
   }
+
+  private utln : string = 'masnes01';
 
   private extractData(res: Response) {
     let body = res.json();

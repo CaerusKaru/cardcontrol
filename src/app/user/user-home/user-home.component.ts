@@ -42,7 +42,10 @@ export class UserHomeComponent implements OnInit {
     )
   }
 
-  utln = this.userService.getUtln();
+  get utln () {
+    return this.userService.getUtln();
+  }
+
   isAdmin : boolean = false;
 
   settings() {
