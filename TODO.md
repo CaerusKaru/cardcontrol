@@ -14,10 +14,11 @@
 * Manager view
 * Unit tests for angular
 * Engineering blog entry on static content optimization
-* Redo homepage with more information
+* Add 'reason why' field to requests in the queue
 * Fix font issue on resources
-* Add images for resources
 * Provide back link from manager page to user page
+* Redo homepage with more information
+* Add images for resources
 
 ###Stretch Goals:
 * Lost & found
