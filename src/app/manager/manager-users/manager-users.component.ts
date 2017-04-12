@@ -7,7 +7,6 @@ import {ManagedResource} from "../../shared/managed-resource";
 import {UserService} from "../../user/shared/user.service";
 import {MdDialog, MdDialogRef} from "@angular/material";
 import {UserAccount} from "../../shared/user_account";
-import {AccessPoint} from "../../shared/access-point";
 
 @Component({
   selector: 'app-manager-users',
@@ -23,11 +22,6 @@ export class ManagerUsersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userControl.valueChanges.subscribe(
-      data => {
-
-      }
-    );
     this.userControl.valueChanges
       .subscribe(name => {
         this.selectedUser = (typeof name === 'object') ? name : null;
@@ -37,6 +31,7 @@ export class ManagerUsersComponent implements OnInit {
             data => {
               let ua = data[0];
               this.userAccount = ua;
+              this.siteManager = this.userAccount.manager_level === 2;
               let noDupe = Array.from(ua.access_points.reduce((m, t) => m.set(t.parent, t), new Map()).values());
               let resourceReqs : Observable<ManagedResource>[] = noDupe.map(data => {
                 return this.userService.getResourceForUri(data.parent);
@@ -56,6 +51,7 @@ export class ManagerUsersComponent implements OnInit {
   public userControl = new FormControl();
   public flUsers : Observable<User[]>;
   public resources : Observable<ManagedResource[]>;
+  public siteManager : boolean;
 
   public userName (user : User) : string {
     return user ? user.utln : '';
@@ -79,8 +75,43 @@ export class ManagerUsersComponent implements OnInit {
       return;
     }
     this.requestService.updateCard(this.selectedUser);
+    this.userAccount.manager_level = this.siteManager ? 2 : this.userAccount.access_points_managed.length !== 0 ? 1 : 0;
+    if (this.userAccount.manager_level === 2) {
+      let dialogRef = this.dialog.open(ManagerUsersConfirmComponent);
+      dialogRef.afterClosed().subscribe(data => {
+        if (data) {
+          this.requestService.updateUserAccount(this.userAccount);
+        }
+      });
+    } else {
+      this.requestService.updateUserAccount(this.userAccount);
+    }
   }
 
+}
+
+@Component({
+  selector: 'app-manager-users-confirm',
+  template: `
+    <md-card class="unicorn-dark-theme mat-app-background">
+      <md-card-content><span>Are you sure?</span></md-card-content>
+      <md-card-actions>
+        <button md-raised-button md-dialog-close>NO</button>
+        <button md-raised-button (click)="confirm()" color="primary">YES</button>
+      </md-card-actions>
+    </md-card>
+  `
+})
+export class ManagerUsersConfirmComponent {
+
+  constructor (
+    private dialogRef : MdDialogRef<ManagerUsersConfirmComponent>
+  ) {
+  }
+
+  public confirm () {
+    this.dialogRef.close(true);
+  }
 }
 
 @Component({

@@ -8,7 +8,10 @@ import { ManagerAccountComponent } from './manager-account/manager-account.compo
 import { ManagerRequestsComponent } from './manager-requests/manager-requests.component';
 import {ManagerMaterialModule} from "./manager-material/material.module";
 import {ManagerService} from "./manager.service";
-import {ManagerUsersComponent, ManagerUsersDialogComponent} from './manager-users/manager-users.component';
+import {
+  ManagerUsersComponent, ManagerUsersConfirmComponent,
+  ManagerUsersDialogComponent
+} from './manager-users/manager-users.component';
 import { ManagerAreasComponent } from './manager-areas/manager-areas.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
@@ -28,14 +31,16 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     ManagerRequestsComponent,
     ManagerUsersComponent,
     ManagerAreasComponent,
-    ManagerUsersDialogComponent
+    ManagerUsersDialogComponent,
+    ManagerUsersConfirmComponent
   ],
   providers: [
     ManagerService
   ],
   bootstrap: [
     ManagerUsersComponent,
-    ManagerUsersDialogComponent
+    ManagerUsersDialogComponent,
+    ManagerUsersConfirmComponent
   ]
 })
 export class ManagerModule { }
