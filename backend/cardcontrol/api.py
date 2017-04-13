@@ -126,6 +126,7 @@ class UserAccountResource(ModelResource):
         etc. for this API resource.
         """
         queryset = UserAccount.objects.all()
+        always_return_data = True
         list_allowed_methods = ['get', 'put', 'post']
         detail_allowed_methods = ['get', 'put', 'post']
         resource_name = 'user_account'
