@@ -193,7 +193,10 @@ class Request(models.Model):
     user = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
     new_card = models.ForeignKey(EditedCard, on_delete=models.CASCADE,
                                  null=True)
-    new_access_points = models.ManyToManyField(AccessPoint, blank=True)
+    new_access_points = models.ManyToManyField(AccessPoint, blank=True,
+				    related_name='%(class)s_new_access_points')
+    granted_access_points = models.ManyToManyField(AccessPoint, blank=True,
+                                    related_name='%(class)s_granted_access_points')
     request_level = models.IntegerField()
     status = models.IntegerField()
     reason = models.CharField(max_length=200, null=True)
