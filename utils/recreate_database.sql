@@ -9,8 +9,8 @@ INSERT INTO cardcontrol_card VALUES(4, 'Harrison', 'Kaiser', 'M', 'hkaise01', 'U
 INSERT INTO cardcontrol_card VALUES(5, 'Adam', 'Plumer', 'X', 'aplume01', 'Graduate', '123456789', date '1995-06-23', 'Engineering', '2018', '3333333', now(), now());
 
 INSERT INTO cardcontrol_useraccount VALUES(1, 'Matthew', 'Asnes', 'masnes01', now(), now(), 2, 1);
-INSERT INTO cardcontrol_useraccount VALUES(2, 'Harrison', 'Kaiser', 'hkaise01', now(), now(), 0, 4);
-INSERT INTO cardcontrol_useraccount VALUES(3, 'Adam', 'Plumer', 'aplume01', now(), now(), 1, 5);
+INSERT INTO cardcontrol_useraccount VALUES(2, 'Harrison', 'Kaiser', 'hkaise01', now(), now(), 1, 4);
+INSERT INTO cardcontrol_useraccount VALUES(3, 'Adam', 'Plumer', 'aplume01', now(), now(), 2, 5);
 INSERT INTO cardcontrol_useraccount VALUES(4, 'Nicolas', 'Asnes', 'nasnes01', now(), now(), 0, 3);
 INSERT INTO cardcontrol_useraccount VALUES(5, 'Marina', 'Rakhilin', 'mrakhi01', now(), now(), 0, 2);
 

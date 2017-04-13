@@ -1,0 +1,11 @@
+img.no-border {
+  :focus {
+    outline: 0 !important;
+  }
+  cursor: hand;
+  cursor: pointer;
+}
+
+md-sidenav {
+  min-width: 150px;
+}

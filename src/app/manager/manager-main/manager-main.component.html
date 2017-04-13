@@ -1,6 +1,7 @@
 <md-sidenav-container fullscreen class="unicorn-dark-theme">
   <md-sidenav #start mode="side" opened="true">
     <md-nav-list>
+      <img class="no-border" routerLink="." src="../../../assets/manager-blue-bg.svg">
       <ng-container *ngFor="let navItem of navItems">
         <a *ngIf="!(navItem.admin && !isAdmin)"
            md-list-item
