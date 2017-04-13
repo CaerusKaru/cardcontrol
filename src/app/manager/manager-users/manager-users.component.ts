@@ -5,8 +5,10 @@ import {Observable} from "rxjs";
 import {RequestService} from "../../request/request.service";
 import {ManagedResource} from "../../shared/managed-resource";
 import {UserService} from "../../user/shared/user.service";
-import {MdDialog, MdDialogRef} from "@angular/material";
+import {MdDialog, MdDialogRef, MdSnackBar} from "@angular/material";
 import {UserAccount} from "../../shared/user_account";
+import {Domain} from "../../shared/domain";
+import {AccessPoint} from "../../shared/access-point";
 
 @Component({
   selector: 'app-manager-users',
@@ -16,6 +18,7 @@ import {UserAccount} from "../../shared/user_account";
 export class ManagerUsersComponent implements OnInit {
 
   constructor(
+    private snackbar : MdSnackBar,
     public dialog : MdDialog,
     private userService : UserService,
     private requestService : RequestService
@@ -25,20 +28,11 @@ export class ManagerUsersComponent implements OnInit {
     this.userControl.valueChanges
       .subscribe(name => {
         this.selectedUser = (typeof name === 'object') ? name : null;
+        this.currentQuery = name;
         this.flUsers = this.requestService.getUsersPartial(name);
         if (this.selectedUser) {
-          this.requestService.getUserAccount(this.selectedUser.utln).subscribe(
-            data => {
-              let ua = data[0];
-              this.userAccount = ua;
-              this.siteManager = this.userAccount.manager_level === 2;
-              let noDupe = Array.from(ua.access_points.reduce((m, t) => m.set(t.parent, t), new Map()).values());
-              let resourceReqs : Observable<ManagedResource>[] = noDupe.map(data => {
-                return this.userService.getResourceForUri(data.parent);
-              });
-              this.resources = Observable.forkJoin(resourceReqs);
-            }
-          );
+          this.newUser = false;
+          this.initUser();
         }
       });
   }
@@ -46,12 +40,60 @@ export class ManagerUsersComponent implements OnInit {
   public schools : string[] = ["Liberal Arts", "Engineering", "Other"];
   public types : string[] = ["Undergraduate", "Graduate", "Professor", "Employee", "Other"];
 
+  public newAccessPoints : AccessPoint[];
+  public newUser : boolean;
+  public currentQuery : string;
   public userAccount : UserAccount;
   public selectedUser : User;
   public userControl = new FormControl();
   public flUsers : Observable<User[]>;
   public resources : Observable<ManagedResource[]>;
   public siteManager : boolean;
+
+  public initUser () {
+    this.requestService.getUserAccount(this.selectedUser.utln).subscribe(
+      data => {
+        let ua = data[0];
+        this.userAccount = ua;
+        this.siteManager = this.userAccount.manager_level === 2;
+        let noDupe = Array.from(ua.access_points.reduce((m, t) => m.set(t.parent, t), new Map()).values());
+        let resourceReqs : Observable<ManagedResource>[] = noDupe.map(data => {
+          return this.userService.getResourceForUri(data.parent);
+        });
+        this.resources = Observable.forkJoin(resourceReqs);
+      }
+    );
+  }
+
+  public createUser () {
+    this.newUser = true;
+    this.selectedUser = {
+      barcode: -1,
+      birth_date: '',
+      class_year: new Date().getFullYear() + 4,
+      first_name: '',
+      id: -1,
+      jumbocash_id: -1,
+      last_name: '',
+      middle_initial: '',
+      resource_uri: '',
+      school: '',
+      student_type: '',
+      utln: this.currentQuery
+    };
+    this.userAccount = {
+      id : -1,
+      first_name : '',
+      last_name : '',
+      card : '',
+      resource_uri : '',
+      utln : this.currentQuery,
+      manager_level : 0,
+      access_points : [],
+      access_points_managed : []
+    };
+    this.siteManager = false;
+  }
 
   public userName (user : User) : string {
     return user ? user.utln : '';
@@ -74,20 +116,99 @@ export class ManagerUsersComponent implements OnInit {
     if (!this.selectedUser) {
       return;
     }
-    this.requestService.updateCard(this.selectedUser);
-    this.userAccount.manager_level = this.siteManager ? 2 : this.userAccount.access_points_managed.length !== 0 ? 1 : 0;
-    if (this.userAccount.manager_level === 2) {
-      let dialogRef = this.dialog.open(ManagerUsersConfirmComponent);
-      dialogRef.afterClosed().subscribe(data => {
-        if (data) {
-          this.requestService.updateUserAccount(this.userAccount);
-        }
-      });
+    if (!this.newUser) {
+      this.requestService.updateCard(this.selectedUser);
+      this.userAccount.manager_level = this.siteManager ? 2 : this.userAccount.access_points_managed.length !== 0 ? 1 : 0;
+      if (this.userAccount.manager_level === 2) {
+        let dialogRef = this.dialog.open(ManagerUsersConfirmComponent);
+        dialogRef.afterClosed().subscribe(data => {
+          if (data) {
+            this.requestService.updateUserAccount(this.userAccount);
+          }
+        });
+      } else {
+        this.requestService.updateUserAccount(this.userAccount);
+      }
     } else {
-      this.requestService.updateUserAccount(this.userAccount);
+      this.requestService.makeUser(this.selectedUser).subscribe(
+        data => {
+          this.selectedUser = data;
+          this.userAccount.first_name = this.selectedUser.first_name;
+          this.userAccount.last_name = this.selectedUser.last_name;
+          this.userAccount.card = data.resource_uri;
+          this.userAccount.access_points = this.newAccessPoints;
+          this.userAccount.manager_level = this.siteManager ? 2 : this.userAccount.access_points_managed.length !== 0 ? 1 : 0;
+          if (this.userAccount.manager_level === 2) {
+            let dialogRef = this.dialog.open(ManagerUsersConfirmComponent);
+            dialogRef.afterClosed().subscribe(data => {
+              if (data) {
+                this.requestService.makeUserAccount(this.userAccount).subscribe(
+                  data => {
+                    this.userAccount = data;
+                    this.snackbar.open('User created', '', {
+                      duration: 1750
+                    });
+                  }
+                );
+              }
+            });
+          } else {
+            this.requestService.makeUserAccount(this.userAccount).subscribe(
+              data => {
+                this.snackbar.open('Unable to create user', '', {
+                  duration: 1750
+                });
+              }
+            );
+          }
+          this.newUser = false;
+        }
+      );
     }
   }
 
+  public addAccess () {
+    this.requestService.getRootDomain().subscribe(data => {
+      let dialogRef = this.dialog.open(ManagerUsersAccessComponent);
+      dialogRef.componentInstance.domains = data.domain_children;
+      dialogRef.afterClosed().subscribe(data => {
+        if (data) {
+          if (!this.newUser) {
+            this.requestService.addAccessPoints(this.userAccount, data);
+            setTimeout(_ => this.initUser(), 500);
+          } else {
+            // TODO live update the view from here to allow for management view
+            this.newAccessPoints.push(...data);
+          }
+        }
+      });
+    });
+  }
+
+}
+
+@Component({
+  selector: 'app-manager-users-access',
+  template: `
+    <div class="unicorn-dark-theme mat-app-background" fxLayout="column">
+      <md-toolbar class="unicorn-dark-theme mat-app-background" color="accent">Add Access</md-toolbar>
+      <md-card>
+        <app-domain-list [domains]="domains" [showReason]="false" (addRequest)="addAccess($event)"></app-domain-list>
+      </md-card>
+    </div>
+  `
+})
+export class ManagerUsersAccessComponent {
+  constructor (
+    private dialogRef : MdDialogRef<ManagerUsersAccessComponent>
+  ) {
+  }
+
+  public domains : Domain[];
+
+  public addAccess ($event) {
+    this.dialogRef.close($event);
+  }
 }
 
 @Component({

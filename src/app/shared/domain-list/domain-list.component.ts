@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Domain} from "../../../shared/domain";
 import {FormControl} from "@angular/forms";
 import {Observable} from "rxjs";
+import {Domain} from "../domain";
 
 @Component({
   selector: 'app-domain-list',
@@ -12,6 +12,8 @@ export class DomainListComponent implements OnInit {
 
   @Input ()
   private domains : Domain[];
+
+  @Input () showReason : boolean;
 
   @Output () addRequest : EventEmitter<any> = new EventEmitter();
 
@@ -41,7 +43,7 @@ export class DomainListComponent implements OnInit {
     return domain ? domain.domain_name : '';
   }
 
-  public submit () {
-    this.addRequest.emit(null);
+  public submit ($event) {
+    this.addRequest.emit($event);
   }
 }

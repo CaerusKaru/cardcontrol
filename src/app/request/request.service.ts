@@ -183,6 +183,22 @@ export class RequestService {
       });
   }
 
+  public addAccessPoints (userAccount : UserAccount, accessPoints : AccessPoint[]) {
+    userAccount.access_points.push(...accessPoints);
+    this.http.put(environment.API_PORT + userAccount.resource_uri, userAccount).subscribe(
+      data => {
+        this.snackBar.open('Added access points', '', {
+          duration: 1750
+        })
+      },
+      error => {
+        this.snackBar.open('Unable to add access points', '', {
+          duration: 1750
+        })
+      }
+    );
+  }
+
   public updateUserAccount (newUserAccount : UserAccount) {
     this.http.put(environment.API_PORT + newUserAccount.resource_uri, newUserAccount).subscribe(
       data => {
@@ -195,6 +211,24 @@ export class RequestService {
           duration: 1750
         });
       });
+  }
+
+  public makeUser (user : User) : Observable<User> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(environment.API_PORT + '/api/v1/card/', user, options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  public makeUserAccount (userAccount : UserAccount) : Observable<UserAccount> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(environment.API_PORT + '/api/v1/user_account/', userAccount, options)
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
   private makeNewCard(newCard : User) : Observable<User> {

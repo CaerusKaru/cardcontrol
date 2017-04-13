@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ManagedResource} from "../../../shared/managed-resource";
 import {FormControl} from "@angular/forms";
 import {Observable} from "rxjs";
-import {AccessPoint} from "../../../shared/access-point";
-import {RequestService} from "../../../request/request.service";
+import {ManagedResource} from "../managed-resource";
+import {RequestService} from "../../request/request.service";
+import {AccessPoint} from "../access-point";
 
 @Component({
   selector: 'app-resource-list',
@@ -14,6 +14,8 @@ export class ResourceListComponent implements OnInit {
 
   @Input()
   private resources : ManagedResource[];
+
+  @Input () showReason : boolean;
 
   @Output () submitRequest : EventEmitter<any> = new EventEmitter();
 
@@ -49,7 +51,11 @@ export class ResourceListComponent implements OnInit {
   }
 
   public sendRequest() {
-    this.requestService.makeAccessRequest(this.accessPoints, this.reasonWhy);
-    this.submitRequest.emit(null);
+    if (this.showReason) {
+      this.requestService.makeAccessRequest(this.accessPoints, this.reasonWhy);
+      this.submitRequest.emit(null);
+    } else {
+      this.submitRequest.emit(this.accessPoints);
+    }
   }
 }
