@@ -4,7 +4,7 @@ Hello! Welcome to CardControl. This is an access control system intended for use
 
 ## Our Stack
 
-We are running a Django backend around a PostgreSQL database, interacting with and serving a RESTful API for a frontend web service written in Angular 2. Our live development server, running in AWS, can be found here [http://34.193.86.61/]. We are serving our static angular content with NGINX, caching HTTP responses with Varnish, and memcaching API responses with a Redis cache behind Varnish. Our RESTful API was created with the help of the Tastypie library for Django. In production, we are serving our Django server through uWSGI.1
+We are running a Django backend around a PostgreSQL database, interacting with and serving a RESTful API for a frontend web service written in Angular 2. Our live development server, running in AWS, can be found [here](http://34.193.86.61/). We are serving our static angular content with NGINX, caching HTTP responses with Varnish, and memcaching API responses with a Redis cache behind Varnish. Our RESTful API was created with the help of the Tastypie library for Django. In production, we are serving our Django server through uWSGI.1
 
 
 ## Dependencies
@@ -108,12 +108,12 @@ Documentation for the various frameworks, packages, and components discussed abo
 | Angular           | @angular/router                    | https://angular.io/docs/ts/latest/guide/router.html
 
 ## Installation
-Run the script `./install.sh` to create a clean and complete installation of our environment. This has been tested on Fedora 25, Debian 8, and RHEL 7.2 and works out-of-the-box to install everything needed. Please file any issues encountered as GitHub issues, and they will be addressed.
+Run the script `./server/install.sh` to create a clean and complete installation of our environment. This has been tested on Fedora 25, Debian 8, and RHEL 7.2 and works out-of-the-box to install everything needed. Please file any issues encountered as GitHub issues, and they will be addressed.
 
 In general, in the package listings above, things in the framework/services category should be installed with your system's package manager (`apt-get`, `yum`, `dnf`, `pacman`, etc.), those which are listed as angular modules should be installed with `npm install` and those which are listed as python packages should be installed with `pip install`.
 
 ## Development Server
-Simply run the script `./start.sh` to initialize the database, frontend, and backend. Run `./start.sh a` to initialize everything except for our Angular frontend — this is useful for debugging backend API calls without the overhead of starting up the Angular server. 
+Simply run the script `./server/start.sh` to initialize the database, frontend, and backend. Run `./server/start.sh a` to initialize everything except for our Angular frontend — this is useful for debugging backend API calls without the overhead of starting up the Angular server. 
 
 To initialize the various components separately:
 
@@ -121,7 +121,7 @@ To initialize the various components separately:
 Run `./utils/env-check.sh` to check the versions of various packages are up to date.
 
 #### Stopping running instances:
-Run `./stop.sh` to halt any running Angular, Django, PostgreSQL, NGINX, and uWSGI processes.
+Run `./server/stop.sh` to halt any running Angular, Django, PostgreSQL, NGINX, and uWSGI processes.
 
 #### Starting database:
 Run `./utils/start_db.sh` to initialize PostgreSQL.

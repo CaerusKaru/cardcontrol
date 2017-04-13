@@ -67,6 +67,7 @@ The API has six major components. Each supports different operations. They are a
 |  Module         | Allowed Methods |
 |-----------------|-----------------|
 | card            | GET, PUT, POST  |
+| edited_card     | GET, PUT, POST  |
 | user_account    | GET, PUT, POST  |
 | access_point    | GET, PUT, POST  |
 | resource        | GET, PUT, POST  |
