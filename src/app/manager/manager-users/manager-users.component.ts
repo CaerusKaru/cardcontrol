@@ -8,6 +8,7 @@ import {UserService} from "../../user/shared/user.service";
 import {MdDialog, MdDialogRef, MdSnackBar} from "@angular/material";
 import {UserAccount} from "../../shared/user_account";
 import {Domain} from "../../shared/domain";
+import {AccessPoint} from "../../shared/access-point";
 
 @Component({
   selector: 'app-manager-users',
@@ -39,6 +40,7 @@ export class ManagerUsersComponent implements OnInit {
   public schools : string[] = ["Liberal Arts", "Engineering", "Other"];
   public types : string[] = ["Undergraduate", "Graduate", "Professor", "Employee", "Other"];
 
+  public newAccessPoints : AccessPoint[];
   public newUser : boolean;
   public currentQuery : string;
   public userAccount : UserAccount;
@@ -133,6 +135,7 @@ export class ManagerUsersComponent implements OnInit {
           this.userAccount.first_name = this.selectedUser.first_name;
           this.userAccount.last_name = this.selectedUser.last_name;
           this.userAccount.card = data.resource_uri;
+          this.userAccount.access_points = this.newAccessPoints;
           this.userAccount.manager_level = this.siteManager ? 2 : this.userAccount.access_points_managed.length !== 0 ? 1 : 0;
           if (this.userAccount.manager_level === 2) {
             let dialogRef = this.dialog.open(ManagerUsersConfirmComponent);
@@ -167,8 +170,12 @@ export class ManagerUsersComponent implements OnInit {
       dialogRef.componentInstance.domains = data.domain_children;
       dialogRef.afterClosed().subscribe(data => {
         if (data) {
-          this.requestService.addAccessPoints(this.userAccount, data);
-          setTimeout(_ => this.initUser(), 500);
+          if (!this.newUser) {
+            this.requestService.addAccessPoints(this.userAccount, data);
+            setTimeout(_ => this.initUser(), 500);
+          } else {
+            this.newAccessPoints.push(...data);
+          }
         }
       });
     });
