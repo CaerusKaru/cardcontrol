@@ -132,6 +132,7 @@ export class ManagerUsersComponent implements OnInit {
     } else {
       this.requestService.makeUser(this.selectedUser).subscribe(
         data => {
+          this.selectedUser = data;
           this.userAccount.first_name = this.selectedUser.first_name;
           this.userAccount.last_name = this.selectedUser.last_name;
           this.userAccount.card = data.resource_uri;
@@ -143,6 +144,7 @@ export class ManagerUsersComponent implements OnInit {
               if (data) {
                 this.requestService.makeUserAccount(this.userAccount).subscribe(
                   data => {
+                    this.userAccount = data;
                     this.snackbar.open('User created', '', {
                       duration: 1750
                     });
@@ -159,6 +161,7 @@ export class ManagerUsersComponent implements OnInit {
               }
             );
           }
+          this.newUser = false;
         }
       );
     }
@@ -174,6 +177,7 @@ export class ManagerUsersComponent implements OnInit {
             this.requestService.addAccessPoints(this.userAccount, data);
             setTimeout(_ => this.initUser(), 500);
           } else {
+            // TODO live update the view from here to allow for management view
             this.newAccessPoints.push(...data);
           }
         }
