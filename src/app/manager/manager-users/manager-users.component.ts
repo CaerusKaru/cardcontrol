@@ -190,10 +190,12 @@ export class ManagerUsersComponent implements OnInit {
 @Component({
   selector: 'app-manager-users-access',
   template: `
-    <md-toolbar class="unicorn-dark-theme mat-app-background" color="accent">Add Access</md-toolbar>
-    <md-card>
-      <app-domain-list [domains]="domains" [showReason]="false" (addRequest)="addAccess($event)"></app-domain-list>
-    </md-card>
+    <div class="unicorn-dark-theme mat-app-background" fxLayout="column">
+      <md-toolbar class="unicorn-dark-theme mat-app-background" color="accent">Add Access</md-toolbar>
+      <md-card>
+        <app-domain-list [domains]="domains" [showReason]="false" (addRequest)="addAccess($event)"></app-domain-list>
+      </md-card>
+    </div>
   `
 })
 export class ManagerUsersAccessComponent {
