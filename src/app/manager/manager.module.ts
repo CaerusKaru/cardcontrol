@@ -9,11 +9,13 @@ import { ManagerRequestsComponent } from './manager-requests/manager-requests.co
 import {ManagerMaterialModule} from "./manager-material/material.module";
 import {ManagerService} from "./manager.service";
 import {
+  ManagerUsersAccessComponent,
   ManagerUsersComponent, ManagerUsersConfirmComponent,
   ManagerUsersDialogComponent
 } from './manager-users/manager-users.component';
 import { ManagerAreasComponent } from './manager-areas/manager-areas.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {DomainListModule} from "../shared/domain-list/domain-list.module";
 
 @NgModule({
   imports: [
@@ -22,7 +24,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     ReactiveFormsModule,
     ManagerMaterialModule,
     FlexLayoutModule,
-    ManagerRoutingModule
+    ManagerRoutingModule,
+    DomainListModule
   ],
   declarations: [
     ManagerMainComponent,
@@ -32,7 +35,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     ManagerUsersComponent,
     ManagerAreasComponent,
     ManagerUsersDialogComponent,
-    ManagerUsersConfirmComponent
+    ManagerUsersConfirmComponent,
+    ManagerUsersAccessComponent
   ],
   providers: [
     ManagerService
@@ -40,7 +44,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
   bootstrap: [
     ManagerUsersComponent,
     ManagerUsersDialogComponent,
-    ManagerUsersConfirmComponent
+    ManagerUsersConfirmComponent,
+    ManagerUsersAccessComponent
   ]
 })
 export class ManagerModule { }

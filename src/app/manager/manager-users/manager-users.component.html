@@ -13,7 +13,7 @@
         </md-option>
       </md-autocomplete>
       <span fxFlex="10px"></span>
-      <button md-raised-button color="primary" [disabled]="selectedUser">CREATE</button>
+      <button md-raised-button color="primary" [disabled]="selectedUser" (click)="createUser()">CREATE</button>
     </md-card>
   </form>
 
@@ -52,8 +52,11 @@
 
               <div fxLayout="row" fxLayoutAlign="center center">
                 <md-input-container style="max-width: 162px">
-                  <input mdInput placeholder="Date of birth"
+                  <input mdInput
                          name="birth_date" required [(ngModel)]="selectedUser.birth_date">
+                  <md-placeholder>
+                    Date of birth (YYYY-MM-DD)
+                  </md-placeholder>
                 </md-input-container>
                 <span fxFlex="25px"></span>
                 <md-input-container style="max-width: 162px">
@@ -105,7 +108,7 @@
         </md-card-content>
 
         <md-card-actions fxLayoutAlign="end center">
-          <button md-raised-button color="primary">ADD ACCESS</button>
+          <button md-raised-button color="primary" (click)="addAccess()">ADD ACCESS</button>
           <span fxFlex></span>
           <button md-raised-button color="primary" (click)="editUser()">SAVE</button>
         </md-card-actions>

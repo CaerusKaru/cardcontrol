@@ -9,9 +9,8 @@ import {UserRequestComponent, UserRequestDialogComponent} from './user-request/u
 import { UserHomeComponent } from './user-home/user-home.component';
 import { UserAccountComponent } from './user-account/user-account.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { DomainListComponent } from './user-request/domain-list/domain-list.component';
 import {UserMaterialModule} from "./user-material/user-material.module";
-import {ResourceListComponent} from "./user-request/resource-list/resource-list.component";
+import {DomainListModule} from "../shared/domain-list/domain-list.module";
 
 @NgModule({
   imports: [
@@ -20,7 +19,8 @@ import {ResourceListComponent} from "./user-request/resource-list/resource-list.
     FormsModule,
     CommonModule,
     FlexLayoutModule,
-    UserRoutingModule
+    UserRoutingModule,
+    DomainListModule
   ],
   declarations: [
     UserIdComponent,
@@ -31,8 +31,6 @@ import {ResourceListComponent} from "./user-request/resource-list/resource-list.
     UserAccountComponent,
     UserIdRequestDialog,
     UserRequestDialogComponent,
-    DomainListComponent,
-    ResourceListComponent,
     UserAreaCommentDialog
   ],
   bootstrap: [
