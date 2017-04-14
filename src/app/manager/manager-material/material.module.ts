@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {
   MdAutocompleteModule,
   MdButtonModule, MdCardModule, MdCheckboxModule, MdDialogModule, MdGridListModule, MdIconModule, MdInputModule,
-  MdListModule,
+  MdListModule, MdProgressSpinnerModule,
   MdSelectModule,
   MdSidenavModule, MdSlideToggleModule,
   MdTabsModule, MdToolbarModule
@@ -27,7 +27,8 @@ import {
     MdAutocompleteModule,
     MdDialogModule,
     MdSlideToggleModule,
-    MdCheckboxModule
+    MdCheckboxModule,
+    MdProgressSpinnerModule
   ],
   declarations: []
 })

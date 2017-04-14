@@ -34,6 +34,12 @@ export class RequestService {
       .catch(this.handleError);
   }
 
+  public getRequestsForAp (apId : number) : Observable<ChangeRequest> {
+    return this.http.get(environment.API_PORT + '/api/v1/request/?new_access_points__id=' + apId)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   public deleteRequest (request : ChangeRequest) {
     this.http.delete(environment.API_PORT + request.resource_uri).subscribe();
   }
@@ -74,8 +80,21 @@ export class RequestService {
       .catch(this.handleError);
   }
 
+  public getCardRequests () : Observable<ChangeRequest[]> {
+    // TODO add or operator to status so it can be 0 or 2
+    return this.http.get(environment.API_PORT + '/api/v1/request/?new_access_points__isnull=true&status=0')
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   public getAccessPoints (resource : ManagedResource) : Observable<AccessPoint[]> {
     return this.http.get(environment.API_PORT + '/api/v1/access_point?resource=' + resource.id)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  public getEditedCard (uri : string) : Observable<User> {
+    return this.http.get(environment.API_PORT + uri)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -101,11 +120,13 @@ export class RequestService {
 
     let newReq : ChangeRequest = {
       new_access_points: resourceUris,
+      granted_access_points: [],
       request_level: 1,
       status: 0,
       id: null,
       resource_uri: null,
       new_card: null,
+      cur_card: this.userAccount.card,
       user: this.userAccount.resource_uri,
       reason : reasonWhy,
       feedback : null,
@@ -139,10 +160,12 @@ export class RequestService {
       data => {
         let newReq : ChangeRequest = {
           new_access_points: [],
+          granted_access_points: [],
           request_level: 1,
           status: 0,
           id: null,
           resource_uri: null,
+          cur_card: this.userAccount.card,
           new_card: data.resource_uri,
           user: this.userAccount.resource_uri,
           reason : null,
