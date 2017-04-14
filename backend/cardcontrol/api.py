@@ -192,8 +192,7 @@ class AccessPointResource(ModelResource):
             'parent': ALL_WITH_RELATIONS,
             'access_point_name': ALL,
             'id': ALL
-
-         }
+        }
 
     @staticmethod
     def hydrate_id(bundle):
@@ -357,11 +356,11 @@ class RequestResource(ModelResource):
     """
     created_by = fields.ToOneField(UserAccountResource, 'created_by')
     modified_by = fields.ToOneField(UserAccountResource, 'modified_by')
-    new_card = fields.ToOneField(EditedCardResource, 'new_card', null=True)
+    new_card = fields.ToOneField(EditedCardResource, 'new_card', null=True, full=True)
     new_access_points = ToManyField('cardcontrol.api.AccessPointResource',
                                     'new_access_points', blank=True)
     granted_access_points = ToManyField('cardcontrol.api.AccessPointResource',
-				    'granted_access_points', blank=True)
+                                        'granted_access_points', blank=True)
     user = fields.ToOneField(UserAccountResource, 'user')
 
     class Meta:
@@ -386,7 +385,7 @@ class RequestResource(ModelResource):
             'request_level': ALL_WITH_RELATIONS,
             'status': ALL_WITH_RELATIONS,
             'new_access_points': ALL_WITH_RELATIONS,
-	    'granted_access_points': ALL_WITH_RELATIONS
+            'granted_access_points': ALL_WITH_RELATIONS
         }
 
     @staticmethod
