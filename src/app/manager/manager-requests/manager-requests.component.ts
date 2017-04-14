@@ -104,6 +104,7 @@ export class ManagerRequestsComponent implements OnInit {
       this.requestService.updateRequest(this.cardRequest);
       this.requestService.updateCard(this.newCard);
       this.userMap.splice(this.currentIndex, 1);
+      this.cardRequests.splice(this.currentIndex, 1);
       this.cardRequest = null;
       this.selectedCard = false;
     }
@@ -113,7 +114,6 @@ export class ManagerRequestsComponent implements OnInit {
       this.resourceRequest.feedback = this.feedback;
       this.requestService.updateRequest(this.resourceRequest);
       this.selectedRequests.splice(this.currentIndex, 1);
-      this.cardRequests.splice(this.currentIndex, 1);
       // TODO access point update
       // this.requestService.updateUserAccount(this.userAccount);
       this.selectedResource = null;
