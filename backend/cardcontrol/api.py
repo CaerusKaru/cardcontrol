@@ -356,7 +356,8 @@ class RequestResource(ModelResource):
     """
     created_by = fields.ToOneField(UserAccountResource, 'created_by')
     modified_by = fields.ToOneField(UserAccountResource, 'modified_by')
-    new_card = fields.ToOneField(EditedCardResource, 'new_card', null=True, full=True)
+    new_card = fields.ToOneField(EditedCardResource, 'new_card', null=True)
+    cur_card = fields.ToOneField(EditedCardResource, 'cur_card', null=True)
     new_access_points = ToManyField('cardcontrol.api.AccessPointResource',
                                     'new_access_points', blank=True)
     granted_access_points = ToManyField('cardcontrol.api.AccessPointResource',
@@ -385,6 +386,7 @@ class RequestResource(ModelResource):
             'request_level': ALL_WITH_RELATIONS,
             'status': ALL_WITH_RELATIONS,
             'new_access_points': ALL_WITH_RELATIONS,
+            'cur_card': ALL_WITH_RELATIONS,
             'granted_access_points': ALL_WITH_RELATIONS
         }
 

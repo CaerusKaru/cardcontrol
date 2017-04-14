@@ -192,7 +192,9 @@ class Request(models.Model):
     """
     user = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
     new_card = models.ForeignKey(EditedCard, on_delete=models.CASCADE,
-                                 null=True)
+                                 null=True, related_name='%(class)s_new_card')
+    cur_card = models.ForeignKey(EditedCard, on_delete=models.CASCADE,
+                                 null=True, related_name='%(class)s_cur_card')
     new_access_points = models.ManyToManyField(
         AccessPoint, blank=True, related_name='%(class)s_new_access_points')
     granted_access_points = models.ManyToManyField(
