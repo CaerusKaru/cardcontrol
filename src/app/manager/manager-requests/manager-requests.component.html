@@ -1,39 +1,132 @@
-<md-tab-group>
-  <md-tab label="Pending Requests">
-    <div class="manager-requests-wrapper" fxLayout="column" fxLayoutAlign="space-around stretch">
-      <md-card fxLayout="column" fxLayoutAlign="space-around center">
-        <div>
-          <div>
-            <h2>New Request from: Matt Asnes</h2>
-          </div>
-        </div>
-      </md-card>
-      <md-card fxLayout="column" fxLayoutAlign="space-around center">
-        <div>
-          <div>
-            <h2>New Request from: Matt Asnes 2</h2>
-          </div>
-        </div>
-      </md-card>
-      <md-card fxLayout="column" fxLayoutAlign="space-around center">
-        <div>
-          <div>
-            <h2>New Request from: Adam Plumer</h2>
-          </div>
-        </div>
-      </md-card>
-      <md-card fxLayout="column" fxLayoutAlign="space-around center">
-        <div>
-          <div>
-            <h2>New Request from: Elias Jarzombek</h2>
-          </div>
-        </div>
-      </md-card>
+<div fxLayout="row" fxFlex style="padding: 32px" fxFlexFill>
 
-    </div>
+  <div fxFlex="23" fxLayout="column">
+    <md-toolbar color="primary">Areas</md-toolbar>
+    <md-card>
+      <md-nav-list>
+        <md-list-item *ngFor="let resource of resources; let i = index"
+                      fxLayout="row"
+                      (click)="openResource(resource, i)">
+          <span *ngIf="numRequests"
+                [ngStyle]="{background: numRequests[i] > 0 ? 'green' : 'grey'}"
+                class="badge-number">
+            {{numRequests[i]}}
+          </span>
+          <span fxFlexOffset="10px" fxFlex>{{resource.resource_name}}</span>
+        </md-list-item>
+        <md-divider *ngIf="userAccount.manager_level > 1"></md-divider>
+        <md-list-item fxLayout="row" (click)="openCard()" *ngIf="cardRequests">
+          <span [ngStyle]="{background: cardRequests.length > 0 ? 'green' : 'grey'}"
+                class="badge-number">
+            {{cardRequests.length}}
+          </span>
+          <span fxFlexOffset="10px" style="white-space: pre">Card Requests</span>
+        </md-list-item>
+      </md-nav-list>
+    </md-card>
+  </div>
 
-  </md-tab>
-  <md-tab label="Past Reqests">
-    <p>Past Requests...</p>
-  </md-tab>
-</md-tab-group>
+  <span fxFlex="20px"></span>
+
+  <div fxFlex fxLayout="column">
+    <md-toolbar color="primary">Requests</md-toolbar>
+    <md-card fxFlex fxLayout="row">
+      <div fxLayout="column" *ngIf="selectedResource || selectedCard" fxFlex="20">
+        <div *ngIf="selectedResource">
+          <md-nav-list>
+            <h3 md-subheader>{{selectedResource.resource_name}}</h3>
+            <md-list-item *ngFor="let request of selectedRequests; let i = index" (click)="processRequest(request, i)">
+              <span>Access Request from UTLN</span>
+            </md-list-item>
+          </md-nav-list>
+        </div>
+        <div *ngIf="selectedCard">
+          <md-nav-list *ngIf="userMap">
+            <h3 md-subheader>Requests</h3>
+            <md-list-item *ngFor="let user of userMap; let i = index" (click)="processCard(i)">
+              <span>{{user.utln}}</span>
+            </md-list-item>
+          </md-nav-list>
+        </div>
+      </div>
+      <div fxLayout="column" *ngIf="resourceRequest || cardRequest" fxFlex>
+        <div *ngIf="resourceRequest" fxFlex fxLayout="center center" fxLayout="column">
+          <md-list fxLayoutAlign="center center" fxLayout="column">
+            <h3 md-subheader>Access Points</h3>
+            <!--TODO add checkboxes as part of form, create array in controller to track-->
+            <md-list-item>
+              <md-checkbox checked="true">
+                <span>Access Point</span>
+              </md-checkbox>
+            </md-list-item>
+          </md-list>
+        </div>
+        <div *ngIf="cardRequest" fxFlexFill fxLayout="column" fxFlexOffset="20px" style="overflow-y: auto">
+          <div *ngIf="newCard && newCard.first_name !== oldCard.first_name">
+            <h4>First Name</h4>
+            <span fxLayoutAlign="start center">{{oldCard.first_name}} <md-icon>chevron_right</md-icon> {{newCard.first_name}}</span>
+          </div>
+
+          <div *ngIf="newCard && newCard.middle_initial !== oldCard.middle_initial">
+            <h4>Middle Initial</h4>
+            <span fxLayoutAlign="start center">{{oldCard.middle_initial}} <md-icon>chevron_right</md-icon> {{newCard.middle_initial}}</span>
+          </div>
+
+          <div *ngIf="newCard && newCard.last_name !== oldCard.last_name">
+            <h4>Last Name</h4>
+            <span fxLayoutAlign="start center">{{oldCard.last_name}} <md-icon>chevron_right</md-icon> {{newCard.last_name}}</span>
+          </div>
+
+          <div *ngIf="newCard && newCard.birth_date !== oldCard.birth_date">
+            <h4>Date of Birth</h4>
+            <span fxLayoutAlign="start center">{{oldCard.birth_date}} <md-icon>chevron_right</md-icon> {{newCard.birth_date}}</span>
+          </div>
+
+          <div *ngIf="newCard && newCard.class_year !== oldCard.class_year">
+            <h4>Year of Graduation</h4>
+            <span fxLayoutAlign="start center">{{oldCard.class_year}} <md-icon>chevron_right</md-icon> {{newCard.class_year}}</span>
+          </div>
+
+          <div *ngIf="newCard && newCard.school !== oldCard.school">
+            <h4>School</h4>
+            <span fxLayoutAlign="start center">{{oldCard.school}} <md-icon>chevron_right</md-icon> {{newCard.school}}</span>
+          </div>
+
+          <div *ngIf="newCard && newCard.student_type !== oldCard.student_type">
+            <h4>Type</h4>
+            <span fxLayoutAlign="start center">{{oldCard.student_type}} <md-icon>chevron_right</md-icon> {{newCard.student_type}}</span>
+          </div>
+
+        </div>
+      </div>
+      <div fxLayout="column" *ngIf="resourceRequest || cardRequest" fxFlex fxFlexOffset="20px">
+        <md-input-container>
+          <textarea mdInput disabled placeholder="Reason Why" *ngIf="cardRequest">{{cardRequest.reason}}</textarea>
+          <textarea mdInput disabled placeholder="Reason Why" *ngIf="resourceRequest">{{resourceRequest.reason}}</textarea>
+        </md-input-container>
+        <span fxFlex></span>
+        <md-input-container>
+          <textarea mdInput
+                    placeholder="Feedback"
+                    required
+                    [(ngModel)]="feedback"
+                    *ngIf="cardRequest">{{cardRequest.feedback}}</textarea>
+          <textarea mdInput
+                    placeholder="Feedback"
+                    required
+                    [(ngModel)]="feedback"
+                    *ngIf="resourceRequest">{{resourceRequest.feedback}}</textarea>
+        </md-input-container>
+        <span fxFlex></span>
+        <span fxLayout="row" fxLayoutAlign="space-around center">
+            <button md-raised-button color="primary" (click)="approve()">APPROVE</button>
+            <span fxFlex="15px"></span>
+            <button md-raised-button color="warn" (click)="reject()">REJECT</button>
+          </span>
+      </div>
+      <div *ngIf="!selectedResource && !selectedCard" fxFlex fxLayoutAlign="center center">
+        <span>Please select an area on the left</span>
+      </div>
+    </md-card>
+  </div>
+</div>

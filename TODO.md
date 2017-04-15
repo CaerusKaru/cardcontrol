@@ -1,27 +1,27 @@
 #TODO:
-###High Prority:
+
 # Matt
-* Get deploy working in production with a GitHub webhook
-* Fix HttpBadRequest when hydrating parent in domains
-* Enable memcache
+* Engineering blog entry on API and caches
+* unit tests for django
+* logo for manager view (light and dark theme)
+* Lock down API with better input sanitization
+* Create separate prod and dev server
+* Help Adam with manager view
+* Create good test data set including web applications, etc.
+* Add logo image to README
 
 # Adam
-* Start working on manager API workflows
-* Link workflows with a shiny new UI
-
-###Medium Priority:
-* Move to production
-* Static optimization of Angular
-* nginx compression
-
-###Low Priority:
+* Manager view
+* Unit tests for angular
+* Engineering blog entry on static content optimization
+* Add 'reason why' field to requests in the queue
+* Fix font issue on resources
 * Provide back link from manager page to user page
-* Create good test data set including web applications, etc.
+* Redo homepage with more information
+* Add images for resources
 
 ###Stretch Goals:
-* Lost & Found
-* Authentication
+* Lost & found
+* Authentication & authorization
 * Test on mobile
-
-
 

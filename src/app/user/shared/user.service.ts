@@ -29,7 +29,12 @@ export class UserService {
   }
 
   public getUtln() : string {
-    return 'masnes01';
+    return this.utln;
+  }
+
+  public setUtln (utln : string) {
+    this.utln = utln;
+    this.initData();
   }
 
   private getUserAccount (): Observable<UserAccount[]> {
@@ -39,6 +44,12 @@ export class UserService {
   }
 
   public getCard (uri : string): Observable<User> {
+    return this.http.get(environment.API_PORT + uri)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  public getResourceForUri (uri : string) : Observable<ManagedResource> {
     return this.http.get(environment.API_PORT + uri)
       .map(this.extractData)
       .catch(this.handleError);
@@ -83,11 +94,7 @@ export class UserService {
     });
   }
 
-  private getResourceForUri (uri : string) : Observable<ManagedResource> {
-    return this.http.get(environment.API_PORT + uri)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
+  private utln : string = 'masnes01';
 
   private extractData(res: Response) {
     let body = res.json();

@@ -16,22 +16,28 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from tastypie.api import Api
-from cardcontrol.api import UserAccountResource, CardResource, EditedCardResource, AccessPointResource, ResourceResource, DomainResource, RequestResource
+
+# Import our tastypie API resources
+from cardcontrol.api import UserAccountResource, CardResource
+from cardcontrol.api import EditedCardResource, AccessPointResource
+from cardcontrol.api import ResourceResource, DomainResource, RequestResource
+# Import our github webook view
 from backend import views
 
-v1_api = Api(api_name='v1')
-v1_api.register(UserAccountResource())
-v1_api.register(CardResource())
-v1_api.register(EditedCardResource())
-v1_api.register(AccessPointResource())
-v1_api.register(RequestResource())
-v1_api.register(DomainResource())
-v1_api.register(ResourceResource())
+# Register a URL endpoint for each api resource
+API = Api(api_name='v1')
+API.register(UserAccountResource())
+API.register(CardResource())
+API.register(EditedCardResource())
+API.register(AccessPointResource())
+API.register(RequestResource())
+API.register(DomainResource())
+API.register(ResourceResource())
 
-
+# Route the actual URL patterns
 urlpatterns = [
     url(r'', include('cardcontrol.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^api/', include(v1_api.urls)),
+    url(r'^api/', include(API.urls)),
     url(r'^hook/$', views.hook, name='hook')
 ]

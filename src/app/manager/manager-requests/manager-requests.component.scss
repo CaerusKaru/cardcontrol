@@ -8,3 +8,14 @@
   cursor: hand;
   cursor: pointer;
 }
+
+// Credit to http://www.cssportal.com/blog/create-css-notification-badge/
+.badge-number {
+  font-size:.7em;
+  color:white;
+  width:18px;height:18px;
+  text-align:center;
+  line-height:18px;
+  border-radius:50%;
+  box-shadow:0 0 1px #333;
+}

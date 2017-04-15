@@ -11,3 +11,9 @@ body {
 .mat-dialog-container {
   padding: 0 !important;
 }
+
+.mat-divider[direction="vertical"] {
+  border-top-width: 0;
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+  height: 100%;
+}

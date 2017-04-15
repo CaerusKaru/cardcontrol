@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  MdAutocompleteModule, MdButtonModule, MdCardModule, MdDialogModule, MdGridListModule, MdInputModule, MdListModule,
-  MdSidenavModule, MdSnackBarModule,
-  MdTabsModule, MdToolbarModule
+  MdAutocompleteModule, MdButtonModule, MdCardModule, MdCheckboxModule, MdDialogModule, MdGridListModule, MdIconModule,
+  MdInputModule, MdListModule, MdMenuModule, MdSelectModule, MdSnackBarModule, MdTabsModule, MdToolbarModule
 } from "@angular/material";
 
 @NgModule({
   imports: [
-    CommonModule,
+    CommonModule
+  ],
+  exports: [
+    MdCardModule,
     MdButtonModule,
     MdAutocompleteModule,
     MdInputModule,
@@ -16,10 +18,12 @@ import {
     MdTabsModule,
     MdListModule,
     MdGridListModule,
-    MdCardModule,
     MdToolbarModule,
-    MdSnackBarModule
-  ],
-  declarations: []
+    MdSnackBarModule,
+    MdMenuModule,
+    MdIconModule,
+    MdCheckboxModule,
+    MdSelectModule
+  ]
 })
 export class UserMaterialModule { }

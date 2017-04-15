@@ -3,13 +3,11 @@ import { RouterModule, Routes }  from '@angular/router';
 
 import { ManagerMainComponent } from './manager-main/manager-main.component';
 import {ManagerHomeComponent} from "./manager-home/manager-home.component";
-import {ManagerBuildingsComponent} from "./manager-buildings/manager-buildings.component";
-import {ManagerSearchComponent} from "./manager-search/manager-search.component";
-import {ManagerCreateIdComponent} from "./manager-create-id/manager-create-id.component";
-import {ManagerCreateBuildingComponent} from "./manager-create-building/manager-create-building.component";
 import {ManagerAccountComponent} from "./manager-account/manager-account.component";
 import {ManagerRequestsComponent} from "./manager-requests/manager-requests.component";
 import {ManagerGuard} from "../shared/manager.guard";
+import {ManagerUsersComponent} from "./manager-users/manager-users.component";
+import {ManagerAreasComponent} from "./manager-areas/manager-areas.component";
 
 const managerRoutes: Routes = [
   {
@@ -22,20 +20,12 @@ const managerRoutes: Routes = [
         component: ManagerHomeComponent
       },
       {
-        path: 'buildings',
-        component: ManagerBuildingsComponent
+        path: 'users',
+        component: ManagerUsersComponent
       },
       {
-        path: 'search',
-        component: ManagerSearchComponent
-      },
-      {
-        path: 'createID',
-        component: ManagerCreateIdComponent
-      },
-      {
-        path: 'createBuilding',
-        component: ManagerCreateBuildingComponent
+        path: 'areas',
+        component: ManagerAreasComponent
       },
       {
         path: 'account',
