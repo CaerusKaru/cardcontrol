@@ -8,11 +8,14 @@ badc="\033[38;5;09m"
 noc="\033[38;5;15m"
 d=$(dirname "$0")
 
+url='http:/34.193.86.61/api/v1/domain/2/'
+#url='http://sportsreservation.herokuapp.com/'
+
 echo -e "${badc}Above Rate Limit Threshold:${noc}"
 echo "Num: |   Response:"
-for i in {0..99}; do (curl -Is -X GET http://34.193.86.61/api/v1/domain/2/ | head -n1 &) 2>/dev/null; done | sort | uniq -c
+for i in {0..99}; do (curl -Is -X GET $url | head -n1 &) 2>/dev/null; done | sort | uniq -c
 
 echo -e "${goodc}Below Rate Limit Threshold:${noc}"
 echo "Num: |   Response:"
-for i in {0..99}; do (curl -Is -X GET http://34.193.86.61/api/v1/domain/2/ | head -n1 &) 2>/dev/null; sleep 0.05; done | sort | uniq -c
+for i in {0..99}; do (curl -Is -X GET $url | head -n1 &) 2>/dev/null; sleep 0.05; done | sort | uniq -c
 
