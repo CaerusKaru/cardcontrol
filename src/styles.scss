@@ -17,3 +17,7 @@ body {
   border-right: 1px solid rgba(0, 0, 0, 0.12);
   height: 100%;
 }
+
+html, body, button, select, textarea {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
