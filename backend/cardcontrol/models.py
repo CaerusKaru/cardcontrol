@@ -130,11 +130,11 @@ class Resource(models.Model):
     discrete element of the system for which CardControl manages
     access control; resources have a distinct address.
     """
-    zipcode = models.CharField(max_length=10)
+    zipcode = models.CharField(max_length=10, blank=True, null=True)
     address = models.CharField(max_length=60)
-    city = models.CharField(max_length=60)
-    state = models.CharField(max_length=60)
-    country = models.CharField(max_length=60)
+    city = models.CharField(max_length=60, blank=True, null=True)
+    state = models.CharField(max_length=60, blank=True, null=True)
+    country = models.CharField(max_length=60, blank=True, null=True)
     resource_name = models.CharField(max_length=60)
     parent = models.ForeignKey('Domain',
                                on_delete=models.CASCADE,
