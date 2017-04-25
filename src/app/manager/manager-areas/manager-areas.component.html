@@ -1,3 +1,126 @@
-<p>
-  manager-areas works!
-</p>
+<div fxLayout="row" fxFlex style="padding: 32px" fxFlexFill>
+
+  <div fxFlex="23" fxLayout="column">
+    <md-toolbar color="primary">Areas</md-toolbar>
+    <md-card fxLayout="column">
+      <md-nav-list fxLayout="column">
+        <md-list-item *ngFor="let resource of resources; let i = index"
+                      fxLayout="row"
+                      (click)="openResource(resource, i)">
+          <span fxFlex>{{resource.resource_name}}</span>
+        </md-list-item>
+        <md-divider *ngIf="userAccount.manager_level > 1"></md-divider>
+      </md-nav-list>
+      <span fxFlex="20px"></span>
+      <span fxLayoutAlign="start center">
+        <button md-raised-button
+                color="primary"
+                (click)="create()"
+                *ngIf="userAccount.manager_level > 1">CREATE</button>
+      </span>
+    </md-card>
+  </div>
+
+  <span fxFlex="20px"></span>
+
+  <div fxFlex fxLayout="column">
+    <md-toolbar color="primary">
+      <span *ngIf="selectedResource">{{selectedResource.resource_name}}</span>
+      <span *ngIf="createResource">Create Resource</span>
+      <span *ngIf="!selectedResource && !createResource">Area</span>
+    </md-toolbar>
+    <md-card fxFlex fxLayout="column">
+      <div fxLayout="column" *ngIf="selectedResource" fxFill>
+
+        <div fxLayout="column" fxFlex>
+          <md-grid-list cols="5" rowHeight='4:3'>
+            <md-grid-tile *ngFor="let accessPoint of selectedResource.children; let i = index"
+                          class="building-card"
+                          [style.background]="'lightblue'">
+              <md-grid-tile-footer>
+                <button md-button
+                        (click)="chooseAP(accessPoint, i)">{{accessPoint.access_point_name}}</button>
+              </md-grid-tile-footer>
+            </md-grid-tile>
+          </md-grid-list>
+          <span fxFlex></span>
+          <span fxLayout="row"
+                *ngIf="userAccount.manager_level > 1"
+                fxLayoutAlign="start start">
+            <button md-raised-button color="primary" (click)="add()">ADD ACCESS POINT</button>
+          </span>
+          <!--<div fxLayout="row" fxLayoutAlign="center center">-->
+            <!--<md-input-container style="max-width: 100px">-->
+              <!--<input mdInput placeholder="First name"-->
+                     <!--name="first_name" required [(ngModel)]="selectedUser.first_name">-->
+            <!--</md-input-container>-->
+            <!--<span fxFlex="25px"></span>-->
+            <!--<md-input-container style="max-width: 100px">-->
+              <!--<input mdInput placeholder="Middle initial"-->
+                     <!--name="middle_initial" required [(ngModel)]="selectedUser.middle_initial">-->
+            <!--</md-input-container>-->
+            <!--<span fxFlex="25px"></span>-->
+            <!--<md-input-container style="max-width: 100px">-->
+              <!--<input mdInput placeholder="Last name"-->
+                     <!--name="last_name" required [(ngModel)]="selectedUser.last_name">-->
+            <!--</md-input-container>-->
+          <!--</div>-->
+
+          <!--<span fxFlex="15px"></span>-->
+
+          <!--<div fxLayout="row" fxLayoutAlign="center center">-->
+            <!--<md-input-container style="max-width: 162px">-->
+              <!--<input mdInput-->
+                     <!--name="birth_date" required [(ngModel)]="selectedUser.birth_date">-->
+              <!--<md-placeholder>-->
+                <!--Date of birth (YYYY-MM-DD)-->
+              <!--</md-placeholder>-->
+            <!--</md-input-container>-->
+            <!--<span fxFlex="25px"></span>-->
+            <!--<md-input-container style="max-width: 162px">-->
+              <!--<input mdInput placeholder="Year of graduation"-->
+                     <!--name="class_year" required [(ngModel)]="selectedUser.class_year">-->
+            <!--</md-input-container>-->
+          <!--</div>-->
+          <!--<span fxFlex="25px"></span>-->
+          <!--<div fxLayout="row" fxLayoutAlign="center center">-->
+            <!--<md-select placeholder="School"-->
+                       <!--name="school" style="min-width: 162px" required [(ngModel)]="selectedUser.school">-->
+              <!--<md-option *ngFor="let school of schools" [value]="school">-->
+                <!--{{school}}-->
+              <!--</md-option>-->
+            <!--</md-select>-->
+            <!--<span fxFlex="25px"></span>-->
+            <!--<md-select placeholder="Type"-->
+                       <!--name="student_type" style="min-width: 162px" required [(ngModel)]="selectedUser.student_type">-->
+              <!--<md-option *ngFor="let type of types" [value]="type">-->
+                <!--{{type}}-->
+              <!--</md-option>-->
+            <!--</md-select>-->
+          <!--</div>-->
+          <!--<span fxFlex="25px"></span>-->
+          <!--<div fxLayout="row">-->
+            <!--<md-checkbox [(ngModel)]="siteManager">Site Manager</md-checkbox>-->
+          <!--</div>-->
+        </div>
+<!--
+ADDRESS
+ZIPCODE
+CITY
+STATE
+COUNTRY
+NAME
+PARENT
+-->
+
+      </div>
+      <div fxLayout="column" *ngIf="createResource" fxFlex="20">
+
+
+      </div>
+      <div *ngIf="!selectedResource && !createResource" fxFlex fxLayoutAlign="center center">
+        <span>Please select an area on the left</span>
+      </div>
+    </md-card>
+  </div>
+</div>
