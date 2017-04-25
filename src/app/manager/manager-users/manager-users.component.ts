@@ -107,9 +107,10 @@ export class ManagerUsersComponent implements OnInit {
     dialogRef.componentInstance.userAccount = this.userAccount;
     dialogRef.afterClosed().subscribe(data => {
       if (data) {
-        data.access_points = data.access_points.map(a => a.resource_uri);
-        data.access_points_managed = data.access_points_managed.map(a => a.resource_uri);
-        this.requestService.updateUserAccount(data);
+        let newData = Object.assign({}, data);
+        newData.access_points = newData.access_points.map(a => a.resource_uri);
+        newData.access_points_managed = newData.access_points_managed.map(a => a.resource_uri);
+        this.requestService.updateUserAccount(newData);
       }
     });
   }
