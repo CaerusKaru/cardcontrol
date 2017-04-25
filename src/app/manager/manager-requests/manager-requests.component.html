@@ -36,7 +36,7 @@
           <md-nav-list>
             <h3 md-subheader>{{selectedResource.resource_name}}</h3>
             <md-list-item *ngFor="let request of selectedRequests; let i = index" (click)="processRequest(request, i)">
-              <span>Access Request from UTLN</span>
+              <span>{{request.user}}</span>
             </md-list-item>
           </md-nav-list>
         </div>
@@ -54,9 +54,9 @@
           <md-list fxLayoutAlign="center center" fxLayout="column">
             <h3 md-subheader>Access Points</h3>
             <!--TODO add checkboxes as part of form, create array in controller to track-->
-            <md-list-item>
-              <md-checkbox checked="true">
-                <span>Access Point</span>
+            <md-list-item *ngFor="let ap of aps | async; let i = index">
+              <md-checkbox checked="true" [disabled]="!canApprove(ap)">
+                <span>{{ap.access_point_name}}</span>
               </md-checkbox>
             </md-list-item>
           </md-list>

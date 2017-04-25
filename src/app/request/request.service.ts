@@ -242,8 +242,10 @@ export class RequestService {
   }
 
   public updateUserAccount (newUserAccount : UserAccount) {
+    console.log(environment.API_PORT + newUserAccount.resource_uri);
     this.http.put(environment.API_PORT + newUserAccount.resource_uri, newUserAccount).subscribe(
       data => {
+        console.log(data);
         this.snackBar.open('User account updated', '', {
           duration: 1750
         })
