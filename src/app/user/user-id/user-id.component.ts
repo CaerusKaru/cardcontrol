@@ -19,6 +19,7 @@ export class UserIdComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.userService.initData();
     this.getUser();
   }
 
@@ -38,7 +39,6 @@ export class UserIdComponent implements OnInit {
   }
 
   public report() {
-
   }
 
   private getUser () {

@@ -60,7 +60,7 @@ export class UserService {
   private _userResources : BehaviorSubject<ManagedResource[]> = new BehaviorSubject(null);
   private _userAccessPoints : BehaviorSubject<AccessPoint[]> = new BehaviorSubject(null);
 
-  private initData () {
+  public initData () {
     this.getUserAccount().subscribe(
       data => {
         this._userAccount.next(data[0]);
