@@ -62,8 +62,27 @@ export class RequestService {
     });
   }
 
+  public updateAccessPoint (ap : AccessPoint) {
+    this.http.put(environment.API_PORT + ap.resource_uri, ap).subscribe(data => {
+        this.snackBar.open('Request updated', '', {
+          duration: 1750
+        });
+      },
+      error => {
+        this.snackBar.open('Unable to update request', '', {
+          duration: 1750
+        })
+      });
+  }
+
   public getUserAccount (utln : string) : Observable<UserAccount[]> {
     return this.http.get(environment.API_PORT + '/api/v1/user_account/?utln='+utln)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  public getUserAccountById (resourceUri : string) : Observable<UserAccount> {
+    return this.http.get(environment.API_PORT + resourceUri)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -241,6 +260,15 @@ export class RequestService {
     let options = new RequestOptions({ headers: headers });
 
     return this.http.post(environment.API_PORT + '/api/v1/card/', user, options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  public makeAccessPoint (ap : AccessPoint) : Observable<AccessPoint> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(environment.API_PORT + '/api/v1/access_point/', ap, options)
       .map(this.extractData)
       .catch(this.handleError);
   }
