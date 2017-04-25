@@ -35,10 +35,10 @@ INSERT INTO cardcontrol_accesspoint VALUES(12, 'COMP-120', now(), now(), 1, 1, 5
 INSERT INTO cardcontrol_useraccount_access_points VALUES(13, 1, 11);
 INSERT INTO cardcontrol_useraccount_access_points VALUES(14, 1, 12);
 INSERT INTO cardcontrol_useraccount_access_points VALUES(15, 1, 10);
-INSERT INTO cardcontrol_useraccount_access_points VALUES(16, 5, 8);
-INSERT INTO cardcontrol_useraccount_access_points VALUES(17, 5, 9);
-INSERT INTO cardcontrol_useraccount_access_points VALUES(18, 5, 10);
-INSERT INTO cardcontrol_useraccount_access_points VALUES(19, 5, 12);
+INSERT INTO cardcontrol_useraccount_access_points VALUES(16, 3, 8);
+INSERT INTO cardcontrol_useraccount_access_points VALUES(17, 3, 9);
+INSERT INTO cardcontrol_useraccount_access_points VALUES(18, 3, 10);
+INSERT INTO cardcontrol_useraccount_access_points VALUES(19, 3, 12);
 
 INSERT INTO cardcontrol_accesspoint VALUES(1, 'Metcalf East', now(), now(), 1, 1, 1);
 INSERT INTO cardcontrol_accesspoint VALUES(2, 'Metcalf West', now(), now(), 1, 1, 1);
