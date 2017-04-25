@@ -191,7 +191,9 @@ class AccessPointResource(ModelResource):
         filtering = {
             'parent': ALL_WITH_RELATIONS,
             'access_point_name': ALL,
-            'id': ALL
+            'id': ALL,
+            'users': ALL_WITH_RELATIONS
+
         }
 
     @staticmethod
