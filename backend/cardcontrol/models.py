@@ -191,6 +191,7 @@ class Request(models.Model):
     access points and an edited_card.
     """
     user = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
+    utln = models.CharField(max_length=10)
     new_card = models.ForeignKey(EditedCard, on_delete=models.CASCADE,
                                  null=True, related_name='%(class)s_new_card')
     cur_card = models.ForeignKey(Card, on_delete=models.CASCADE,

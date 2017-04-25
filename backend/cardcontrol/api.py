@@ -385,6 +385,7 @@ class RequestResource(ModelResource):
             'created_at': ALL,
             'modified_at': ALL,
             'user': ALL_WITH_RELATIONS,
+            'utln': ALL,
             'request_level': ALL_WITH_RELATIONS,
             'status': ALL_WITH_RELATIONS,
             'new_access_points': ALL_WITH_RELATIONS,
