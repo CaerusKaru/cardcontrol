@@ -22,7 +22,7 @@ echo -e "$nodev${noc}"
 
 echo -n "NPM:            "
 npmv=$(npm -v)
-if [[ "$npmv" == "4.4.4" ]]; then
+if [[ "$npmv" == "4.5.0" ]]; then
 	echo -ne "$goodc"
 elif [[ $npmv =~ 4\.4.* ]]; then
 	echo -ne "$qc"
