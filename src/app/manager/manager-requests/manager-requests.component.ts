@@ -64,6 +64,7 @@ export class ManagerRequestsComponent implements OnInit {
   public selectedRequests : ChangeRequest[];
   public selectedResource : ManagedResource;
   public resources : ManagedResource[] = [];
+  public aps: Observable<AccessPoint[]>;
 
   public openResource (resource : ManagedResource, index : number) {
     this.selectedResource = resource;
@@ -75,6 +76,13 @@ export class ManagerRequestsComponent implements OnInit {
   public processRequest (request : ChangeRequest, index : number) {
     this.currentIndex = index;
     this.resourceRequest = request;
+    this.aps = Observable.forkJoin(this.resourceRequest.new_access_points.map(a => {
+      return this.requestService.getAccessPoint(a)
+    }));
+  }
+
+  public canApprove (ap: AccessPoint) : boolean {
+    return this.userAccount.access_points_managed.filter(a => a.id === ap.id).length > 0;
   }
 
   public processCard (index : number) {

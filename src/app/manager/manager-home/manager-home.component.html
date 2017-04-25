@@ -2,19 +2,19 @@
   <md-card (click)="openRequests()" class="manager-home-tile">
     <div fxLayout="column">
       <div fxLayout="row" fxLayoutAlign="center center">
-        <h2>3</h2>
+        <h2>{{numRequests}}</h2>
       </div>
       <div fxLayout="row" fxLayoutAlign="center center">
         Pending Requests
       </div>
     </div>
   </md-card>
-  <md-card (click)="openBuildings()" class="manager-home-tile">
+  <md-card (click)="openAreas()" class="manager-home-tile">
     <div fxLayout="row" fxLayoutAlign="center center">
-      <h2>3</h2>
+      <h2>{{numAreas}}</h2>
     </div>
     <div fxLayout="row" fxLayoutAlign="center center">
-      Buildings
+      Areas
     </div>
   </md-card>
 </div>
