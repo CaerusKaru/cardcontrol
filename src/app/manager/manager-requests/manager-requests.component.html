@@ -35,8 +35,9 @@
         <div *ngIf="selectedResource">
           <md-nav-list>
             <h3 md-subheader>{{selectedResource.resource_name}}</h3>
-            <md-list-item *ngFor="let request of selectedRequests; let i = index" (click)="processRequest(request, i)">
-              <span>{{request.user}}</span>
+            <md-list-item *ngFor="let request of selectedRequests; let i = index"
+                          (click)="processRequest(request, i)">
+              <span>{{request.utln}}</span>
             </md-list-item>
           </md-nav-list>
         </div>

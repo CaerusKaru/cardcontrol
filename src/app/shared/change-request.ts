@@ -13,4 +13,5 @@ export class ChangeRequest {
   status : number;
   user : string;
   modified_at : string;
+  utln: string;
 }

@@ -151,7 +151,8 @@ export class RequestService {
       feedback : null,
       created_by: this.userAccount.resource_uri,
       modified_by: this.userAccount.resource_uri,
-      modified_at: null
+      modified_at: null,
+      utln: this.userAccount.utln
     };
 
     this.http.post(environment.API_PORT + '/api/v1/request/', newReq, options)
@@ -191,7 +192,8 @@ export class RequestService {
           feedback : null,
           created_by: this.userAccount.resource_uri,
           modified_by: this.userAccount.resource_uri,
-          modified_at: null
+          modified_at: null,
+          utln: this.userAccount.utln
         };
         this.http.post(environment.API_PORT + '/api/v1/request/', newReq, options)
           .map(this.extractData)
