@@ -64,6 +64,7 @@ export class ManagerRequestsComponent implements OnInit {
   public selectedRequests : ChangeRequest[];
   public selectedResource : ManagedResource;
   public resources : ManagedResource[] = [];
+  public aps: Observable<AccessPoint[]>;
 
   public openResource (resource : ManagedResource, index : number) {
     this.selectedResource = resource;
@@ -75,6 +76,13 @@ export class ManagerRequestsComponent implements OnInit {
   public processRequest (request : ChangeRequest, index : number) {
     this.currentIndex = index;
     this.resourceRequest = request;
+    this.aps = Observable.forkJoin(this.resourceRequest.new_access_points.map(a => {
+      return this.requestService.getAccessPoint(a)
+    }));
+  }
+
+  public canApprove (ap: AccessPoint) : boolean {
+    return this.userAccount.access_points_managed.filter(a => a.id === ap.id).length > 0;
   }
 
   public processCard (index : number) {
@@ -114,10 +122,17 @@ export class ManagerRequestsComponent implements OnInit {
       this.resourceRequest.feedback = this.feedback;
       this.requestService.updateRequest(this.resourceRequest);
       this.selectedRequests.splice(this.currentIndex, 1);
-      // TODO access point update
-      // this.requestService.updateUserAccount(this.userAccount);
-      this.selectedResource = null;
-      this.resourceRequest = null;
+      this.requestService.getUserAccountById(this.resourceRequest.user).subscribe(
+        data => {
+          Observable.forkJoin(this.resourceRequest.new_access_points.map(d => {return this.requestService.getAccessPoint(d)}))
+            .subscribe(c => {
+              data.access_points.push(...c);
+              this.requestService.updateUserAccount(data);
+              this.selectedResource = null;
+              this.resourceRequest = null;
+            });
+        }
+      );
     }
   }
 
@@ -147,15 +162,15 @@ export class ManagerRequestsComponent implements OnInit {
 
   private getResourceRequests (apIdReqs : Observable<ChangeRequest>[]) {
     Observable.forkJoin(apIdReqs).subscribe(data => {
-      let requests : ChangeRequest[] = [].concat(...data);
-      let noDupe : AccessPoint[] = Array.from(requests.reduce((m, t) => m.set(t.id, t), new Map()).values());
+      let requests : ChangeRequest[] = [].concat(...data).filter(d => d.status === 0);
+      let aps: string[] = [].concat(...requests.map(a => a.new_access_points));
       this.resources.forEach(d => {
-        let dIds = d.children.map(c => c.id);
-        this.segRequests.push(noDupe.reduce((a, c) => {
-          return dIds.indexOf(c.id) > -1 ? a.concat(c) : a
+        let dUris = d.children.map(c => c.resource_uri);
+        this.segRequests.push(aps.reduce((a, c, i) => {
+          return dUris.indexOf(c) > -1 ? a.concat(requests[i]) : a
         }, []));
-        this.numRequests.push(noDupe.reduce((a, c) => {
-          return dIds.indexOf(c.id) > -1 ? a + 1 : a
+        this.numRequests.push(aps.reduce((a, c) => {
+          return dUris.indexOf(c) > -1 ? a + 1 : a
         }, 0));
       });
     });

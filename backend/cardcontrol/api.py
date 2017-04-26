@@ -136,7 +136,8 @@ class UserAccountResource(ModelResource):
         excludes = ['created_at', 'modified_at']
         filtering = {
             'utln': ALL_WITH_RELATIONS,
-            'manager_level': ALL
+            'manager_level': ALL,
+            'id': ALL
         }
 
     @staticmethod
@@ -191,7 +192,8 @@ class AccessPointResource(ModelResource):
         filtering = {
             'parent': ALL_WITH_RELATIONS,
             'access_point_name': ALL,
-            'id': ALL
+            'id': ALL,
+            'users': ALL_WITH_RELATIONS
         }
 
     @staticmethod
@@ -383,6 +385,7 @@ class RequestResource(ModelResource):
             'created_at': ALL,
             'modified_at': ALL,
             'user': ALL_WITH_RELATIONS,
+            'utln': ALL,
             'request_level': ALL_WITH_RELATIONS,
             'status': ALL_WITH_RELATIONS,
             'new_access_points': ALL_WITH_RELATIONS,

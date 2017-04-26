@@ -13,7 +13,9 @@
 .badge-number {
   font-size:.7em;
   color:white;
-  width:18px;height:18px;
+  min-width:18px;
+  width:18px;
+  height:18px;
   text-align:center;
   line-height:18px;
   border-radius:50%;

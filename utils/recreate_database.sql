@@ -26,6 +26,20 @@ INSERT INTO cardcontrol_resource VALUES(4, '02155', '200 Packard Ave', 'Medford'
 INSERT INTO cardcontrol_resource VALUES(2, '02155', '161 College Ave', 'Medford', 'MA', 'United States', 'Halligan Hall', now(), now(), 1, 1, 2);
 INSERT INTO cardcontrol_resource VALUES(3, '02155', '574 Boston Ave', 'Medford', 'MA', 'United States', 'CLIC Building', now(), now(), 1, 1, 3);
 
+INSERT INTO cardcontrol_resource VALUES(5, '', 'http://52.204.216.32', '', '', '', 'azzaip', now(), now(), 1, 1, 2);
+INSERT INTO cardcontrol_accesspoint VALUES(8, 'COMP-11', now(), now(), 1, 1, 5);
+INSERT INTO cardcontrol_accesspoint VALUES(9, 'COMP-15', now(), now(), 1, 1, 5);
+INSERT INTO cardcontrol_accesspoint VALUES(10, 'COMP-40', now(), now(), 1, 1, 5);
+INSERT INTO cardcontrol_accesspoint VALUES(11, 'COMP-40TA', now(), now(), 1, 1, 5);
+INSERT INTO cardcontrol_accesspoint VALUES(12, 'COMP-120', now(), now(), 1, 1, 5);
+INSERT INTO cardcontrol_useraccount_access_points VALUES(13, 1, 11);
+INSERT INTO cardcontrol_useraccount_access_points VALUES(14, 1, 12);
+INSERT INTO cardcontrol_useraccount_access_points VALUES(15, 1, 10);
+INSERT INTO cardcontrol_useraccount_access_points VALUES(16, 3, 8);
+INSERT INTO cardcontrol_useraccount_access_points VALUES(17, 3, 9);
+INSERT INTO cardcontrol_useraccount_access_points VALUES(18, 3, 10);
+INSERT INTO cardcontrol_useraccount_access_points VALUES(19, 3, 12);
+
 INSERT INTO cardcontrol_accesspoint VALUES(1, 'Metcalf East', now(), now(), 1, 1, 1);
 INSERT INTO cardcontrol_accesspoint VALUES(2, 'Metcalf West', now(), now(), 1, 1, 1);
 INSERT INTO cardcontrol_accesspoint VALUES(3, 'Main Entrance', now(), now(), 1, 1, 2);
