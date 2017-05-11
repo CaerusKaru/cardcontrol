@@ -3,7 +3,7 @@
 Hello! Welcome to CardControl. This is an access control system intended for use as part of a suite of campus services web applications. The application is being developed as a semester project for COMP-120: Web Engineering. 
 
 Our current production URL is hosted at http://34.193.86.61.
-The corresponding azzaip server is hosted at http://52.204.216.32.
+The corresponding server for "azzaip", our Piazza clone to test the access control, is hosted at http://52.204.216.32. Its source can be found [here](https://github.com/CaerusKaru/azzaip).
 
 ## Our Stack
 
