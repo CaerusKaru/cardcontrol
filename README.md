@@ -2,6 +2,9 @@
 
 Hello! Welcome to CardControl. This is an access control system intended for use as part of a suite of campus services web applications. The application is being developed as a semester project for COMP-120: Web Engineering. 
 
+Our current production URL is hosted at http://34.193.86.61.
+The corresponding azzaip server is hosted at http://52.204.216.32.
+
 ## Our Stack
 
 We are running a Django backend around a PostgreSQL database, interacting with and serving a RESTful API for a frontend web service written in Angular 2. Our live development server, running in AWS, can be found [here](http://34.193.86.61/). We are serving our static angular content with NGINX, caching HTTP responses with Varnish, and memcaching API responses with a Redis cache behind Varnish. Our RESTful API was created with the help of the Tastypie library for Django. In production, we are serving our Django server through uWSGI.1
